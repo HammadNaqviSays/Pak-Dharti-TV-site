@@ -9,10 +9,10 @@ const ICON = {
 export function writerLinks(au) {
   const l = au?.links || {};
   const out = [];
-  if (l.website) out.push({ key: "website", url: l.website, en: "Website", ur: "ویب سائٹ" });
+  if (l.website) out.push({ key: "website", url: l.website, en: "Official website", ur: "ان کی ویب سائٹ" });
   const ig = l.instagram || au?.url;
-  if (ig) out.push({ key: "instagram", url: ig, en: "Instagram", ur: "انسٹاگرام" });
-  if (l.facebook) out.push({ key: "facebook", url: l.facebook, en: "Facebook", ur: "فیس بک" });
+  if (ig) out.push({ key: "instagram", url: ig, en: "Follow on Instagram", ur: "انسٹاگرام پر فالو کریں" });
+  if (l.facebook) out.push({ key: "facebook", url: l.facebook, en: "Facebook page", ur: "فیس بک پیج" });
   return out;
 }
 

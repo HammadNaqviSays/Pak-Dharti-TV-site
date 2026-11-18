@@ -54,8 +54,13 @@ export default async function WriterPage({ params }) {
               <h1 className="wp-name">{name}</h1>
               {role && <p className="wp-role">{role}</p>}
               {bio && <p className="wp-bio">{bio}</p>}
-              <WriterLinks au={au} ur={ur} />
-              {au.photoCredit && <small className="wp-credit">{ur ? "تصویر" : "Photo"}: {ur && au.photoCredit === "Courtesy of the writer" ? "بشکریہ لکھاری" : au.photoCredit}</small>}
+              {writerLinks(au).length > 0 && (
+                <div className="wp-connect">
+                  <p className="wp-connect-label">{ur ? "لکھاری کے ساتھ جڑیں" : "Connect with the writer"}</p>
+                  <WriterLinks au={au} ur={ur} />
+                  {au.photoCredit && <small className="wp-credit">{ur ? "تصویر" : "Photo"}: {ur && au.photoCredit === "Courtesy of the writer" ? "بشکریہ لکھاری" : au.photoCredit}</small>}
+                </div>
+              )}
             </div>
           </section>
           <h2 className="wp-sub">{ur ? `${name} کی تحریریں` : `Columns by ${name}`}</h2>
