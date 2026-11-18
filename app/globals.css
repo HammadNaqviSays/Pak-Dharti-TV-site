@@ -871,7 +871,7 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .colx { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 6px 22px rgba(0,0,0,.06); transition: transform .18s ease, box-shadow .18s ease; }
 .colx:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(122,0,0,.16); }
 .colx-img { position: relative; display: block; background: var(--red-deep); }
-.colx-img img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.colx-img img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: center; }
 .colx-badge { position: absolute; top: .8rem; inset-inline-start: .8rem; background: #E2B007; color: #3a0000; font-family: var(--f-ui); font-weight: 700; font-size: .85rem; padding: .25rem .8rem; border-radius: 8px; box-shadow: 0 3px 10px rgba(0,0,0,.3); }
 .colx-body { padding: 1.1rem 1.2rem 1.3rem; display: flex; flex-direction: column; gap: .7rem; flex: 1; border-top: 4px solid var(--red); }
 .colx-title { margin: 0; font-family: var(--f-head); font-size: 1.5rem; line-height: var(--head-leading, 1.35); }
@@ -899,8 +899,8 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .byline-author a, .author-card h2 a { color: inherit; text-decoration: none; }
 /* Feature card: smaller picture, no big empty areas */
 .colx-big .colx-body { gap: .55rem; padding: 1.2rem 1.4rem; }
-@media (min-width: 820px) { .colx-big .colx-img { flex: 0 0 30%; align-self: stretch; } .colx-big .colx-img img { height: 100%; max-height: 330px; min-height: 230px; object-position: top; } .colx-big { align-items: center; } }
-@media (max-width: 819px) { .colx-big .colx-img img { aspect-ratio: 16 / 9; object-position: top; } }
+@media (min-width: 820px) { .colx-big .colx-img { flex: 0 0 30%; align-self: stretch; } .colx-big .colx-img img { height: 100%; max-height: 330px; min-height: 230px; object-position: center; } .colx-big { align-items: center; } }
+@media (max-width: 819px) { .colx-big .colx-img img { aspect-ratio: 16 / 9; object-position: center; } }
 .colx-sum { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .colx-grid .colx-img img { aspect-ratio: 16 / 9; object-position: top; }
 .colx-writers { margin: .9rem 0 1.2rem; padding: .8rem 0; }
