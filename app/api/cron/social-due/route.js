@@ -35,7 +35,7 @@ export async function GET(req) {
     }
 
     // a fresh story, inside the posting hours, with the gap and the daily limit respected
-    const from = num(cfg.fromHour, 6), to = num(cfg.toHour, 23), gapMin = num(cfg.gapMin, 20), maxDay = num(cfg.maxPerDay, 50);
+    const from = num(cfg.fromHour, 6), to = num(cfg.toHour, 23), gapMin = num(cfg.gapMin, 14), maxDay = num(cfg.maxPerDay, 50);
     if (hour >= from && hour < to) {
       const last = (await Setting.findOne({ key: "social:last:ur" }).lean())?.value;
       const gapOk = !last || Date.now() - Number(last) >= gapMin * 60e3;

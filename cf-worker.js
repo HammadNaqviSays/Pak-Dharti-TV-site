@@ -15,10 +15,10 @@ export default {
   },
 
   async scheduled(event, env, ctx) {
-    // "7,37 * * * *": start the Facebook / Instagram posting job on GitHub (it needs the image library that cannot run here).
+    // "7,22,37,52 * * * *": start the Facebook / Instagram posting job on GitHub (it needs the image library that cannot run here).
     // Every GitHub run costs minutes of a small monthly allowance, so it is started only when the site says something is due
     // (a fresh story, a rate card, hand-made posts, a catch-up), plus a fixed run every 2 hours (07:00-21:00 Pakistan) for mandi, day count and the rest.
-    if (event.cron === "7,37 * * * *") {
+    if (event.cron === "7,22,37,52 * * * *") {
       const tt = new Date(event.scheduledTime);
       const fixed = tt.getUTCMinutes() === 7 && tt.getUTCHours() % 2 === 0 && tt.getUTCHours() >= 2 && tt.getUTCHours() <= 16;
       ctx.waitUntil((async () => {
