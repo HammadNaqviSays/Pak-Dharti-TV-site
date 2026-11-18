@@ -1,0 +1,37 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pak-dharti-tv",
+  "main": "cf-worker.js",
+  // UTC. Feeds every 2 hours; one story every 20 minutes in the Pakistani day (06:00-23:59 PKT), one an hour at night.
+  "triggers": { "crons": ["3 */2 * * *", "*/20 1-18 * * *", "30 19-23,0 * * *", "7,37 * * * *"] },
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public", "no_handle_cross_request_promise_resolution"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  // Same public settings as on Vercel. SOCIAL_PAUSED stays "true" until the real domain points here, so the test copy never posts.
+  "vars": {
+      "SITE_URL": "https://www.pakdhartitv.com",
+      "NEXT_PUBLIC_SITE_URL": "https://www.pakdhartitv.com",
+      "NEXT_PUBLIC_FACEBOOK_URL": "https://www.facebook.com/PakDhartiTV",
+      "NEXT_PUBLIC_INSTAGRAM_URL": "https://www.instagram.com/pakdhartitv/",
+      "NEXT_PUBLIC_X_URL": "https://x.com/PakDhartiHDTV",
+      "NEXT_PUBLIC_TIKTOK_URL": "https://www.tiktok.com/@Pakdhartitvoff",
+      "CONTACT_EMAIL": "info@pakdhartitv.com",
+      "EDITOR_NAME": "Syed Hammad Hassan",
+      "EDITOR_TITLE": "Founder & Editor-in-Chief",
+      "OWNER_NAME": "Syed Hammad Hassan",
+      "ORG_ADDRESS": "Tbilisi, Georgia",
+      "META_PAGES": "[{\"lang\":\"ur\",\"name\":\"Pak Dharti TV\",\"fbPageId\":\"106743165347006\",\"igUserId\":\"17841452831366086\",\"tokenEnv\":\"META_TOKEN_UR\"}]",
+      "AI_PROVIDER": "gemini",
+      "AI_MODEL": "gemini-flash-lite-latest",
+      "SOCIAL_PAUSED": "true"
+  },
+  // page cache (ids are filled in by the build lab, which creates the two stores once)
+  "kv_namespaces": [
+    { "binding": "NEXT_INC_CACHE_KV", "id": "__KV_INC__" },
+    { "binding": "NEXT_TAG_CACHE_KV", "id": "__KV_TAG__" }
+  ],
+  // lets the site ask itself to rebuild a page in the background
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "pak-dharti-tv" }],
+  "placement": { "mode": "smart" },
+  "observability": { "enabled": true }
+}

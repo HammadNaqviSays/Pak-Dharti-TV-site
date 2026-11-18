@@ -1,0 +1,23 @@
+# Builds every branch except main, so a broken change is seen before it is merged.
+name: check build
+on:
+  workflow_dispatch: {}   # run by hand on a branch (each run costs GitHub minutes)
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      NEXT_PUBLIC_SITE_URL: https://www.pakdhartitv.com
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack private fonts
+        env: { FONTS_KEY: "${{ secrets.FONTS_KEY }}" }
+        run: bash scripts/fonts-unpack.sh
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund
+      - run: npx next build 2>&1 | tail -40

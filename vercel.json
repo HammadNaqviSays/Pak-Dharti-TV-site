@@ -1,0 +1,388 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=1",
+      "schedule": "0 1 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=2",
+      "schedule": "22 1 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=3",
+      "schedule": "43 1 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=4",
+      "schedule": "5 2 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=5",
+      "schedule": "26 2 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=6",
+      "schedule": "48 2 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=7",
+      "schedule": "10 3 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=8",
+      "schedule": "31 3 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=9",
+      "schedule": "53 3 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=10",
+      "schedule": "14 4 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=11",
+      "schedule": "36 4 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=12",
+      "schedule": "58 4 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=13",
+      "schedule": "19 5 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=14",
+      "schedule": "41 5 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=15",
+      "schedule": "2 6 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=16",
+      "schedule": "24 6 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=17",
+      "schedule": "46 6 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=18",
+      "schedule": "7 7 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=19",
+      "schedule": "29 7 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=20",
+      "schedule": "50 7 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=21",
+      "schedule": "12 8 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=22",
+      "schedule": "34 8 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=23",
+      "schedule": "55 8 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=24",
+      "schedule": "17 9 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=25",
+      "schedule": "38 9 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=26",
+      "schedule": "0 10 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=27",
+      "schedule": "22 10 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=28",
+      "schedule": "43 10 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=29",
+      "schedule": "5 11 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=30",
+      "schedule": "26 11 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=31",
+      "schedule": "48 11 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=32",
+      "schedule": "10 12 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=33",
+      "schedule": "31 12 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=34",
+      "schedule": "53 12 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=35",
+      "schedule": "14 13 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=36",
+      "schedule": "36 13 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=37",
+      "schedule": "58 13 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=38",
+      "schedule": "19 14 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=39",
+      "schedule": "41 14 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=40",
+      "schedule": "2 15 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=41",
+      "schedule": "24 15 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=42",
+      "schedule": "46 15 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=43",
+      "schedule": "7 16 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=44",
+      "schedule": "29 16 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=45",
+      "schedule": "50 16 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=46",
+      "schedule": "12 17 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=47",
+      "schedule": "34 17 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=48",
+      "schedule": "55 17 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=pakistan&slot=49",
+      "schedule": "17 18 * * *"
+    },
+    {
+      "path": "/api/cron/process?scope=world&slot=50",
+      "schedule": "38 18 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=51",
+      "schedule": "3 0 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=52",
+      "schedule": "3 2 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=53",
+      "schedule": "3 4 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=54",
+      "schedule": "3 6 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=55",
+      "schedule": "3 8 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=56",
+      "schedule": "3 10 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=57",
+      "schedule": "3 12 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=58",
+      "schedule": "3 14 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=59",
+      "schedule": "3 16 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=60",
+      "schedule": "3 18 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=61",
+      "schedule": "3 20 * * *"
+    },
+    {
+      "path": "/api/cron/ingest?slot=62",
+      "schedule": "3 22 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=75",
+      "schedule": "11 1 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=76",
+      "schedule": "41 1 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=77",
+      "schedule": "11 2 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=78",
+      "schedule": "41 2 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=79",
+      "schedule": "11 3 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=80",
+      "schedule": "41 3 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=81",
+      "schedule": "11 4 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=82",
+      "schedule": "41 4 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=83",
+      "schedule": "11 5 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=84",
+      "schedule": "41 5 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=85",
+      "schedule": "11 6 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=86",
+      "schedule": "41 6 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=87",
+      "schedule": "11 7 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=88",
+      "schedule": "41 7 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=89",
+      "schedule": "11 8 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=90",
+      "schedule": "41 8 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=91",
+      "schedule": "11 9 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=92",
+      "schedule": "41 9 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=93",
+      "schedule": "11 10 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=94",
+      "schedule": "41 10 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=95",
+      "schedule": "11 11 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=96",
+      "schedule": "41 11 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=97",
+      "schedule": "11 12 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=98",
+      "schedule": "41 12 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=99",
+      "schedule": "11 13 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=100",
+      "schedule": "41 13 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=101",
+      "schedule": "11 14 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=102",
+      "schedule": "41 14 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=103",
+      "schedule": "11 15 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=104",
+      "schedule": "41 15 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=105",
+      "schedule": "11 16 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=106",
+      "schedule": "41 16 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=107",
+      "schedule": "11 17 * * *"
+    },
+    {
+      "path": "/api/cron/social?slot=108",
+      "schedule": "41 17 * * *"
+    }
+  ]
+}

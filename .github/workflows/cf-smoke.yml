@@ -1,0 +1,23 @@
+# Hand tool: watches the live Worker's log for a few minutes (used to check the timetable and to debug).
+name: Cloudflare live log
+on:
+  workflow_dispatch: {}
+  push: { branches: [cloudflare-migration], paths: ['.github/workflows/cf-smoke.yml'] }
+# watch 1
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - run: |
+          date -u
+          timeout 330 npx -y wrangler@4 tail pak-dharti-tv --format pretty > /tmp/tail.txt 2>&1 || true
+          date -u
+          echo "requests seen: $(grep -c ' - Ok @\| - Canceled @\| - Exception' /tmp/tail.txt)"
+          echo "---- cron and errors"; grep -n -A3 "\[cron\]\|scheduled\|(error)\|Exception\|/api/cron" /tmp/tail.txt | cut -c1-500 | head -80

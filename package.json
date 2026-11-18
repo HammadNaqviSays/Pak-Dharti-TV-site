@@ -1,0 +1,28 @@
+{
+  "name": "pak-dharti-tv",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "cf:build": "opennextjs-cloudflare build",
+    "cf:deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "mongoose": "^9.0.0",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^9.0.1",
+    "rss-parser": "^3.13.0",
+    "sharp": "^0.34.0",
+    "@opennextjs/cloudflare": "latest"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  }
+}

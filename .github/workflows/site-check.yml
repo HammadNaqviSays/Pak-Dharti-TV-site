@@ -1,0 +1,32 @@
+# Opens a few live pages and prints what they contain (a quick look at the real site).
+name: site check
+on: workflow_dispatch
+permissions:
+  contents: read
+
+jobs:
+  look:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Look
+        run: |
+          S=https://www.pakdhartitv.com
+          for p in /en/jobs /ur/jobs; do
+            curl -sS -o /tmp/p.html -w "$p HTTP %{http_code} bytes %{size_download}\n" "$S$p"
+            grep -o 'class="job-card"' /tmp/p.html | wc -l | sed 's/^/  job cards: /'
+          done
+          curl -sS "$S/en/jobs" -o /tmp/l.html
+          J=$(grep -o 'href="/en/jobs/[^"]*"' /tmp/l.html | head -1 | cut -d'"' -f2)
+          echo "first job: $J"
+          if [ -n "$J" ]; then
+            curl -sS -o /tmp/j.html -w "job page HTTP %{http_code}\n" "$S$J"
+            grep -o '"@type":"JobPosting"' /tmp/j.html | head -1
+            grep -o '<title>[^<]*' /tmp/j.html | head -1
+            grep -o 'Last date</th><td>[^<]*' /tmp/j.html | head -1
+          fi
+          curl -sS "$S/en/news/england-beat-spain-3-2-in-uefa-nations-league-712b4e" -o /tmp/n.html -w "story HTTP %{http_code}\n"
+          grep -o '"@type":"FAQPage"' /tmp/n.html | head -1
+          grep -o 'class="faq-q">[^<]*' /tmp/n.html | head -3
+          curl -sS "$S/ur/news/england-beat-spain-3-2-in-uefa-nations-league-712b4e" -o /tmp/u.html -w "urdu story HTTP %{http_code}\n"
+          grep -c 'lang="ur-Latn"' /tmp/u.html
+          curl -sS "$S/sitemap.xml" | grep -c "/jobs"

@@ -1,0 +1,24 @@
+# secrets — never commit
+.env
+.env.local
+.env*.local
+
+node_modules/
+.next/
+out/
+.vercel/
+
+# analysis: keep the notebook, not the exported data
+analysis/data/*.csv
+analysis/.ipynb_checkpoints/
+__pycache__/
+
+.DS_Store
+*.log
+.open-next
+.wrangler
+
+# fonts with unclear licences: kept only as private/fonts.tgz.enc (decrypted in CI with secret FONTS_KEY)
+public/fonts/urdu/
+public/fonts/server/PDAslam.ttf
+public/fonts/jameel-noori-nastaleeq.*

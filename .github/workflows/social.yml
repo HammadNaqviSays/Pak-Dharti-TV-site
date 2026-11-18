@@ -1,0 +1,101 @@
+# Posts ONE fresh story to Facebook and Instagram. The news cards are drawn with the "sharp" picture library, which cannot
+# run on Cloudflare Workers, so this job starts the site's own code on the GitHub machine and runs the same posting step there.
+# The card is saved in the database and Facebook/Instagram fetch it from www.pakdhartitv.com as before.
+name: Social posting
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency: { group: social, cancel-in-progress: false }
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      SITE_URL: https://www.pakdhartitv.com
+      NEXT_PUBLIC_SITE_URL: https://www.pakdhartitv.com
+      META_PAGES: '[{"lang":"ur","name":"Pak Dharti TV","fbPageId":"106743165347006","igUserId":"17841452831366086","tokenEnv":"META_TOKEN_UR"}]'
+      AI_PROVIDER: gemini
+      AI_MODEL: gemini-flash-lite-latest
+      SOCIAL_PAUSED: "false"
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack private fonts
+        env: { FONTS_KEY: "${{ secrets.FONTS_KEY }}" }
+        run: bash scripts/fonts-unpack.sh
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Reuse the installed packages and the built site (rebuilt only when the code changes)
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            .next
+          key: social-site-${{ hashFiles('app/**','lib/**','models/**','components/**','package-lock.json','package.json','next.config.js','instrumentation.js') }}
+      - name: Keys for this run (never printed)
+        env:
+          WORKER_ENV: ${{ secrets.WORKER_ENV }}
+        run: |
+          python3 - <<'PY'
+          import os, secrets
+          out = []
+          for line in (os.environ.get("WORKER_ENV") or "").splitlines():
+              k, sep, v = line.strip().partition("=")
+              k, v = k.strip(), v.strip()
+              if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'": v = v[1:-1]
+              if sep and k and v:
+                  print(f"::add-mask::{v}"); out.append(f"{k}={v}")
+          cron = secrets.token_hex(24); print(f"::add-mask::{cron}"); out.append(f"CRON_SECRET={cron}")
+          open(os.environ["GITHUB_ENV"], "a").write("\n".join(out) + "\n")
+          print("keys set:", sorted(x.split("=")[0] for x in out))
+          PY
+      - name: Install and build (first run after a code change only)
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          npm install --no-audit --no-fund 2>&1 | tail -2
+          npx next build 2>&1 | tail -15
+      - name: Post one story
+        run: |
+          npx next start -p 3000 > /tmp/site.log 2>&1 &
+          T0=$SECONDS
+          for i in $(seq 1 40); do curl -s -o /dev/null http://localhost:3000/robots.txt && break; sleep 1; done
+          echo "::notice title=site start::$((SECONDS-T0)) s"
+          # every waiting story goes out one after the other (at most 3 per run); the 2nd and 3rd skip the 20-minute gap
+          for n in 1 2 3; do
+            B=""; [ "$n" -gt 1 ] && B="?burst=1"
+            R=$(curl -sS --max-time 240 -w ' [HTTP %{http_code}]' -H "authorization: Bearer $CRON_SECRET" "http://localhost:3000/api/cron/social$B" 2>&1 | tr -d '\n' | head -c 2500)
+            echo "::notice title=social $n::$R"
+            echo "::notice title=time after story $n::$SECONDS s"
+            echo "$R" | grep -q '"postId"' || break
+          done
+          R2=$(curl -sS --max-time 240 -w ' [HTTP %{http_code}]' -H "authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/rates 2>&1 | tr -d '\n' | head -c 2500)
+          echo "::notice title=rate cards::$R2"
+          echo "::notice title=time after rates::$SECONDS s"
+          # mandi card: checked only on the fixed 2-hourly run (even UTC hours, first half hour), drawn in the Chrome already on this machine
+          H=$(date -u +%H); MI=$(date -u +%M)
+          if [ $((10#$H % 2)) -eq 0 ] && [ $((10#$MI)) -lt 30 ]; then
+            M=$(curl -sS --max-time 90 -H "authorization: Bearer $CRON_SECRET" http://localhost:3000/api/cron/mandi 2>&1 | tr -d '\n')
+            echo "$M" > /tmp/mandi.json
+            echo "::notice title=mandi check::$(echo "$M" | head -c 400)"
+            if echo "$M" | grep -q '"post":true'; then
+              pip install -q playwright 2>&1 | tail -1
+              rm -f /tmp/mandi.png
+              python3 scripts/cardkit/mandi.py 2>&1 | tail -5
+              if [ ! -s /tmp/mandi.png ]; then
+                echo "Chrome on the machine failed: downloading the browser"
+                python3 -m playwright install --with-deps chromium 2>&1 | tail -1
+                python3 scripts/cardkit/mandi.py 2>&1 | tail -5
+              fi
+              if [ -s /tmp/mandi.png ]; then
+                M2=$(curl -sS --max-time 150 -X POST -H "authorization: Bearer $CRON_SECRET" -H "content-type: image/png" --data-binary @/tmp/mandi.png http://localhost:3000/api/cron/mandi 2>&1 | tr -d '\n' | head -c 600)
+                echo "::notice title=mandi post::$M2"
+              fi
+            fi
+          else
+            echo "::notice title=mandi check::skipped (runs every 2 hours)"
+          fi
+          echo "::notice title=seconds in this step::$SECONDS"
+          echo "---- site log"; tail -25 /tmp/site.log | cut -c1-300

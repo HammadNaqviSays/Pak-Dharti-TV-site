@@ -1,0 +1,5135 @@
+{
+  "note": "Official sources only. A page that blocks us or has no job links is simply skipped; nothing is ever taken from a job portal or a newspaper scan.",
+  "sources": [
+    {
+      "key": "spsc",
+      "name": "Sindh Public Service Commission",
+      "ur": "سندھ پبلک سروس کمیشن",
+      "pages": [
+        "https://spsc.gos.pk/"
+      ]
+    },
+    {
+      "key": "kppsc",
+      "name": "Khyber Pakhtunkhwa Public Service Commission",
+      "ur": "خیبر پختونخوا پبلک سروس کمیشن",
+      "pages": [
+        "https://www.kppsc.gov.pk/"
+      ]
+    },
+    {
+      "key": "bpsc",
+      "name": "Balochistan Public Service Commission",
+      "ur": "بلوچستان پبلک سروس کمیشن",
+      "pages": [
+        "https://bpsc.gob.pk/"
+      ]
+    },
+    {
+      "key": "etea",
+      "name": "ETEA (Educational Testing and Evaluation Agency)",
+      "ur": "ای ٹی ای اے",
+      "pages": [
+        "https://www.etea.edu.pk/"
+      ]
+    },
+    {
+      "key": "pts",
+      "name": "Pakistan Testing Service (PTS)",
+      "ur": "پاکستان ٹیسٹنگ سروس",
+      "pages": [
+        "https://pts.org.pk/"
+      ]
+    },
+    {
+      "key": "punjabpolice",
+      "name": "Punjab Police",
+      "ur": "پنجاب پولیس",
+      "pages": [
+        "https://punjabpolice.gov.pk/"
+      ]
+    },
+    {
+      "key": "nbp",
+      "name": "National Bank of Pakistan",
+      "ur": "نیشنل بینک آف پاکستان",
+      "pages": [
+        "https://www.nbp.com.pk/careers/index.aspx"
+      ]
+    },
+    {
+      "key": "hbl",
+      "name": "Habib Bank Limited",
+      "ur": "حبیب بینک لمیٹڈ",
+      "pages": [
+        "https://www.hbl.com/careers"
+      ]
+    },
+    {
+      "key": "ubl",
+      "name": "United Bank Limited",
+      "ur": "یونائیٹڈ بینک لمیٹڈ",
+      "pages": [
+        "https://www.ubl.com.pk/careers"
+      ]
+    },
+    {
+      "key": "mcb",
+      "name": "MCB Bank",
+      "ur": "ایم سی بی بینک",
+      "pages": [
+        "https://www.mcb.com.pk/careers"
+      ]
+    },
+    {
+      "key": "meezan",
+      "name": "Meezan Bank",
+      "ur": "میزان بینک",
+      "pages": [
+        "https://www.meezanbank.com/careers/"
+      ]
+    },
+    {
+      "key": "alfalah",
+      "name": "Bank Alfalah",
+      "ur": "بینک الفلاح",
+      "pages": [
+        "https://www.bankalfalah.com/careers/"
+      ]
+    },
+    {
+      "key": "abl",
+      "name": "Allied Bank",
+      "ur": "الائیڈ بینک",
+      "pages": [
+        "https://www.abl.com/careers/"
+      ]
+    },
+    {
+      "key": "askari",
+      "name": "Askari Bank",
+      "ur": "عسکری بینک",
+      "pages": [
+        "https://www.askaribank.com/careers"
+      ]
+    },
+    {
+      "key": "faysal",
+      "name": "Faysal Bank",
+      "ur": "فیصل بینک",
+      "pages": [
+        "https://www.faysalbank.com/en/careers/"
+      ]
+    },
+    {
+      "key": "bop",
+      "name": "The Bank of Punjab",
+      "ur": "بینک آف پنجاب",
+      "pages": [
+        "https://www.bop.com.pk/careers"
+      ]
+    },
+    {
+      "key": "ztbl",
+      "name": "Zarai Taraqiati Bank (ZTBL)",
+      "ur": "زرعی ترقیاتی بینک",
+      "pages": [
+        "https://www.ztbl.com.pk/careers"
+      ]
+    },
+    {
+      "key": "ptcl",
+      "name": "PTCL",
+      "ur": "پی ٹی سی ایل",
+      "pages": [
+        "https://www.ptcl.com.pk/Home/Careers"
+      ]
+    },
+    {
+      "key": "ogdcl",
+      "name": "OGDCL",
+      "ur": "او جی ڈی سی ایل",
+      "pages": [
+        "https://www.ogdcl.com/careers"
+      ]
+    },
+    {
+      "key": "nadra",
+      "name": "NADRA",
+      "ur": "نادرا",
+      "pages": [
+        "https://www.nadra.gov.pk/careers"
+      ]
+    },
+    {
+      "key": "fbr",
+      "name": "Federal Board of Revenue",
+      "ur": "فیڈرل بورڈ آف ریونیو",
+      "pages": [
+        "https://www.fbr.gov.pk/careers"
+      ]
+    },
+    {
+      "key": "pakpost",
+      "name": "Pakistan Post",
+      "ur": "پاکستان پوسٹ",
+      "pages": [
+        "https://www.pakpost.gov.pk/careers.php"
+      ]
+    },
+    {
+      "key": "railways",
+      "name": "Pakistan Railways",
+      "ur": "پاکستان ریلوے",
+      "pages": [
+        "https://www.railways.gov.pk/jobs"
+      ]
+    },
+    {
+      "key": "army",
+      "name": "Pakistan Army",
+      "ur": "پاک فوج",
+      "pages": [
+        "https://www.joinpakarmy.gov.pk/"
+      ]
+    },
+    {
+      "key": "navy",
+      "name": "Pakistan Navy",
+      "ur": "پاک بحریہ",
+      "pages": [
+        "https://joinpaknavy.gov.pk/"
+      ]
+    },
+    {
+      "key": "paf",
+      "name": "Pakistan Air Force",
+      "ur": "پاک فضائیہ",
+      "pages": [
+        "https://joinpaf.gov.pk/"
+      ]
+    },
+    {
+      "key": "fpsc",
+      "name": "Federal Public Service Commission",
+      "ur": "فیڈرل پبلک سروس کمیشن",
+      "pages": [
+        "https://fpsc.gov.pk/category/general-recruitment"
+      ]
+    },
+    {
+      "key": "sbp",
+      "name": "State Bank of Pakistan",
+      "ur": "اسٹیٹ بینک آف پاکستان",
+      "pages": [
+        "https://www.sbp.org.pk/careers/status.asp"
+      ]
+    },
+    {
+      "key": "ppsc",
+      "name": "Punjab Public Service Commission",
+      "ur": "پنجاب پبلک سروس کمیشن",
+      "pages": [
+        "https://ppsc.gop.pk/"
+      ]
+    },
+    {
+      "key": "suigas",
+      "name": "Sui Southern Gas (SSGC)",
+      "ur": "سوئی سدرن گیس",
+      "pages": [
+        "https://suigas.com.pk/jobs"
+      ]
+    },
+    {
+      "key": "pso",
+      "name": "Pakistan State Oil (PSO)",
+      "ur": "پاکستان اسٹیٹ آئل",
+      "pages": [
+        "https://psopk.com/en/career/opportunities"
+      ]
+    },
+    {
+      "key": "hec",
+      "name": "Higher Education Commission (HEC)",
+      "ur": "ہائر ایجوکیشن کمیشن",
+      "pages": [
+        "https://www.hec.gov.pk/english/HECAnnouncements/Pages/Position-Vacant.aspx"
+      ]
+    },
+    {
+      "key": "bok",
+      "name": "Bank of Khyber",
+      "ur": "بینک آف خیبر",
+      "pages": [
+        "https://www.bok.com.pk/careers"
+      ]
+    },
+    {
+      "key": "iesco",
+      "name": "IESCO",
+      "ur": "آئیسکو",
+      "pages": [
+        "https://iesco.com.pk/careers"
+      ]
+    },
+    {
+      "key": "powerdiv",
+      "name": "Power Division",
+      "ur": "پاور ڈویژن",
+      "pages": [
+        "https://www.power.gov.pk/Jobs"
+      ]
+    },
+    {
+      "key": "iwork4sindh",
+      "name": "Sindh Govt Jobs Portal",
+      "ur": "سندھ حکومت جابز پورٹل",
+      "pages": [
+        "https://www.iwork4sindh.com"
+      ]
+    },
+    {
+      "key": "jazz",
+      "name": "Jazz Pakistan",
+      "ur": "جاز",
+      "pages": [
+        "https://jobs.jazz.com.pk",
+        "https://apply.workable.com/pakistan-mobile-communication-limited-pmcl/"
+      ]
+    },
+    {
+      "key": "statelife",
+      "name": "State Life Insurance",
+      "ur": "اسٹیٹ لائف",
+      "pages": [
+        "https://statelife.com.pk"
+      ]
+    },
+    {
+      "key": "jubilee",
+      "name": "Jubilee Life Insurance",
+      "ur": "جوبلی لائف",
+      "pages": [
+        "https://hr.jubileelife.com"
+      ]
+    },
+    {
+      "key": "shifa",
+      "name": "Shifa International Hospital",
+      "ur": "شفا انٹرنیشنل ہسپتال",
+      "pages": [
+        "https://careers.shifa.com.pk/jobs"
+      ]
+    },
+    {
+      "key": "skmch",
+      "name": "Shaukat Khanum Hospital",
+      "ur": "شوکت خانم ہسپتال",
+      "pages": [
+        "https://shaukatkhanum.org.pk/join-us/job-openings/"
+      ]
+    },
+    {
+      "key": "hta",
+      "name": "HTA (Hasnain Tanveer Associates)",
+      "ur": "ایچ ٹی اے",
+      "pages": [
+        "https://hasnain.net"
+      ]
+    },
+    {
+      "key": "zong",
+      "name": "Zong",
+      "ur": "زونگ",
+      "pages": [
+        "https://www.zong.com.pk/careers"
+      ]
+    },
+    {
+      "key": "ffc",
+      "name": "Fauji Fertilizer (FFC)",
+      "ur": "فوجی فرٹیلائزر",
+      "pages": [
+        "https://careers.ffc.com.pk"
+      ]
+    },
+    {
+      "key": "aku",
+      "name": "Aga Khan University",
+      "ur": "آغا خان یونیورسٹی",
+      "pages": [
+        "https://www.aku.edu/vacancies/Pages/job-detail.aspx"
+      ]
+    },
+    {
+      "key": "lnh",
+      "name": "Liaquat National Hospital",
+      "ur": "لیاقت نیشنل ہسپتال",
+      "pages": [
+        "https://lnh.edu.pk/careers"
+      ]
+    },
+    {
+      "key": "unilever",
+      "name": "Unilever Pakistan",
+      "ur": "یونی لیور پاکستان",
+      "pages": [
+        "https://careers.unilever.com/en/pakistan"
+      ]
+    },
+    {
+      "key": "engro",
+      "name": "Engro",
+      "ur": "اینگرو",
+      "pages": [
+        "https://www.engro.com/life-engro/join-us/"
+      ]
+    },
+    {
+      "key": "beoe",
+      "name": "Bureau of Emigration (overseas jobs)",
+      "ur": "بیورو آف امیگریشن (بیرونِ ملک نوکریاں)",
+      "pages": [
+        "https://beoe.gov.pk/foreign-jobs"
+      ]
+    },
+    {
+      "key": "pvtc",
+      "name": "Punjab Vocational Training (overseas)",
+      "ur": "پنجاب ووکیشنل ٹریننگ (بیرونِ ملک)",
+      "pages": [
+        "https://pvtc.gop.pk/overseasemployment.aspx"
+      ]
+    },
+    {
+      "key": "punjabjobs",
+      "name": "Punjab Govt Jobs Portal",
+      "ur": "پنجاب حکومت جابز پورٹل",
+      "pages": [
+        "https://jobs.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "njp",
+      "name": "National Job Portal (NJP)",
+      "ur": "نیشنل جاب پورٹل",
+      "pages": [
+        "https://njp.gov.pk"
+      ]
+    },
+    {
+      "key": "parco",
+      "name": "PARCO",
+      "ur": "پارکو",
+      "pages": [
+        "https://www.totalparco.com.pk/careers/careers"
+      ]
+    },
+    {
+      "key": "undp",
+      "name": "UNDP Pakistan",
+      "ur": "یو این ڈی پی پاکستان",
+      "pages": [
+        "https://www.undp.org/pakistan/jobs"
+      ]
+    },
+    {
+      "key": "pu",
+      "name": "University of the Punjab",
+      "ur": "پنجاب یونیورسٹی",
+      "pages": [
+        "https://www.pu.edu.pk/careers/old"
+      ]
+    },
+    {
+      "key": "pshealth",
+      "name": "Primary & Secondary Healthcare Punjab",
+      "ur": "پرائمری اینڈ سیکنڈری ہیلتھ کیئر پنجاب",
+      "pages": [
+        "https://pshealthpunjab.gov.pk"
+      ]
+    },
+    {
+      "key": "srso",
+      "name": "Sindh Rural Support (SRSO)",
+      "ur": "سندھ رورل سپورٹ آرگنائزیشن",
+      "pages": [
+        "https://jobs.srso.org.pk"
+      ]
+    },
+    {
+      "key": "tmf",
+      "name": "The Marketing Foundation (TMF)",
+      "ur": "ٹی ایم ایف",
+      "pages": [
+        "https://tmf.org.pk/careers/"
+      ]
+    },
+    {
+      "key": "alkhidmat",
+      "name": "Alkhidmat Foundation",
+      "ur": "الخدمت فاؤنڈیشن",
+      "pages": [
+        "https://alkhidmat.org/careers"
+      ]
+    },
+    {
+      "key": "swdpunjab",
+      "name": "Social Welfare Dept Punjab",
+      "ur": "سوشل ویلفیئر پنجاب",
+      "pages": [
+        "https://swd.punjab.gov.pk/jobs"
+      ]
+    },
+    {
+      "key": "pseb",
+      "name": "PSEB Internships & Apprenticeships",
+      "ur": "پی ایس ای بی انٹرن شپ",
+      "pages": [
+        "https://internships.pseb.org.pk/jobs",
+        "https://apprenticeship.pseb.org.pk/jobs"
+      ]
+    },
+    {
+      "key": "foodpanda",
+      "name": "foodpanda Pakistan",
+      "ur": "فوڈ پانڈا",
+      "pages": [
+        "https://careers.foodpanda.com"
+      ]
+    },
+    {
+      "key": "nust",
+      "name": "NUST",
+      "ur": "NUST",
+      "pages": [
+        "https://nust.edu.pk"
+      ]
+    },
+    {
+      "key": "lums",
+      "name": "LUMS",
+      "ur": "LUMS",
+      "pages": [
+        "https://lums.edu.pk"
+      ]
+    },
+    {
+      "key": "comsats",
+      "name": "COMSATS University",
+      "ur": "COMSATS University",
+      "pages": [
+        "https://comsats.edu.pk"
+      ]
+    },
+    {
+      "key": "uet",
+      "name": "UET Lahore",
+      "ur": "UET Lahore",
+      "pages": [
+        "https://uet.edu.pk"
+      ]
+    },
+    {
+      "key": "uetpeshawar",
+      "name": "UET Peshawar",
+      "ur": "UET Peshawar",
+      "pages": [
+        "https://uetpeshawar.edu.pk"
+      ]
+    },
+    {
+      "key": "uettaxila",
+      "name": "UET Taxila",
+      "ur": "UET Taxila",
+      "pages": [
+        "https://uettaxila.edu.pk"
+      ]
+    },
+    {
+      "key": "muet",
+      "name": "MUET Jamshoro",
+      "ur": "MUET Jamshoro",
+      "pages": [
+        "https://muet.edu.pk"
+      ]
+    },
+    {
+      "key": "uok",
+      "name": "University of Karachi",
+      "ur": "University of Karachi",
+      "pages": [
+        "https://uok.edu.pk"
+      ]
+    },
+    {
+      "key": "ssuet",
+      "name": "SSUET",
+      "ur": "SSUET",
+      "pages": [
+        "https://ssuet.edu.pk"
+      ]
+    },
+    {
+      "key": "iba",
+      "name": "IBA Karachi",
+      "ur": "IBA Karachi",
+      "pages": [
+        "https://iba.edu.pk"
+      ]
+    },
+    {
+      "key": "szabist",
+      "name": "SZABIST",
+      "ur": "SZABIST",
+      "pages": [
+        "https://szabist.edu.pk"
+      ]
+    },
+    {
+      "key": "au",
+      "name": "Air University",
+      "ur": "Air University",
+      "pages": [
+        "https://au.edu.pk"
+      ]
+    },
+    {
+      "key": "nu",
+      "name": "FAST NUCES",
+      "ur": "FAST NUCES",
+      "pages": [
+        "https://nu.edu.pk"
+      ]
+    },
+    {
+      "key": "giki",
+      "name": "GIKI",
+      "ur": "GIKI",
+      "pages": [
+        "https://giki.edu.pk"
+      ]
+    },
+    {
+      "key": "pieas",
+      "name": "PIEAS",
+      "ur": "PIEAS",
+      "pages": [
+        "https://pieas.edu.pk"
+      ]
+    },
+    {
+      "key": "qau",
+      "name": "Quaid-i-Azam University",
+      "ur": "Quaid-i-Azam University",
+      "pages": [
+        "https://qau.edu.pk"
+      ]
+    },
+    {
+      "key": "iiu",
+      "name": "International Islamic University",
+      "ur": "International Islamic University",
+      "pages": [
+        "https://iiu.edu.pk"
+      ]
+    },
+    {
+      "key": "aiou",
+      "name": "Allama Iqbal Open University",
+      "ur": "Allama Iqbal Open University",
+      "pages": [
+        "https://aiou.edu.pk"
+      ]
+    },
+    {
+      "key": "vu",
+      "name": "Virtual University",
+      "ur": "Virtual University",
+      "pages": [
+        "https://vu.edu.pk"
+      ]
+    },
+    {
+      "key": "numl",
+      "name": "NUML",
+      "ur": "NUML",
+      "pages": [
+        "https://numl.edu.pk"
+      ]
+    },
+    {
+      "key": "uaf",
+      "name": "University of Agriculture Faisalabad",
+      "ur": "University of Agriculture Faisalabad",
+      "pages": [
+        "https://uaf.edu.pk"
+      ]
+    },
+    {
+      "key": "uos",
+      "name": "University of Sargodha",
+      "ur": "University of Sargodha",
+      "pages": [
+        "https://uos.edu.pk"
+      ]
+    },
+    {
+      "key": "bzu",
+      "name": "Bahauddin Zakariya University",
+      "ur": "Bahauddin Zakariya University",
+      "pages": [
+        "https://bzu.edu.pk"
+      ]
+    },
+    {
+      "key": "iub",
+      "name": "Islamia University Bahawalpur",
+      "ur": "Islamia University Bahawalpur",
+      "pages": [
+        "https://iub.edu.pk"
+      ]
+    },
+    {
+      "key": "gcu",
+      "name": "GC University Lahore",
+      "ur": "GC University Lahore",
+      "pages": [
+        "https://gcu.edu.pk"
+      ]
+    },
+    {
+      "key": "gcuf",
+      "name": "GC University Faisalabad",
+      "ur": "GC University Faisalabad",
+      "pages": [
+        "https://gcuf.edu.pk"
+      ]
+    },
+    {
+      "key": "uog",
+      "name": "University of Gujrat",
+      "ur": "University of Gujrat",
+      "pages": [
+        "https://uog.edu.pk"
+      ]
+    },
+    {
+      "key": "uol",
+      "name": "University of Lahore",
+      "ur": "University of Lahore",
+      "pages": [
+        "https://uol.edu.pk"
+      ]
+    },
+    {
+      "key": "lcwu",
+      "name": "Lahore College for Women University",
+      "ur": "Lahore College for Women University",
+      "pages": [
+        "https://lcwu.edu.pk"
+      ]
+    },
+    {
+      "key": "kinnaird",
+      "name": "Kinnaird College",
+      "ur": "Kinnaird College",
+      "pages": [
+        "https://kinnaird.edu.pk"
+      ]
+    },
+    {
+      "key": "fccollege",
+      "name": "Forman Christian College",
+      "ur": "Forman Christian College",
+      "pages": [
+        "https://fccollege.edu.pk"
+      ]
+    },
+    {
+      "key": "ucp",
+      "name": "University of Central Punjab",
+      "ur": "University of Central Punjab",
+      "pages": [
+        "https://ucp.edu.pk"
+      ]
+    },
+    {
+      "key": "umt",
+      "name": "University of Management and Technology",
+      "ur": "University of Management and Technology",
+      "pages": [
+        "https://umt.edu.pk"
+      ]
+    },
+    {
+      "key": "riphah",
+      "name": "Riphah International University",
+      "ur": "Riphah International University",
+      "pages": [
+        "https://riphah.edu.pk"
+      ]
+    },
+    {
+      "key": "bahria",
+      "name": "Bahria University",
+      "ur": "Bahria University",
+      "pages": [
+        "https://bahria.edu.pk"
+      ]
+    },
+    {
+      "key": "ndu",
+      "name": "National Defence University",
+      "ur": "National Defence University",
+      "pages": [
+        "https://ndu.edu.pk"
+      ]
+    },
+    {
+      "key": "cust",
+      "name": "Capital University of Science and Technology",
+      "ur": "Capital University of Science and Technology",
+      "pages": [
+        "https://cust.edu.pk"
+      ]
+    },
+    {
+      "key": "uop",
+      "name": "University of Peshawar",
+      "ur": "University of Peshawar",
+      "pages": [
+        "https://uop.edu.pk"
+      ]
+    },
+    {
+      "key": "kmu",
+      "name": "Khyber Medical University",
+      "ur": "Khyber Medical University",
+      "pages": [
+        "https://kmu.edu.pk"
+      ]
+    },
+    {
+      "key": "aup",
+      "name": "Agriculture University Peshawar",
+      "ur": "Agriculture University Peshawar",
+      "pages": [
+        "https://aup.edu.pk"
+      ]
+    },
+    {
+      "key": "uom",
+      "name": "University of Malakand",
+      "ur": "University of Malakand",
+      "pages": [
+        "https://uom.edu.pk"
+      ]
+    },
+    {
+      "key": "uoswabi",
+      "name": "University of Swabi",
+      "ur": "University of Swabi",
+      "pages": [
+        "https://uoswabi.edu.pk"
+      ]
+    },
+    {
+      "key": "kust",
+      "name": "Kohat University of Science and Technology",
+      "ur": "Kohat University of Science and Technology",
+      "pages": [
+        "https://kust.edu.pk"
+      ]
+    },
+    {
+      "key": "icp",
+      "name": "Islamia College Peshawar",
+      "ur": "Islamia College Peshawar",
+      "pages": [
+        "https://icp.edu.pk"
+      ]
+    },
+    {
+      "key": "awkum",
+      "name": "Abdul Wali Khan University Mardan",
+      "ur": "Abdul Wali Khan University Mardan",
+      "pages": [
+        "https://awkum.edu.pk"
+      ]
+    },
+    {
+      "key": "hu",
+      "name": "Hazara University",
+      "ur": "Hazara University",
+      "pages": [
+        "https://hu.edu.pk"
+      ]
+    },
+    {
+      "key": "gu",
+      "name": "Gomal University",
+      "ur": "Gomal University",
+      "pages": [
+        "https://gu.edu.pk"
+      ]
+    },
+    {
+      "key": "uob",
+      "name": "University of Balochistan",
+      "ur": "University of Balochistan",
+      "pages": [
+        "https://uob.edu.pk"
+      ]
+    },
+    {
+      "key": "buitms",
+      "name": "BUITEMS",
+      "ur": "BUITEMS",
+      "pages": [
+        "https://buitms.edu.pk"
+      ]
+    },
+    {
+      "key": "luawms",
+      "name": "LUAWMS",
+      "ur": "LUAWMS",
+      "pages": [
+        "https://luawms.edu.pk"
+      ]
+    },
+    {
+      "key": "usindh",
+      "name": "University of Sindh",
+      "ur": "University of Sindh",
+      "pages": [
+        "https://usindh.edu.pk"
+      ]
+    },
+    {
+      "key": "salu",
+      "name": "Shah Abdul Latif University",
+      "ur": "Shah Abdul Latif University",
+      "pages": [
+        "https://salu.edu.pk"
+      ]
+    },
+    {
+      "key": "sau",
+      "name": "Sindh Agriculture University",
+      "ur": "Sindh Agriculture University",
+      "pages": [
+        "https://sau.edu.pk"
+      ]
+    },
+    {
+      "key": "duhs",
+      "name": "Dow University of Health Sciences",
+      "ur": "Dow University of Health Sciences",
+      "pages": [
+        "https://duhs.edu.pk"
+      ]
+    },
+    {
+      "key": "jsmu",
+      "name": "Jinnah Sindh Medical University",
+      "ur": "Jinnah Sindh Medical University",
+      "pages": [
+        "https://jsmu.edu.pk"
+      ]
+    },
+    {
+      "key": "zu",
+      "name": "Ziauddin University",
+      "ur": "Ziauddin University",
+      "pages": [
+        "https://zu.edu.pk"
+      ]
+    },
+    {
+      "key": "hamdard",
+      "name": "Hamdard University",
+      "ur": "Hamdard University",
+      "pages": [
+        "https://hamdard.edu.pk"
+      ]
+    },
+    {
+      "key": "indus",
+      "name": "Indus University",
+      "ur": "Indus University",
+      "pages": [
+        "https://indus.edu.pk"
+      ]
+    },
+    {
+      "key": "bbsul",
+      "name": "Benazir Bhutto Shaheed University Lyari",
+      "ur": "Benazir Bhutto Shaheed University Lyari",
+      "pages": [
+        "https://bbsul.edu.pk"
+      ]
+    },
+    {
+      "key": "ibasuk",
+      "name": "Sukkur IBA University",
+      "ur": "Sukkur IBA University",
+      "pages": [
+        "https://iba-suk.edu.pk"
+      ]
+    },
+    {
+      "key": "must",
+      "name": "Mirpur University of Science and Technology",
+      "ur": "Mirpur University of Science and Technology",
+      "pages": [
+        "https://must.edu.pk"
+      ]
+    },
+    {
+      "key": "ajku",
+      "name": "University of Azad Jammu Kashmir",
+      "ur": "University of Azad Jammu Kashmir",
+      "pages": [
+        "https://ajku.edu.pk"
+      ]
+    },
+    {
+      "key": "kiu",
+      "name": "Karakoram International University",
+      "ur": "Karakoram International University",
+      "pages": [
+        "https://kiu.edu.pk"
+      ]
+    },
+    {
+      "key": "uobs",
+      "name": "University of Baltistan",
+      "ur": "University of Baltistan",
+      "pages": [
+        "https://uobs.edu.pk"
+      ]
+    },
+    {
+      "key": "lumscareers",
+      "name": "Lahore University of Management Sciences Careers",
+      "ur": "Lahore University of Management Sciences Careers",
+      "pages": [
+        "https://lums.edu.pk/careers"
+      ]
+    },
+    {
+      "key": "uetmardan",
+      "name": "University of Engineering and Technology Mardan",
+      "ur": "University of Engineering and Technology Mardan",
+      "pages": [
+        "https://uetmardan.edu.pk"
+      ]
+    },
+    {
+      "key": "pifd",
+      "name": "Pakistan Institute of Fashion and Design",
+      "ur": "Pakistan Institute of Fashion and Design",
+      "pages": [
+        "https://pifd.edu.pk"
+      ]
+    },
+    {
+      "key": "nca",
+      "name": "National College of Arts",
+      "ur": "National College of Arts",
+      "pages": [
+        "https://nca.edu.pk"
+      ]
+    },
+    {
+      "key": "bnu",
+      "name": "Beaconhouse National University",
+      "ur": "Beaconhouse National University",
+      "pages": [
+        "https://bnu.edu.pk"
+      ]
+    },
+    {
+      "key": "lahoreschool",
+      "name": "Lahore School of Economics",
+      "ur": "Lahore School of Economics",
+      "pages": [
+        "https://lahoreschool.edu.pk"
+      ]
+    },
+    {
+      "key": "ibapu",
+      "name": "Institute of Business Administration Lahore PU",
+      "ur": "Institute of Business Administration Lahore PU",
+      "pages": [
+        "https://ibapu.edu.pk"
+      ]
+    },
+    {
+      "key": "gcuh",
+      "name": "Government College University Hyderabad",
+      "ur": "Government College University Hyderabad",
+      "pages": [
+        "https://gcuh.edu.pk"
+      ]
+    },
+    {
+      "key": "fjwu",
+      "name": "Fatima Jinnah Women University",
+      "ur": "Fatima Jinnah Women University",
+      "pages": [
+        "https://fjwu.edu.pk"
+      ]
+    },
+    {
+      "key": "wum",
+      "name": "Women University Multan",
+      "ur": "Women University Multan",
+      "pages": [
+        "https://wum.edu.pk"
+      ]
+    },
+    {
+      "key": "wumardan",
+      "name": "Women University Mardan",
+      "ur": "Women University Mardan",
+      "pages": [
+        "https://wumardan.edu.pk"
+      ]
+    },
+    {
+      "key": "ue",
+      "name": "University of Education Lahore",
+      "ur": "University of Education Lahore",
+      "pages": [
+        "https://ue.edu.pk"
+      ]
+    },
+    {
+      "key": "uvas",
+      "name": "University of Veterinary and Animal Sciences",
+      "ur": "University of Veterinary and Animal Sciences",
+      "pages": [
+        "https://uvas.edu.pk"
+      ]
+    },
+    {
+      "key": "kemu",
+      "name": "King Edward Medical University",
+      "ur": "King Edward Medical University",
+      "pages": [
+        "https://kemu.edu.pk"
+      ]
+    },
+    {
+      "key": "uhs",
+      "name": "University of Health Sciences Lahore",
+      "ur": "University of Health Sciences Lahore",
+      "pages": [
+        "https://uhs.edu.pk"
+      ]
+    },
+    {
+      "key": "itu",
+      "name": "Information Technology University",
+      "ur": "Information Technology University",
+      "pages": [
+        "https://itu.edu.pk"
+      ]
+    },
+    {
+      "key": "ntu",
+      "name": "National Textile University",
+      "ur": "National Textile University",
+      "pages": [
+        "https://ntu.edu.pk"
+      ]
+    },
+    {
+      "key": "uetrasul",
+      "name": "University of Engineering and Technology Rasul",
+      "ur": "University of Engineering and Technology Rasul",
+      "pages": [
+        "https://uet.edu.pk/rasul"
+      ]
+    },
+    {
+      "key": "ist",
+      "name": "Institute of Space Technology",
+      "ur": "Institute of Space Technology",
+      "pages": [
+        "https://ist.edu.pk"
+      ]
+    },
+    {
+      "key": "uaar",
+      "name": "Pir Mehr Ali Shah Arid Agriculture University",
+      "ur": "Pir Mehr Ali Shah Arid Agriculture University",
+      "pages": [
+        "https://uaar.edu.pk"
+      ]
+    },
+    {
+      "key": "mnsuam",
+      "name": "Muhammad Nawaz Sharif University of Agriculture",
+      "ur": "Muhammad Nawaz Sharif University of Agriculture",
+      "pages": [
+        "https://mnsuam.edu.pk"
+      ]
+    },
+    {
+      "key": "mnsuet",
+      "name": "Muhammad Nawaz Sharif University of Engineering",
+      "ur": "Muhammad Nawaz Sharif University of Engineering",
+      "pages": [
+        "https://mnsuet.edu.pk"
+      ]
+    },
+    {
+      "key": "kfueit",
+      "name": "Khawaja Fareed University",
+      "ur": "Khawaja Fareed University",
+      "pages": [
+        "https://kfueit.edu.pk"
+      ]
+    },
+    {
+      "key": "gudgk",
+      "name": "Ghazi University",
+      "ur": "Ghazi University",
+      "pages": [
+        "https://gudgk.edu.pk"
+      ]
+    },
+    {
+      "key": "uo",
+      "name": "University of Okara",
+      "ur": "University of Okara",
+      "pages": [
+        "https://uo.edu.pk"
+      ]
+    },
+    {
+      "key": "uosahiwal",
+      "name": "University of Sahiwal",
+      "ur": "University of Sahiwal",
+      "pages": [
+        "https://uosahiwal.edu.pk"
+      ]
+    },
+    {
+      "key": "uon",
+      "name": "University of Narowal",
+      "ur": "University of Narowal",
+      "pages": [
+        "https://uon.edu.pk"
+      ]
+    },
+    {
+      "key": "uoc",
+      "name": "University of Chakwal",
+      "ur": "University of Chakwal",
+      "pages": [
+        "https://uoc.edu.pk"
+      ]
+    },
+    {
+      "key": "uommianwali",
+      "name": "University of Mianwali",
+      "ur": "University of Mianwali",
+      "pages": [
+        "https://uom.edu.pk/mianwali"
+      ]
+    },
+    {
+      "key": "uoj",
+      "name": "University of Jhang",
+      "ur": "University of Jhang",
+      "pages": [
+        "https://uoj.edu.pk"
+      ]
+    },
+    {
+      "key": "ul",
+      "name": "University of Layyah",
+      "ur": "University of Layyah",
+      "pages": [
+        "https://ul.edu.pk"
+      ]
+    },
+    {
+      "key": "buitmscareers",
+      "name": "Balochistan University of Information Technology",
+      "ur": "Balochistan University of Information Technology",
+      "pages": [
+        "https://buitms.edu.pk/careers"
+      ]
+    },
+    {
+      "key": "imsciences",
+      "name": "Institute of Management Sciences Peshawar",
+      "ur": "Institute of Management Sciences Peshawar",
+      "pages": [
+        "https://imsciences.edu.pk"
+      ]
+    },
+    {
+      "key": "suit",
+      "name": "Sarhad University",
+      "ur": "Sarhad University",
+      "pages": [
+        "https://suit.edu.pk"
+      ]
+    },
+    {
+      "key": "cecos",
+      "name": "CECOS University",
+      "ur": "CECOS University",
+      "pages": [
+        "https://cecos.edu.pk"
+      ]
+    },
+    {
+      "key": "cityuniversity",
+      "name": "City University Peshawar",
+      "ur": "City University Peshawar",
+      "pages": [
+        "https://cityuniversity.edu.pk"
+      ]
+    },
+    {
+      "key": "qurtuba",
+      "name": "Qurtuba University",
+      "ur": "Qurtuba University",
+      "pages": [
+        "https://qurtuba.edu.pk"
+      ]
+    },
+    {
+      "key": "preston",
+      "name": "Preston University",
+      "ur": "Preston University",
+      "pages": [
+        "https://preston.edu.pk"
+      ]
+    },
+    {
+      "key": "fui",
+      "name": "Foundation University",
+      "ur": "Foundation University",
+      "pages": [
+        "https://fui.edu.pk"
+      ]
+    },
+    {
+      "key": "isp",
+      "name": "Institute of Southern Punjab",
+      "ur": "Institute of Southern Punjab",
+      "pages": [
+        "https://isp.edu.pk"
+      ]
+    },
+    {
+      "key": "superior",
+      "name": "Superior University",
+      "ur": "Superior University",
+      "pages": [
+        "https://superior.edu.pk"
+      ]
+    },
+    {
+      "key": "lgu",
+      "name": "Lahore Garrison University",
+      "ur": "Lahore Garrison University",
+      "pages": [
+        "https://lgu.edu.pk"
+      ]
+    },
+    {
+      "key": "mul",
+      "name": "Minhaj University Lahore",
+      "ur": "Minhaj University Lahore",
+      "pages": [
+        "https://mul.edu.pk"
+      ]
+    },
+    {
+      "key": "hup",
+      "name": "Hajvery University",
+      "ur": "Hajvery University",
+      "pages": [
+        "https://hup.edu.pk"
+      ]
+    },
+    {
+      "key": "imperial",
+      "name": "Imperial College of Business Studies",
+      "ur": "Imperial College of Business Studies",
+      "pages": [
+        "https://imperial.edu.pk"
+      ]
+    },
+    {
+      "key": "greenwich",
+      "name": "Greenwich University Karachi",
+      "ur": "Greenwich University Karachi",
+      "pages": [
+        "https://greenwich.edu.pk"
+      ]
+    },
+    {
+      "key": "iqra",
+      "name": "Iqra University",
+      "ur": "Iqra University",
+      "pages": [
+        "https://iqra.edu.pk"
+      ]
+    },
+    {
+      "key": "jinnah",
+      "name": "Muhammad Ali Jinnah University",
+      "ur": "Muhammad Ali Jinnah University",
+      "pages": [
+        "https://jinnah.edu"
+      ]
+    },
+    {
+      "key": "pafkiet",
+      "name": "Karachi Institute of Economics and Technology",
+      "ur": "Karachi Institute of Economics and Technology",
+      "pages": [
+        "https://pafkiet.edu.pk"
+      ]
+    },
+    {
+      "key": "tip",
+      "name": "Textile Institute of Pakistan",
+      "ur": "Textile Institute of Pakistan",
+      "pages": [
+        "https://tip.edu.pk"
+      ]
+    },
+    {
+      "key": "baqai",
+      "name": "Baqai Medical University",
+      "ur": "Baqai Medical University",
+      "pages": [
+        "https://baqai.edu.pk"
+      ]
+    },
+    {
+      "key": "lumhs",
+      "name": "Liaquat University of Medical and Health Sciences",
+      "ur": "Liaquat University of Medical and Health Sciences",
+      "pages": [
+        "https://lumhs.edu.pk"
+      ]
+    },
+    {
+      "key": "pumhs",
+      "name": "Peoples University of Medical and Health Sciences",
+      "ur": "Peoples University of Medical and Health Sciences",
+      "pages": [
+        "https://pumhs.edu.pk"
+      ]
+    },
+    {
+      "key": "smbbmu",
+      "name": "Shaheed Mohtarma Benazir Bhutto Medical University",
+      "ur": "Shaheed Mohtarma Benazir Bhutto Medical University",
+      "pages": [
+        "https://smbbmu.edu.pk"
+      ]
+    },
+    {
+      "key": "smiu",
+      "name": "Sindh Madressatul Islam University",
+      "ur": "Sindh Madressatul Islam University",
+      "pages": [
+        "https://smiu.edu.pk"
+      ]
+    },
+    {
+      "key": "isra",
+      "name": "Isra University",
+      "ur": "Isra University",
+      "pages": [
+        "https://isra.edu.pk"
+      ]
+    },
+    {
+      "key": "szabul",
+      "name": "Shaheed Zulfiqar Ali Bhutto University",
+      "ur": "Shaheed Zulfiqar Ali Bhutto University",
+      "pages": [
+        "https://szabul.edu.pk"
+      ]
+    },
+    {
+      "key": "pieasjobs",
+      "name": "Pakistan Institute of Engineering",
+      "ur": "Pakistan Institute of Engineering",
+      "pages": [
+        "https://pieas.edu.pk/jobs"
+      ]
+    },
+    {
+      "key": "rmur",
+      "name": "Rawalpindi Medical University",
+      "ur": "Rawalpindi Medical University",
+      "pages": [
+        "https://rmur.edu.pk"
+      ]
+    },
+    {
+      "key": "fjmu",
+      "name": "Fatima Jinnah Medical University",
+      "ur": "Fatima Jinnah Medical University",
+      "pages": [
+        "https://fjmu.edu.pk"
+      ]
+    },
+    {
+      "key": "nmu",
+      "name": "Nishtar Medical University",
+      "ur": "Nishtar Medical University",
+      "pages": [
+        "https://nmu.edu.pk"
+      ]
+    },
+    {
+      "key": "lgh",
+      "name": "Lahore General Hospital",
+      "ur": "Lahore General Hospital",
+      "pages": [
+        "https://lgh.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "kemumayo",
+      "name": "Mayo Hospital Lahore",
+      "ur": "Mayo Hospital Lahore",
+      "pages": [
+        "https://kemu.edu.pk/mayo"
+      ]
+    },
+    {
+      "key": "shl",
+      "name": "Services Hospital Lahore",
+      "ur": "Services Hospital Lahore",
+      "pages": [
+        "https://shl.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "pic",
+      "name": "Punjab Institute of Cardiology",
+      "ur": "Punjab Institute of Cardiology",
+      "pages": [
+        "https://pic.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "pims",
+      "name": "PIMS Islamabad",
+      "ur": "PIMS Islamabad",
+      "pages": [
+        "https://pims.gov.pk"
+      ]
+    },
+    {
+      "key": "fgpc",
+      "name": "Federal Government Polyclinic",
+      "ur": "Federal Government Polyclinic",
+      "pages": [
+        "https://fgpc.gov.pk"
+      ]
+    },
+    {
+      "key": "stmu",
+      "name": "Shifa Tameer-e-Millat University",
+      "ur": "Shifa Tameer-e-Millat University",
+      "pages": [
+        "https://stmu.edu.pk"
+      ]
+    },
+    {
+      "key": "rmi",
+      "name": "Rehman Medical Institute",
+      "ur": "Rehman Medical Institute",
+      "pages": [
+        "https://rmi.edu.pk"
+      ]
+    },
+    {
+      "key": "lrh",
+      "name": "Lady Reading Hospital",
+      "ur": "Lady Reading Hospital",
+      "pages": [
+        "https://lrh.edu.pk"
+      ]
+    },
+    {
+      "key": "kth",
+      "name": "Khyber Teaching Hospital",
+      "ur": "Khyber Teaching Hospital",
+      "pages": [
+        "https://kth.gov.pk"
+      ]
+    },
+    {
+      "key": "indushospital",
+      "name": "Indus Hospital",
+      "ur": "Indus Hospital",
+      "pages": [
+        "https://indushospital.org.pk"
+      ]
+    },
+    {
+      "key": "jpmc",
+      "name": "JPMC Karachi",
+      "ur": "JPMC Karachi",
+      "pages": [
+        "https://jpmc.edu.pk"
+      ]
+    },
+    {
+      "key": "siut",
+      "name": "SIUT",
+      "ur": "SIUT",
+      "pages": [
+        "https://siut.org"
+      ]
+    },
+    {
+      "key": "nicvd",
+      "name": "National Institute of Cardiovascular Diseases",
+      "ur": "National Institute of Cardiovascular Diseases",
+      "pages": [
+        "https://nicvd.org"
+      ]
+    },
+    {
+      "key": "dmc",
+      "name": "Abbasi Shaheed Hospital",
+      "ur": "Abbasi Shaheed Hospital",
+      "pages": [
+        "https://dmc.gov.pk"
+      ]
+    },
+    {
+      "key": "sindhhealth",
+      "name": "Sindh Government Hospital",
+      "ur": "Sindh Government Hospital",
+      "pages": [
+        "https://sindhhealth.gov.pk"
+      ]
+    },
+    {
+      "key": "southcityhospital",
+      "name": "South City Hospital",
+      "ur": "South City Hospital",
+      "pages": [
+        "https://southcityhospital.org"
+      ]
+    },
+    {
+      "key": "hospitals",
+      "name": "Aga Khan Hospital Karachi",
+      "ur": "Aga Khan Hospital Karachi",
+      "pages": [
+        "https://hospitals.aku.edu"
+      ]
+    },
+    {
+      "key": "mmi",
+      "name": "Memon Medical Institute",
+      "ur": "Memon Medical Institute",
+      "pages": [
+        "https://mmi.edu.pk"
+      ]
+    },
+    {
+      "key": "hamdardhospital",
+      "name": "Hamdard Hospital",
+      "ur": "Hamdard Hospital",
+      "pages": [
+        "https://hamdard.edu.pk/hospital"
+      ]
+    },
+    {
+      "key": "afic",
+      "name": "Armed Forces Institute of Cardiology",
+      "ur": "Armed Forces Institute of Cardiology",
+      "pages": [
+        "https://afic.gov.pk"
+      ]
+    },
+    {
+      "key": "pkli",
+      "name": "Pakistan Kidney and Liver Institute",
+      "ur": "Pakistan Kidney and Liver Institute",
+      "pages": [
+        "https://pkli.org.pk"
+      ]
+    },
+    {
+      "key": "shalamarhospital",
+      "name": "Shalamar Hospital",
+      "ur": "Shalamar Hospital",
+      "pages": [
+        "https://shalamarhospital.org.pk"
+      ]
+    },
+    {
+      "key": "doctorshospital",
+      "name": "Doctors Hospital Lahore",
+      "ur": "Doctors Hospital Lahore",
+      "pages": [
+        "https://doctorshospital.com.pk"
+      ]
+    },
+    {
+      "key": "ittefaqhospital",
+      "name": "Ittefaq Hospital",
+      "ur": "Ittefaq Hospital",
+      "pages": [
+        "https://ittefaqhospital.com"
+      ]
+    },
+    {
+      "key": "hameedlatifhospital",
+      "name": "Hameed Latif Hospital",
+      "ur": "Hameed Latif Hospital",
+      "pages": [
+        "https://hameedlatifhospital.com"
+      ]
+    },
+    {
+      "key": "fauji",
+      "name": "Fauji Foundation Hospital",
+      "ur": "Fauji Foundation Hospital",
+      "pages": [
+        "https://fauji.org.pk"
+      ]
+    },
+    {
+      "key": "alshifaeye",
+      "name": "Al-Shifa Trust Eye Hospital",
+      "ur": "Al-Shifa Trust Eye Hospital",
+      "pages": [
+        "https://alshifaeye.org"
+      ]
+    },
+    {
+      "key": "lrbt",
+      "name": "LRBT",
+      "ur": "LRBT",
+      "pages": [
+        "https://lrbt.org"
+      ]
+    },
+    {
+      "key": "chughtailab",
+      "name": "Chughtai Lab",
+      "ur": "Chughtai Lab",
+      "pages": [
+        "https://chughtailab.com"
+      ]
+    },
+    {
+      "key": "akuh",
+      "name": "Agha Khan Laboratory",
+      "ur": "Agha Khan Laboratory",
+      "pages": [
+        "https://akuh.com"
+      ]
+    },
+    {
+      "key": "prcs",
+      "name": "Pakistan Red Crescent",
+      "ur": "Pakistan Red Crescent",
+      "pages": [
+        "https://prcs.org.pk"
+      ]
+    },
+    {
+      "key": "edhi",
+      "name": "Edhi Foundation",
+      "ur": "Edhi Foundation",
+      "pages": [
+        "https://edhi.org"
+      ]
+    },
+    {
+      "key": "saylaniwelfare",
+      "name": "Saylani Welfare",
+      "ur": "Saylani Welfare",
+      "pages": [
+        "https://saylaniwelfare.com"
+      ]
+    },
+    {
+      "key": "tcf",
+      "name": "Citizens Foundation",
+      "ur": "Citizens Foundation",
+      "pages": [
+        "https://tcf.org.pk"
+      ]
+    },
+    {
+      "key": "indusvalley",
+      "name": "Indus Valley School",
+      "ur": "Indus Valley School",
+      "pages": [
+        "https://indusvalley.edu.pk"
+      ]
+    },
+    {
+      "key": "akhuwat",
+      "name": "Akhuwat",
+      "ur": "Akhuwat",
+      "pages": [
+        "https://akhuwat.org.pk"
+      ]
+    },
+    {
+      "key": "kashf",
+      "name": "Kashf Foundation",
+      "ur": "Kashf Foundation",
+      "pages": [
+        "https://kashf.org"
+      ]
+    },
+    {
+      "key": "nrsp",
+      "name": "NRSP",
+      "ur": "NRSP",
+      "pages": [
+        "https://nrsp.org.pk"
+      ]
+    },
+    {
+      "key": "khushhalibank",
+      "name": "Khushhali Microfinance Bank",
+      "ur": "Khushhali Microfinance Bank",
+      "pages": [
+        "https://khushhalibank.com.pk"
+      ]
+    },
+    {
+      "key": "telenormicrofinancebank",
+      "name": "Telenor Microfinance Bank",
+      "ur": "Telenor Microfinance Bank",
+      "pages": [
+        "https://telenormicrofinancebank.com"
+      ]
+    },
+    {
+      "key": "finca",
+      "name": "FINCA Pakistan",
+      "ur": "FINCA Pakistan",
+      "pages": [
+        "https://finca.pk"
+      ]
+    },
+    {
+      "key": "jazzcash",
+      "name": "Mobilink Microfinance Bank",
+      "ur": "Mobilink Microfinance Bank",
+      "pages": [
+        "https://jazzcash.com.pk"
+      ]
+    },
+    {
+      "key": "easypaisa",
+      "name": "Easypaisa",
+      "ur": "Easypaisa",
+      "pages": [
+        "https://easypaisa.com.pk"
+      ]
+    },
+    {
+      "key": "nrspcareers",
+      "name": "National Rural Support Programme",
+      "ur": "National Rural Support Programme",
+      "pages": [
+        "https://nrsp.org.pk/careers"
+      ]
+    },
+    {
+      "key": "prsp",
+      "name": "Punjab Rural Support Programme",
+      "ur": "Punjab Rural Support Programme",
+      "pages": [
+        "https://prsp.org.pk"
+      ]
+    },
+    {
+      "key": "srsp",
+      "name": "Sarhad Rural Support Programme",
+      "ur": "Sarhad Rural Support Programme",
+      "pages": [
+        "https://srsp.org.pk"
+      ]
+    },
+    {
+      "key": "brsp",
+      "name": "Balochistan Rural Support Programme",
+      "ur": "Balochistan Rural Support Programme",
+      "pages": [
+        "https://brsp.org.pk"
+      ]
+    },
+    {
+      "key": "thardeep",
+      "name": "Thardeep Rural Development Programme",
+      "ur": "Thardeep Rural Development Programme",
+      "pages": [
+        "https://thardeep.org"
+      ]
+    },
+    {
+      "key": "akrsp",
+      "name": "Aga Khan Rural Support Programme",
+      "ur": "Aga Khan Rural Support Programme",
+      "pages": [
+        "https://akrsp.org.pk"
+      ]
+    },
+    {
+      "key": "akdnpakistan",
+      "name": "Aga Khan Foundation Pakistan",
+      "ur": "Aga Khan Foundation Pakistan",
+      "pages": [
+        "https://akdn.org/pakistan"
+      ]
+    },
+    {
+      "key": "planinternationalpakista",
+      "name": "Plan International Pakistan",
+      "ur": "Plan International Pakistan",
+      "pages": [
+        "https://plan-international.org/pakistan"
+      ]
+    },
+    {
+      "key": "pakistan",
+      "name": "Save the Children Pakistan",
+      "ur": "Save the Children Pakistan",
+      "pages": [
+        "https://pakistan.savethechildren.net"
+      ]
+    },
+    {
+      "key": "unicefpakistan",
+      "name": "UNICEF Pakistan",
+      "ur": "UNICEF Pakistan",
+      "pages": [
+        "https://unicef.org/pakistan"
+      ]
+    },
+    {
+      "key": "wfpcountries",
+      "name": "WFP Pakistan",
+      "ur": "WFP Pakistan",
+      "pages": [
+        "https://wfp.org/countries/pakistan"
+      ]
+    },
+    {
+      "key": "unhcrpk",
+      "name": "UNHCR Pakistan",
+      "ur": "UNHCR Pakistan",
+      "pages": [
+        "https://unhcr.org/pk"
+      ]
+    },
+    {
+      "key": "faopakistan",
+      "name": "FAO Pakistan",
+      "ur": "FAO Pakistan",
+      "pages": [
+        "https://fao.org/pakistan"
+      ]
+    },
+    {
+      "key": "asiapacificpakistan",
+      "name": "UN Women Pakistan",
+      "ur": "UN Women Pakistan",
+      "pages": [
+        "https://asiapacific.unwomen.org/pakistan"
+      ]
+    },
+    {
+      "key": "pakistan3",
+      "name": "UNFPA Pakistan",
+      "ur": "UNFPA Pakistan",
+      "pages": [
+        "https://pakistan.unfpa.org"
+      ]
+    },
+    {
+      "key": "pakistan4",
+      "name": "IOM Pakistan",
+      "ur": "IOM Pakistan",
+      "pages": [
+        "https://pakistan.iom.int"
+      ]
+    },
+    {
+      "key": "iloislamabad",
+      "name": "ILO Pakistan",
+      "ur": "ILO Pakistan",
+      "pages": [
+        "https://ilo.org/islamabad"
+      ]
+    },
+    {
+      "key": "worldbankpk",
+      "name": "World Bank Pakistan",
+      "ur": "World Bank Pakistan",
+      "pages": [
+        "https://worldbank.org/pk"
+      ]
+    },
+    {
+      "key": "adbcountries",
+      "name": "Asian Development Bank Pakistan",
+      "ur": "Asian Development Bank Pakistan",
+      "pages": [
+        "https://adb.org/countries/pakistan"
+      ]
+    },
+    {
+      "key": "usaidpakistan",
+      "name": "USAID Pakistan",
+      "ur": "USAID Pakistan",
+      "pages": [
+        "https://usaid.gov/pakistan"
+      ]
+    },
+    {
+      "key": "britishcouncil",
+      "name": "British Council Pakistan",
+      "ur": "British Council Pakistan",
+      "pages": [
+        "https://britishcouncil.pk"
+      ]
+    },
+    {
+      "key": "gizpakistan",
+      "name": "GIZ Pakistan",
+      "ur": "GIZ Pakistan",
+      "pages": [
+        "https://giz.de/pakistan"
+      ]
+    },
+    {
+      "key": "islamicrelief",
+      "name": "Islamic Relief Pakistan",
+      "ur": "Islamic Relief Pakistan",
+      "pages": [
+        "https://islamic-relief.org.pk"
+      ]
+    },
+    {
+      "key": "kp",
+      "name": "Khyber Pakhtunkhwa Government",
+      "ur": "Khyber Pakhtunkhwa Government",
+      "pages": [
+        "https://kp.gov.pk"
+      ]
+    },
+    {
+      "key": "balochistan",
+      "name": "Balochistan Government",
+      "ur": "Balochistan Government",
+      "pages": [
+        "https://balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "punjab",
+      "name": "Punjab Government",
+      "ur": "Punjab Government",
+      "pages": [
+        "https://punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "sindh",
+      "name": "Sindh Government",
+      "ur": "Sindh Government",
+      "pages": [
+        "https://sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "ajk",
+      "name": "AJK Government",
+      "ur": "AJK Government",
+      "pages": [
+        "https://ajk.gov.pk"
+      ]
+    },
+    {
+      "key": "gilgitbaltistan",
+      "name": "Gilgit-Baltistan Government",
+      "ur": "Gilgit-Baltistan Government",
+      "pages": [
+        "https://gilgitbaltistan.gov.pk"
+      ]
+    },
+    {
+      "key": "ajkpsc",
+      "name": "AJK Public Service Commission",
+      "ur": "AJK Public Service Commission",
+      "pages": [
+        "https://ajkpsc.gov.pk"
+      ]
+    },
+    {
+      "key": "establishment",
+      "name": "Establishment Division",
+      "ur": "Establishment Division",
+      "pages": [
+        "https://establishment.gov.pk"
+      ]
+    },
+    {
+      "key": "pmo",
+      "name": "Prime Minister Office",
+      "ur": "Prime Minister Office",
+      "pages": [
+        "https://pmo.gov.pk"
+      ]
+    },
+    {
+      "key": "mofa",
+      "name": "Ministry of Foreign Affairs",
+      "ur": "Ministry of Foreign Affairs",
+      "pages": [
+        "https://mofa.gov.pk"
+      ]
+    },
+    {
+      "key": "finance",
+      "name": "Ministry of Finance",
+      "ur": "Ministry of Finance",
+      "pages": [
+        "https://finance.gov.pk"
+      ]
+    },
+    {
+      "key": "interior",
+      "name": "Ministry of Interior",
+      "ur": "Ministry of Interior",
+      "pages": [
+        "https://interior.gov.pk"
+      ]
+    },
+    {
+      "key": "mod",
+      "name": "Ministry of Defence",
+      "ur": "Ministry of Defence",
+      "pages": [
+        "https://mod.gov.pk"
+      ]
+    },
+    {
+      "key": "mofept",
+      "name": "Ministry of Federal Education",
+      "ur": "Ministry of Federal Education",
+      "pages": [
+        "https://mofept.gov.pk"
+      ]
+    },
+    {
+      "key": "nhsrc",
+      "name": "Ministry of Health",
+      "ur": "Ministry of Health",
+      "pages": [
+        "https://nhsrc.gov.pk"
+      ]
+    },
+    {
+      "key": "mocc",
+      "name": "Ministry of Climate Change",
+      "ur": "Ministry of Climate Change",
+      "pages": [
+        "https://mocc.gov.pk"
+      ]
+    },
+    {
+      "key": "mowr",
+      "name": "Ministry of Water Resources",
+      "ur": "Ministry of Water Resources",
+      "pages": [
+        "https://mowr.gov.pk"
+      ]
+    },
+    {
+      "key": "petroleum",
+      "name": "Ministry of Petroleum",
+      "ur": "Ministry of Petroleum",
+      "pages": [
+        "https://petroleum.gov.pk"
+      ]
+    },
+    {
+      "key": "commerce",
+      "name": "Ministry of Commerce",
+      "ur": "Ministry of Commerce",
+      "pages": [
+        "https://commerce.gov.pk"
+      ]
+    },
+    {
+      "key": "moip",
+      "name": "Ministry of Industries",
+      "ur": "Ministry of Industries",
+      "pages": [
+        "https://moip.gov.pk"
+      ]
+    },
+    {
+      "key": "moitt",
+      "name": "Ministry of Information Technology",
+      "ur": "Ministry of Information Technology",
+      "pages": [
+        "https://moitt.gov.pk"
+      ]
+    },
+    {
+      "key": "molaw",
+      "name": "Ministry of Law and Justice",
+      "ur": "Ministry of Law and Justice",
+      "pages": [
+        "https://molaw.gov.pk"
+      ]
+    },
+    {
+      "key": "pc",
+      "name": "Ministry of Planning",
+      "ur": "Ministry of Planning",
+      "pages": [
+        "https://pc.gov.pk"
+      ]
+    },
+    {
+      "key": "mohw",
+      "name": "Ministry of Housing",
+      "ur": "Ministry of Housing",
+      "pages": [
+        "https://mohw.gov.pk"
+      ]
+    },
+    {
+      "key": "mora",
+      "name": "Ministry of Religious Affairs",
+      "ur": "Ministry of Religious Affairs",
+      "pages": [
+        "https://mora.gov.pk"
+      ]
+    },
+    {
+      "key": "ophrd",
+      "name": "Ministry of Overseas Pakistanis",
+      "ur": "Ministry of Overseas Pakistanis",
+      "pages": [
+        "https://ophrd.gov.pk"
+      ]
+    },
+    {
+      "key": "mohr",
+      "name": "Ministry of Human Rights",
+      "ur": "Ministry of Human Rights",
+      "pages": [
+        "https://mohr.gov.pk"
+      ]
+    },
+    {
+      "key": "most",
+      "name": "Ministry of Science and Technology",
+      "ur": "Ministry of Science and Technology",
+      "pages": [
+        "https://most.gov.pk"
+      ]
+    },
+    {
+      "key": "mnfsr",
+      "name": "Ministry of National Food Security",
+      "ur": "Ministry of National Food Security",
+      "pages": [
+        "https://mnfsr.gov.pk"
+      ]
+    },
+    {
+      "key": "safron",
+      "name": "Ministry of States and Frontier Regions",
+      "ur": "Ministry of States and Frontier Regions",
+      "pages": [
+        "https://safron.gov.pk"
+      ]
+    },
+    {
+      "key": "cabinet",
+      "name": "Cabinet Division",
+      "ur": "Cabinet Division",
+      "pages": [
+        "https://cabinet.gov.pk"
+      ]
+    },
+    {
+      "key": "mohtasib",
+      "name": "Wafaqi Mohtasib",
+      "ur": "Wafaqi Mohtasib",
+      "pages": [
+        "https://mohtasib.gov.pk"
+      ]
+    },
+    {
+      "key": "ecp",
+      "name": "Election Commission of Pakistan",
+      "ur": "Election Commission of Pakistan",
+      "pages": [
+        "https://ecp.gov.pk"
+      ]
+    },
+    {
+      "key": "na",
+      "name": "National Assembly of Pakistan",
+      "ur": "National Assembly of Pakistan",
+      "pages": [
+        "https://na.gov.pk"
+      ]
+    },
+    {
+      "key": "senate",
+      "name": "Senate of Pakistan",
+      "ur": "Senate of Pakistan",
+      "pages": [
+        "https://senate.gov.pk"
+      ]
+    },
+    {
+      "key": "supremecourt",
+      "name": "Supreme Court of Pakistan",
+      "ur": "Supreme Court of Pakistan",
+      "pages": [
+        "https://supremecourt.gov.pk"
+      ]
+    },
+    {
+      "key": "federalshariatcourt",
+      "name": "Federal Shariat Court",
+      "ur": "Federal Shariat Court",
+      "pages": [
+        "https://federalshariatcourt.gov.pk"
+      ]
+    },
+    {
+      "key": "lhc",
+      "name": "Lahore High Court",
+      "ur": "Lahore High Court",
+      "pages": [
+        "https://lhc.gov.pk"
+      ]
+    },
+    {
+      "key": "sindhhighcourt",
+      "name": "Sindh High Court",
+      "ur": "Sindh High Court",
+      "pages": [
+        "https://sindhhighcourt.gov.pk"
+      ]
+    },
+    {
+      "key": "peshawarhighcourt",
+      "name": "Peshawar High Court",
+      "ur": "Peshawar High Court",
+      "pages": [
+        "https://peshawarhighcourt.gov.pk"
+      ]
+    },
+    {
+      "key": "mail",
+      "name": "Islamabad High Court",
+      "ur": "Islamabad High Court",
+      "pages": [
+        "https://mail.ihc.gov.pk"
+      ]
+    },
+    {
+      "key": "bhc",
+      "name": "Balochistan High Court",
+      "ur": "Balochistan High Court",
+      "pages": [
+        "https://bhc.gov.pk"
+      ]
+    },
+    {
+      "key": "ljcp",
+      "name": "Law and Justice Commission",
+      "ur": "Law and Justice Commission",
+      "pages": [
+        "https://ljcp.gov.pk"
+      ]
+    },
+    {
+      "key": "agp",
+      "name": "Auditor General of Pakistan",
+      "ur": "Auditor General of Pakistan",
+      "pages": [
+        "https://agp.gov.pk"
+      ]
+    },
+    {
+      "key": "pbs",
+      "name": "Pakistan Bureau of Statistics",
+      "ur": "Pakistan Bureau of Statistics",
+      "pages": [
+        "https://pbs.gov.pk"
+      ]
+    },
+    {
+      "key": "pmd",
+      "name": "Pakistan Meteorological Department",
+      "ur": "Pakistan Meteorological Department",
+      "pages": [
+        "https://pmd.gov.pk"
+      ]
+    },
+    {
+      "key": "surveyofpakistan",
+      "name": "Survey of Pakistan",
+      "ur": "Survey of Pakistan",
+      "pages": [
+        "https://surveyofpakistan.gov.pk"
+      ]
+    },
+    {
+      "key": "gsp",
+      "name": "Geological Survey of Pakistan",
+      "ur": "Geological Survey of Pakistan",
+      "pages": [
+        "https://gsp.gov.pk"
+      ]
+    },
+    {
+      "key": "paec",
+      "name": "Pakistan Atomic Energy Commission",
+      "ur": "Pakistan Atomic Energy Commission",
+      "pages": [
+        "https://paec.gov.pk"
+      ]
+    },
+    {
+      "key": "suparco",
+      "name": "SUPARCO",
+      "ur": "SUPARCO",
+      "pages": [
+        "https://suparco.gov.pk"
+      ]
+    },
+    {
+      "key": "pcsir",
+      "name": "Pakistan Council of Scientific and Industrial Research",
+      "ur": "Pakistan Council of Scientific and Industrial Research",
+      "pages": [
+        "https://pcsir.gov.pk"
+      ]
+    },
+    {
+      "key": "parc",
+      "name": "Pakistan Agricultural Research Council",
+      "ur": "Pakistan Agricultural Research Council",
+      "pages": [
+        "https://parc.gov.pk"
+      ]
+    },
+    {
+      "key": "psf",
+      "name": "Pakistan Science Foundation",
+      "ur": "Pakistan Science Foundation",
+      "pages": [
+        "https://psf.gov.pk"
+      ]
+    },
+    {
+      "key": "ndma",
+      "name": "National Disaster Management Authority",
+      "ur": "National Disaster Management Authority",
+      "pages": [
+        "https://ndma.gov.pk"
+      ]
+    },
+    {
+      "key": "pdma",
+      "name": "Provincial Disaster Management Authority Punjab",
+      "ur": "Provincial Disaster Management Authority Punjab",
+      "pages": [
+        "https://pdma.gop.pk"
+      ]
+    },
+    {
+      "key": "pdma2",
+      "name": "PDMA Sindh",
+      "ur": "PDMA Sindh",
+      "pages": [
+        "https://pdma.gos.pk"
+      ]
+    },
+    {
+      "key": "pdma3",
+      "name": "PDMA Khyber Pakhtunkhwa",
+      "ur": "PDMA Khyber Pakhtunkhwa",
+      "pages": [
+        "https://pdma.gov.pk"
+      ]
+    },
+    {
+      "key": "nha",
+      "name": "National Highway Authority",
+      "ur": "National Highway Authority",
+      "pages": [
+        "https://nha.gov.pk"
+      ]
+    },
+    {
+      "key": "cda",
+      "name": "Capital Development Authority",
+      "ur": "Capital Development Authority",
+      "pages": [
+        "https://cda.gov.pk"
+      ]
+    },
+    {
+      "key": "kda",
+      "name": "Karachi Development Authority",
+      "ur": "Karachi Development Authority",
+      "pages": [
+        "https://kda.gos.pk"
+      ]
+    },
+    {
+      "key": "rda",
+      "name": "Rawalpindi Development Authority",
+      "ur": "Rawalpindi Development Authority",
+      "pages": [
+        "https://rda.gop.pk"
+      ]
+    },
+    {
+      "key": "pda",
+      "name": "Peshawar Development Authority",
+      "ur": "Peshawar Development Authority",
+      "pages": [
+        "https://pda.gov.pk"
+      ]
+    },
+    {
+      "key": "wasa",
+      "name": "Water and Sanitation Agency Lahore",
+      "ur": "Water and Sanitation Agency Lahore",
+      "pages": [
+        "https://wasa.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "kwsc",
+      "name": "Karachi Water and Sewerage Corporation",
+      "ur": "Karachi Water and Sewerage Corporation",
+      "pages": [
+        "https://kwsc.gos.pk"
+      ]
+    },
+    {
+      "key": "pakrail",
+      "name": "Pakistan Railways",
+      "ur": "Pakistan Railways",
+      "pages": [
+        "https://pakrail.gov.pk"
+      ]
+    },
+    {
+      "key": "paksteel",
+      "name": "Pakistan Steel Mills",
+      "ur": "Pakistan Steel Mills",
+      "pages": [
+        "https://paksteel.com.pk"
+      ]
+    },
+    {
+      "key": "ptv",
+      "name": "Pakistan Television",
+      "ur": "Pakistan Television",
+      "pages": [
+        "https://ptv.com.pk"
+      ]
+    },
+    {
+      "key": "radio",
+      "name": "Pakistan Broadcasting Corporation",
+      "ur": "Pakistan Broadcasting Corporation",
+      "pages": [
+        "https://radio.gov.pk"
+      ]
+    },
+    {
+      "key": "app",
+      "name": "Associated Press of Pakistan",
+      "ur": "Associated Press of Pakistan",
+      "pages": [
+        "https://app.com.pk"
+      ]
+    },
+    {
+      "key": "pemra",
+      "name": "Pakistan Electronic Media Regulatory Authority",
+      "ur": "Pakistan Electronic Media Regulatory Authority",
+      "pages": [
+        "https://pemra.gov.pk"
+      ]
+    },
+    {
+      "key": "pta",
+      "name": "Pakistan Telecommunication Authority",
+      "ur": "Pakistan Telecommunication Authority",
+      "pages": [
+        "https://pta.gov.pk"
+      ]
+    },
+    {
+      "key": "pseb2",
+      "name": "Pakistan Software Export Board",
+      "ur": "Pakistan Software Export Board",
+      "pages": [
+        "https://pseb.org.pk"
+      ]
+    },
+    {
+      "key": "ignite",
+      "name": "Ignite National Technology Fund",
+      "ur": "Ignite National Technology Fund",
+      "pages": [
+        "https://ignite.org.pk"
+      ]
+    },
+    {
+      "key": "navttc",
+      "name": "National Vocational and Technical Training Commission",
+      "ur": "National Vocational and Technical Training Commission",
+      "pages": [
+        "https://navttc.gov.pk"
+      ]
+    },
+    {
+      "key": "tevta",
+      "name": "Technical Education and Vocational Training Authority Punjab",
+      "ur": "Technical Education and Vocational Training Authority Punjab",
+      "pages": [
+        "https://tevta.gop.pk"
+      ]
+    },
+    {
+      "key": "stevta",
+      "name": "Sindh Technical Education and Vocational Training Authority",
+      "ur": "Sindh Technical Education and Vocational Training Authority",
+      "pages": [
+        "https://stevta.gos.pk"
+      ]
+    },
+    {
+      "key": "bisp",
+      "name": "Benazir Income Support Programme",
+      "ur": "Benazir Income Support Programme",
+      "pages": [
+        "https://bisp.gov.pk"
+      ]
+    },
+    {
+      "key": "pbm",
+      "name": "Pakistan Bait-ul-Mal",
+      "ur": "Pakistan Bait-ul-Mal",
+      "pages": [
+        "https://pbm.gov.pk"
+      ]
+    },
+    {
+      "key": "eobi",
+      "name": "Employees Old-Age Benefits Institution",
+      "ur": "Employees Old-Age Benefits Institution",
+      "pages": [
+        "https://eobi.gov.pk"
+      ]
+    },
+    {
+      "key": "wwf",
+      "name": "Workers Welfare Fund",
+      "ur": "Workers Welfare Fund",
+      "pages": [
+        "https://wwf.gov.pk"
+      ]
+    },
+    {
+      "key": "oec",
+      "name": "Overseas Employment Corporation",
+      "ur": "Overseas Employment Corporation",
+      "pages": [
+        "https://oec.gov.pk"
+      ]
+    },
+    {
+      "key": "opf",
+      "name": "Overseas Pakistanis Foundation",
+      "ur": "Overseas Pakistanis Foundation",
+      "pages": [
+        "https://opf.org.pk"
+      ]
+    },
+    {
+      "key": "hajjinfo",
+      "name": "Hajj Directorate",
+      "ur": "Hajj Directorate",
+      "pages": [
+        "https://hajjinfo.org"
+      ]
+    },
+    {
+      "key": "sports",
+      "name": "Pakistan Sports Board",
+      "ur": "Pakistan Sports Board",
+      "pages": [
+        "https://sports.gov.pk"
+      ]
+    },
+    {
+      "key": "pcb",
+      "name": "Pakistan Cricket Board",
+      "ur": "Pakistan Cricket Board",
+      "pages": [
+        "https://pcb.com.pk"
+      ]
+    },
+    {
+      "key": "tourism",
+      "name": "Pakistan Tourism Development Corporation",
+      "ur": "Pakistan Tourism Development Corporation",
+      "pages": [
+        "https://tourism.gov.pk"
+      ]
+    },
+    {
+      "key": "psqca",
+      "name": "Pakistan Standards and Quality Control Authority",
+      "ur": "Pakistan Standards and Quality Control Authority",
+      "pages": [
+        "https://psqca.com.pk"
+      ]
+    },
+    {
+      "key": "environment",
+      "name": "Pakistan Environmental Protection Agency",
+      "ur": "Pakistan Environmental Protection Agency",
+      "pages": [
+        "https://environment.gov.pk"
+      ]
+    },
+    {
+      "key": "pcrwr",
+      "name": "Pakistan Council of Research in Water Resources",
+      "ur": "Pakistan Council of Research in Water Resources",
+      "pages": [
+        "https://pcrwr.gov.pk"
+      ]
+    },
+    {
+      "key": "pnra",
+      "name": "Pakistan Nuclear Regulatory Authority",
+      "ur": "Pakistan Nuclear Regulatory Authority",
+      "pages": [
+        "https://pnra.org"
+      ]
+    },
+    {
+      "key": "nab",
+      "name": "National Accountability Bureau",
+      "ur": "National Accountability Bureau",
+      "pages": [
+        "https://nab.gov.pk"
+      ]
+    },
+    {
+      "key": "fia",
+      "name": "Federal Investigation Agency",
+      "ur": "Federal Investigation Agency",
+      "pages": [
+        "https://fia.gov.pk"
+      ]
+    },
+    {
+      "key": "ib",
+      "name": "Intelligence Bureau",
+      "ur": "Intelligence Bureau",
+      "pages": [
+        "https://ib.gov.pk"
+      ]
+    },
+    {
+      "key": "islamabadpolice",
+      "name": "Islamabad Capital Territory Police",
+      "ur": "Islamabad Capital Territory Police",
+      "pages": [
+        "https://islamabadpolice.gov.pk"
+      ]
+    },
+    {
+      "key": "sindhpolice",
+      "name": "Sindh Police",
+      "ur": "Sindh Police",
+      "pages": [
+        "https://sindhpolice.gov.pk"
+      ]
+    },
+    {
+      "key": "kppolice",
+      "name": "Khyber Pakhtunkhwa Police",
+      "ur": "Khyber Pakhtunkhwa Police",
+      "pages": [
+        "https://kppolice.gov.pk"
+      ]
+    },
+    {
+      "key": "balochistanpolice",
+      "name": "Balochistan Police",
+      "ur": "Balochistan Police",
+      "pages": [
+        "https://balochistanpolice.gov.pk"
+      ]
+    },
+    {
+      "key": "ajkpolice",
+      "name": "AJK Police",
+      "ur": "AJK Police",
+      "pages": [
+        "https://ajkpolice.gov.pk"
+      ]
+    },
+    {
+      "key": "fc",
+      "name": "Frontier Corps",
+      "ur": "Frontier Corps",
+      "pages": [
+        "https://fc.gov.pk"
+      ]
+    },
+    {
+      "key": "asf",
+      "name": "Airport Security Force",
+      "ur": "Airport Security Force",
+      "pages": [
+        "https://asf.gov.pk"
+      ]
+    },
+    {
+      "key": "fc2",
+      "name": "Frontier Constabulary",
+      "ur": "Frontier Constabulary",
+      "pages": [
+        "https://fc.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "psca",
+      "name": "Punjab Safe Cities Authority",
+      "ur": "Punjab Safe Cities Authority",
+      "pages": [
+        "https://psca.gop.pk"
+      ]
+    },
+    {
+      "key": "pfa",
+      "name": "Punjab Food Authority",
+      "ur": "Punjab Food Authority",
+      "pages": [
+        "https://pfa.gop.pk"
+      ]
+    },
+    {
+      "key": "pra",
+      "name": "Punjab Revenue Authority",
+      "ur": "Punjab Revenue Authority",
+      "pages": [
+        "https://pra.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "srb",
+      "name": "Sindh Revenue Board",
+      "ur": "Sindh Revenue Board",
+      "pages": [
+        "https://srb.gos.pk"
+      ]
+    },
+    {
+      "key": "bra",
+      "name": "Balochistan Revenue Authority",
+      "ur": "Balochistan Revenue Authority",
+      "pages": [
+        "https://bra.gob.pk"
+      ]
+    },
+    {
+      "key": "excise",
+      "name": "Excise Taxation Punjab",
+      "ur": "Excise Taxation Punjab",
+      "pages": [
+        "https://excise.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "bor",
+      "name": "Punjab Board of Revenue",
+      "ur": "Punjab Board of Revenue",
+      "pages": [
+        "https://bor.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "pitb",
+      "name": "Punjab Information Technology Board",
+      "ur": "Punjab Information Technology Board",
+      "pages": [
+        "https://pitb.gov.pk"
+      ]
+    },
+    {
+      "key": "sindhit",
+      "name": "Sindh Information Technology",
+      "ur": "Sindh Information Technology",
+      "pages": [
+        "https://sindh.gov.pk/it"
+      ]
+    },
+    {
+      "key": "kpitb",
+      "name": "KP Information Technology Board",
+      "ur": "KP Information Technology Board",
+      "pages": [
+        "https://kpitb.gov.pk"
+      ]
+    },
+    {
+      "key": "psdf",
+      "name": "Punjab Skills Development Fund",
+      "ur": "Punjab Skills Development Fund",
+      "pages": [
+        "https://psdf.org.pk"
+      ]
+    },
+    {
+      "key": "pef",
+      "name": "Punjab Education Foundation",
+      "ur": "Punjab Education Foundation",
+      "pages": [
+        "https://pef.edu.pk"
+      ]
+    },
+    {
+      "key": "pctb",
+      "name": "Punjab Curriculum Authority",
+      "ur": "Punjab Curriculum Authority",
+      "pages": [
+        "https://pctb.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "schools",
+      "name": "Punjab School Education Department",
+      "ur": "Punjab School Education Department",
+      "pages": [
+        "https://schools.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "hed",
+      "name": "Punjab Higher Education Department",
+      "ur": "Punjab Higher Education Department",
+      "pages": [
+        "https://hed.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "sh",
+      "name": "Punjab Specialized Healthcare",
+      "ur": "Punjab Specialized Healthcare",
+      "pages": [
+        "https://sh.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "agripunjab",
+      "name": "Punjab Agriculture Department",
+      "ur": "Punjab Agriculture Department",
+      "pages": [
+        "https://agripunjab.gov.pk"
+      ]
+    },
+    {
+      "key": "irrigation",
+      "name": "Punjab Irrigation Department",
+      "ur": "Punjab Irrigation Department",
+      "pages": [
+        "https://irrigation.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "wildlife",
+      "name": "Punjab Wildlife",
+      "ur": "Punjab Wildlife",
+      "pages": [
+        "https://wildlife.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "lgcd",
+      "name": "Punjab Local Government",
+      "ur": "Punjab Local Government",
+      "pages": [
+        "https://lgcd.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "auqaf",
+      "name": "Punjab Auqaf Department",
+      "ur": "Punjab Auqaf Department",
+      "pages": [
+        "https://auqaf.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "transport",
+      "name": "Punjab Transport",
+      "ur": "Punjab Transport",
+      "pages": [
+        "https://transport.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "pnd",
+      "name": "Punjab Planning and Development",
+      "ur": "Punjab Planning and Development",
+      "pages": [
+        "https://pnd.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "finance2",
+      "name": "Punjab Finance Department",
+      "ur": "Punjab Finance Department",
+      "pages": [
+        "https://finance.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "law",
+      "name": "Punjab Law Department",
+      "ur": "Punjab Law Department",
+      "pages": [
+        "https://law.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "sgad",
+      "name": "Punjab Services and General Administration",
+      "ur": "Punjab Services and General Administration",
+      "pages": [
+        "https://sgad.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "wdd",
+      "name": "Punjab Women Development",
+      "ur": "Punjab Women Development",
+      "pages": [
+        "https://wdd.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "cooperatives",
+      "name": "Punjab Cooperative",
+      "ur": "Punjab Cooperative",
+      "pages": [
+        "https://cooperatives.punjab.gov.pk"
+      ]
+    },
+    {
+      "key": "sindheducation",
+      "name": "Sindh Education Department",
+      "ur": "Sindh Education Department",
+      "pages": [
+        "https://sindheducation.gov.pk"
+      ]
+    },
+    {
+      "key": "sindhhealthjobs",
+      "name": "Sindh Health Department",
+      "ur": "Sindh Health Department",
+      "pages": [
+        "https://sindhhealth.gov.pk/jobs"
+      ]
+    },
+    {
+      "key": "irrigation2",
+      "name": "Sindh Irrigation Department",
+      "ur": "Sindh Irrigation Department",
+      "pages": [
+        "https://irrigation.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "agri",
+      "name": "Sindh Agriculture Department",
+      "ur": "Sindh Agriculture Department",
+      "pages": [
+        "https://agri.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "transport2",
+      "name": "Sindh Transport",
+      "ur": "Sindh Transport",
+      "pages": [
+        "https://transport.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "livestock",
+      "name": "Sindh Livestock",
+      "ur": "Sindh Livestock",
+      "pages": [
+        "https://livestock.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "home2",
+      "name": "Sindh Home Department",
+      "ur": "Sindh Home Department",
+      "pages": [
+        "https://home.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "pnd2",
+      "name": "Sindh Planning",
+      "ur": "Sindh Planning",
+      "pages": [
+        "https://pnd.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "information",
+      "name": "Sindh Information",
+      "ur": "Sindh Information",
+      "pages": [
+        "https://information.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "swd",
+      "name": "Sindh Social Welfare",
+      "ur": "Sindh Social Welfare",
+      "pages": [
+        "https://swd.sindh.gov.pk"
+      ]
+    },
+    {
+      "key": "spscjobs",
+      "name": "Sindh Public Service Commission",
+      "ur": "Sindh Public Service Commission",
+      "pages": [
+        "https://spsc.gov.pk/jobs"
+      ]
+    },
+    {
+      "key": "kmc",
+      "name": "Karachi Metropolitan Corporation",
+      "ur": "Karachi Metropolitan Corporation",
+      "pages": [
+        "https://kmc.gos.pk"
+      ]
+    },
+    {
+      "key": "kpt",
+      "name": "Karachi Port Trust",
+      "ur": "Karachi Port Trust",
+      "pages": [
+        "https://kpt.gov.pk"
+      ]
+    },
+    {
+      "key": "pqa",
+      "name": "Port Qasim Authority",
+      "ur": "Port Qasim Authority",
+      "pages": [
+        "https://pqa.gov.pk"
+      ]
+    },
+    {
+      "key": "gwadarport",
+      "name": "Gwadar Port Authority",
+      "ur": "Gwadar Port Authority",
+      "pages": [
+        "https://gwadarport.gov.pk"
+      ]
+    },
+    {
+      "key": "gda",
+      "name": "Gwadar Development Authority",
+      "ur": "Gwadar Development Authority",
+      "pages": [
+        "https://gda.gov.pk"
+      ]
+    },
+    {
+      "key": "pmsa",
+      "name": "Pakistan Maritime Security Agency",
+      "ur": "Pakistan Maritime Security Agency",
+      "pages": [
+        "https://pmsa.gov.pk"
+      ]
+    },
+    {
+      "key": "pnsc",
+      "name": "Pakistan National Shipping Corporation",
+      "ur": "Pakistan National Shipping Corporation",
+      "pages": [
+        "https://pnsc.com.pk"
+      ]
+    },
+    {
+      "key": "ksew",
+      "name": "Karachi Shipyard",
+      "ur": "Karachi Shipyard",
+      "pages": [
+        "https://ksew.com.pk"
+      ]
+    },
+    {
+      "key": "hit",
+      "name": "Heavy Industries Taxila",
+      "ur": "Heavy Industries Taxila",
+      "pages": [
+        "https://hit.gov.pk"
+      ]
+    },
+    {
+      "key": "pof",
+      "name": "Pakistan Ordnance Factories",
+      "ur": "Pakistan Ordnance Factories",
+      "pages": [
+        "https://pof.gov.pk"
+      ]
+    },
+    {
+      "key": "pac",
+      "name": "Pakistan Aeronautical Complex",
+      "ur": "Pakistan Aeronautical Complex",
+      "pages": [
+        "https://pac.org.pk"
+      ]
+    },
+    {
+      "key": "dhalahore",
+      "name": "Defence Housing Authority Lahore",
+      "ur": "Defence Housing Authority Lahore",
+      "pages": [
+        "https://dhalahore.org"
+      ]
+    },
+    {
+      "key": "dhakarachi",
+      "name": "Defence Housing Authority Karachi",
+      "ur": "Defence Housing Authority Karachi",
+      "pages": [
+        "https://dhakarachi.org"
+      ]
+    },
+    {
+      "key": "dhai",
+      "name": "Defence Housing Authority Islamabad",
+      "ur": "Defence Housing Authority Islamabad",
+      "pages": [
+        "https://dhai.com"
+      ]
+    },
+    {
+      "key": "faujijobs",
+      "name": "Fauji Foundation",
+      "ur": "Fauji Foundation",
+      "pages": [
+        "https://fauji.org.pk/jobs"
+      ]
+    },
+    {
+      "key": "awt",
+      "name": "Army Welfare Trust",
+      "ur": "Army Welfare Trust",
+      "pages": [
+        "https://awt.com.pk"
+      ]
+    },
+    {
+      "key": "bahriafoundation",
+      "name": "Bahria Foundation",
+      "ur": "Bahria Foundation",
+      "pages": [
+        "https://bahriafoundation.com"
+      ]
+    },
+    {
+      "key": "kpese",
+      "name": "Khyber Pakhtunkhwa Education Department",
+      "ur": "Khyber Pakhtunkhwa Education Department",
+      "pages": [
+        "https://kpese.gov.pk"
+      ]
+    },
+    {
+      "key": "hed2",
+      "name": "KP Higher Education Department",
+      "ur": "KP Higher Education Department",
+      "pages": [
+        "https://hed.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "lgkp",
+      "name": "KP Local Government",
+      "ur": "KP Local Government",
+      "pages": [
+        "https://lgkp.gov.pk"
+      ]
+    },
+    {
+      "key": "irrigation3",
+      "name": "KP Irrigation Department",
+      "ur": "KP Irrigation Department",
+      "pages": [
+        "https://irrigation.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "agriculture",
+      "name": "KP Agriculture Department",
+      "ur": "KP Agriculture Department",
+      "pages": [
+        "https://agriculture.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "home3",
+      "name": "KP Home Department",
+      "ur": "KP Home Department",
+      "pages": [
+        "https://home.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "financekp",
+      "name": "KP Finance",
+      "ur": "KP Finance",
+      "pages": [
+        "https://financekp.gov.pk"
+      ]
+    },
+    {
+      "key": "pndkp",
+      "name": "KP Planning",
+      "ur": "KP Planning",
+      "pages": [
+        "https://pndkp.gov.pk"
+      ]
+    },
+    {
+      "key": "revenue2",
+      "name": "KP Revenue and Estate",
+      "ur": "KP Revenue and Estate",
+      "pages": [
+        "https://revenue.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "labour2",
+      "name": "KP Labour",
+      "ur": "KP Labour",
+      "pages": [
+        "https://labour.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "transport3",
+      "name": "KP Transport",
+      "ur": "KP Transport",
+      "pages": [
+        "https://transport.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "excise3",
+      "name": "KP Excise and Taxation",
+      "ur": "KP Excise and Taxation",
+      "pages": [
+        "https://excise.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "forest",
+      "name": "KP Forest",
+      "ur": "KP Forest",
+      "pages": [
+        "https://forest.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "zakat",
+      "name": "KP Zakat",
+      "ur": "KP Zakat",
+      "pages": [
+        "https://zakat.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "auqaf2",
+      "name": "KP Auqaf",
+      "ur": "KP Auqaf",
+      "pages": [
+        "https://auqaf.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "industries2",
+      "name": "KP Industries",
+      "ur": "KP Industries",
+      "pages": [
+        "https://industries.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "sports3",
+      "name": "KP Sports Tourism",
+      "ur": "KP Sports Tourism",
+      "pages": [
+        "https://sports.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "establishment2",
+      "name": "KP Establishment",
+      "ur": "KP Establishment",
+      "pages": [
+        "https://establishment.kp.gov.pk"
+      ]
+    },
+    {
+      "key": "rescue",
+      "name": "Rescue 1122 Punjab",
+      "ur": "Rescue 1122 Punjab",
+      "pages": [
+        "https://rescue.gov.pk"
+      ]
+    },
+    {
+      "key": "rescuekp",
+      "name": "Rescue 1122 KP",
+      "ur": "Rescue 1122 KP",
+      "pages": [
+        "https://rescue.gov.pk/kp"
+      ]
+    },
+    {
+      "key": "health",
+      "name": "Balochistan Health Department",
+      "ur": "Balochistan Health Department",
+      "pages": [
+        "https://health.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "finance4",
+      "name": "Balochistan Finance",
+      "ur": "Balochistan Finance",
+      "pages": [
+        "https://finance.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "pnd3",
+      "name": "Balochistan Planning",
+      "ur": "Balochistan Planning",
+      "pages": [
+        "https://pnd.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "home4",
+      "name": "Balochistan Home Department",
+      "ur": "Balochistan Home Department",
+      "pages": [
+        "https://home.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "agriculture2",
+      "name": "Balochistan Agriculture",
+      "ur": "Balochistan Agriculture",
+      "pages": [
+        "https://agriculture.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "irrigation4",
+      "name": "Balochistan Irrigation",
+      "ur": "Balochistan Irrigation",
+      "pages": [
+        "https://irrigation.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "labour3",
+      "name": "Balochistan Labour",
+      "ur": "Balochistan Labour",
+      "pages": [
+        "https://labour.balochistan.gov.pk"
+      ]
+    },
+    {
+      "key": "bef",
+      "name": "Balochistan Education Foundation",
+      "ur": "Balochistan Education Foundation",
+      "pages": [
+        "https://bef.org.pk"
+      ]
+    },
+    {
+      "key": "bpscjobs",
+      "name": "Balochistan Public Service Commission",
+      "ur": "Balochistan Public Service Commission",
+      "pages": [
+        "https://bpsc.gob.pk/jobs"
+      ]
+    },
+    {
+      "key": "sngplcareers",
+      "name": "Sui Northern Gas Careers",
+      "ur": "Sui Northern Gas Careers",
+      "pages": [
+        "https://sngpl.com.pk/careers"
+      ]
+    },
+    {
+      "key": "ppl",
+      "name": "Pakistan Petroleum Limited",
+      "ur": "Pakistan Petroleum Limited",
+      "pages": [
+        "https://ppl.com.pk"
+      ]
+    },
+    {
+      "key": "marienergies",
+      "name": "Mari Petroleum",
+      "ur": "Mari Petroleum",
+      "pages": [
+        "https://marienergies.com.pk"
+      ]
+    },
+    {
+      "key": "pakoil",
+      "name": "Pakistan Oilfields Limited",
+      "ur": "Pakistan Oilfields Limited",
+      "pages": [
+        "https://pakoil.com.pk"
+      ]
+    },
+    {
+      "key": "arl",
+      "name": "Attock Refinery Limited",
+      "ur": "Attock Refinery Limited",
+      "pages": [
+        "https://arl.com.pk"
+      ]
+    },
+    {
+      "key": "apl",
+      "name": "Attock Petroleum",
+      "ur": "Attock Petroleum",
+      "pages": [
+        "https://apl.com.pk"
+      ]
+    },
+    {
+      "key": "parco2",
+      "name": "Pak-Arab Refinery",
+      "ur": "Pak-Arab Refinery",
+      "pages": [
+        "https://parco.com.pk"
+      ]
+    },
+    {
+      "key": "cnergyico",
+      "name": "Cnergyico",
+      "ur": "Cnergyico",
+      "pages": [
+        "https://cnergyico.com"
+      ]
+    },
+    {
+      "key": "nrlpak",
+      "name": "National Refinery",
+      "ur": "National Refinery",
+      "pages": [
+        "https://nrlpak.com"
+      ]
+    },
+    {
+      "key": "prl",
+      "name": "Pakistan Refinery Limited",
+      "ur": "Pakistan Refinery Limited",
+      "pages": [
+        "https://prl.com.pk"
+      ]
+    },
+    {
+      "key": "shell",
+      "name": "Shell Pakistan",
+      "ur": "Shell Pakistan",
+      "pages": [
+        "https://shell.com.pk"
+      ]
+    },
+    {
+      "key": "hascol",
+      "name": "Hascol Petroleum",
+      "ur": "Hascol Petroleum",
+      "pages": [
+        "https://hascol.com"
+      ]
+    },
+    {
+      "key": "ogra",
+      "name": "Oil and Gas Regulatory Authority",
+      "ur": "Oil and Gas Regulatory Authority",
+      "pages": [
+        "https://ogra.org.pk"
+      ]
+    },
+    {
+      "key": "nepra",
+      "name": "NEPRA",
+      "ur": "NEPRA",
+      "pages": [
+        "https://nepra.org.pk"
+      ]
+    },
+    {
+      "key": "cppa",
+      "name": "Central Power Purchasing Agency",
+      "ur": "Central Power Purchasing Agency",
+      "pages": [
+        "https://cppa.gov.pk"
+      ]
+    },
+    {
+      "key": "ppib",
+      "name": "Private Power and Infrastructure Board",
+      "ur": "Private Power and Infrastructure Board",
+      "pages": [
+        "https://ppib.gov.pk"
+      ]
+    },
+    {
+      "key": "aedb",
+      "name": "Alternative Energy Development Board",
+      "ur": "Alternative Energy Development Board",
+      "pages": [
+        "https://aedb.org"
+      ]
+    },
+    {
+      "key": "wapda",
+      "name": "WAPDA",
+      "ur": "WAPDA",
+      "pages": [
+        "https://wapda.gov.pk"
+      ]
+    },
+    {
+      "key": "wapdacareers",
+      "name": "WAPDA Careers",
+      "ur": "WAPDA Careers",
+      "pages": [
+        "https://wapda.gov.pk/careers"
+      ]
+    },
+    {
+      "key": "ke",
+      "name": "K-Electric",
+      "ur": "K-Electric",
+      "pages": [
+        "https://ke.com.pk"
+      ]
+    },
+    {
+      "key": "lesco",
+      "name": "Lahore Electric Supply Company",
+      "ur": "Lahore Electric Supply Company",
+      "pages": [
+        "https://lesco.gov.pk"
+      ]
+    },
+    {
+      "key": "fesco",
+      "name": "Faisalabad Electric Supply Company",
+      "ur": "Faisalabad Electric Supply Company",
+      "pages": [
+        "https://fesco.com.pk"
+      ]
+    },
+    {
+      "key": "mepco",
+      "name": "Multan Electric Power Company",
+      "ur": "Multan Electric Power Company",
+      "pages": [
+        "https://mepco.com.pk"
+      ]
+    },
+    {
+      "key": "gepco",
+      "name": "Gujranwala Electric Power Company",
+      "ur": "Gujranwala Electric Power Company",
+      "pages": [
+        "https://gepco.com.pk"
+      ]
+    },
+    {
+      "key": "hesco",
+      "name": "Hyderabad Electric Supply Company",
+      "ur": "Hyderabad Electric Supply Company",
+      "pages": [
+        "https://hesco.gov.pk"
+      ]
+    },
+    {
+      "key": "sepco",
+      "name": "Sukkur Electric Power Company",
+      "ur": "Sukkur Electric Power Company",
+      "pages": [
+        "https://sepco.com.pk"
+      ]
+    },
+    {
+      "key": "qesco",
+      "name": "Quetta Electric Supply Company",
+      "ur": "Quetta Electric Supply Company",
+      "pages": [
+        "https://qesco.com.pk"
+      ]
+    },
+    {
+      "key": "tesco",
+      "name": "Tribal Areas Electric Supply Company",
+      "ur": "Tribal Areas Electric Supply Company",
+      "pages": [
+        "https://tesco.gov.pk"
+      ]
+    },
+    {
+      "key": "wapdatarbela",
+      "name": "Tarbela Dam",
+      "ur": "Tarbela Dam",
+      "pages": [
+        "https://wapda.gov.pk/tarbela"
+      ]
+    },
+    {
+      "key": "wapdamangla",
+      "name": "Mangla Dam",
+      "ur": "Mangla Dam",
+      "pages": [
+        "https://wapda.gov.pk/mangla"
+      ]
+    },
+    {
+      "key": "chinapowerhub",
+      "name": "China Power Hub",
+      "ur": "China Power Hub",
+      "pages": [
+        "https://chinapowerhub.com"
+      ]
+    },
+    {
+      "key": "hubpower",
+      "name": "Hub Power Company",
+      "ur": "Hub Power Company",
+      "pages": [
+        "https://hubpower.com"
+      ]
+    },
+    {
+      "key": "kapco",
+      "name": "Kot Addu Power",
+      "ur": "Kot Addu Power",
+      "pages": [
+        "https://kapco.com.pk"
+      ]
+    },
+    {
+      "key": "engropowergen",
+      "name": "Engro Powergen",
+      "ur": "Engro Powergen",
+      "pages": [
+        "https://engropowergen.com"
+      ]
+    },
+    {
+      "key": "nishatpower",
+      "name": "Nishat Power",
+      "ur": "Nishat Power",
+      "pages": [
+        "https://nishatpower.com"
+      ]
+    },
+    {
+      "key": "luckycement",
+      "name": "Lucky Cement",
+      "ur": "Lucky Cement",
+      "pages": [
+        "https://lucky-cement.com"
+      ]
+    },
+    {
+      "key": "mapleleafcement",
+      "name": "Maple Leaf Cement",
+      "ur": "Maple Leaf Cement",
+      "pages": [
+        "https://mapleleafcement.com"
+      ]
+    },
+    {
+      "key": "cherat",
+      "name": "Cherat Cement",
+      "ur": "Cherat Cement",
+      "pages": [
+        "https://cherat.com"
+      ]
+    },
+    {
+      "key": "dgcement",
+      "name": "D G Khan Cement",
+      "ur": "D G Khan Cement",
+      "pages": [
+        "https://dgcement.com"
+      ]
+    },
+    {
+      "key": "fccl",
+      "name": "Fauji Cement",
+      "ur": "Fauji Cement",
+      "pages": [
+        "https://fccl.com.pk"
+      ]
+    },
+    {
+      "key": "bestway",
+      "name": "Bestway Cement",
+      "ur": "Bestway Cement",
+      "pages": [
+        "https://bestway.com.pk"
+      ]
+    },
+    {
+      "key": "kohatcement",
+      "name": "Kohat Cement",
+      "ur": "Kohat Cement",
+      "pages": [
+        "https://kohatcement.com"
+      ]
+    },
+    {
+      "key": "pioneercement",
+      "name": "Pioneer Cement",
+      "ur": "Pioneer Cement",
+      "pages": [
+        "https://pioneercement.com"
+      ]
+    },
+    {
+      "key": "attockcement",
+      "name": "Attock Cement",
+      "ur": "Attock Cement",
+      "pages": [
+        "https://attockcement.com"
+      ]
+    },
+    {
+      "key": "powercement",
+      "name": "Power Cement",
+      "ur": "Power Cement",
+      "pages": [
+        "https://powercement.com"
+      ]
+    },
+    {
+      "key": "packages",
+      "name": "Packages Limited",
+      "ur": "Packages Limited",
+      "pages": [
+        "https://packages.com.pk"
+      ]
+    },
+    {
+      "key": "nishatmills",
+      "name": "Nishat Mills",
+      "ur": "Nishat Mills",
+      "pages": [
+        "https://nishatmills.com"
+      ]
+    },
+    {
+      "key": "gulahmed",
+      "name": "Gul Ahmed Textile",
+      "ur": "Gul Ahmed Textile",
+      "pages": [
+        "https://gulahmed.com"
+      ]
+    },
+    {
+      "key": "interlooppk",
+      "name": "Interloop",
+      "ur": "Interloop",
+      "pages": [
+        "https://interloop-pk.com"
+      ]
+    },
+    {
+      "key": "sapphire",
+      "name": "Sapphire Textile",
+      "ur": "Sapphire Textile",
+      "pages": [
+        "https://sapphire.com.pk"
+      ]
+    },
+    {
+      "key": "artisticmilliners",
+      "name": "Artistic Milliners",
+      "ur": "Artistic Milliners",
+      "pages": [
+        "https://artisticmilliners.com"
+      ]
+    },
+    {
+      "key": "crescenttextile",
+      "name": "Crescent Textile",
+      "ur": "Crescent Textile",
+      "pages": [
+        "https://crescenttextile.com"
+      ]
+    },
+    {
+      "key": "azgard9",
+      "name": "Azgard Nine",
+      "ur": "Azgard Nine",
+      "pages": [
+        "https://azgard9.com"
+      ]
+    },
+    {
+      "key": "servis",
+      "name": "Service Industries",
+      "ur": "Service Industries",
+      "pages": [
+        "https://servis.com"
+      ]
+    },
+    {
+      "key": "bata",
+      "name": "Bata Pakistan",
+      "ur": "Bata Pakistan",
+      "pages": [
+        "https://bata.com.pk"
+      ]
+    },
+    {
+      "key": "nestle",
+      "name": "Nestle Pakistan",
+      "ur": "Nestle Pakistan",
+      "pages": [
+        "https://nestle.pk"
+      ]
+    },
+    {
+      "key": "engrofertilizers",
+      "name": "Engro Fertilizers",
+      "ur": "Engro Fertilizers",
+      "pages": [
+        "https://engrofertilizers.com"
+      ]
+    },
+    {
+      "key": "ffbl",
+      "name": "Fauji Fertilizer Bin Qasim",
+      "ur": "Fauji Fertilizer Bin Qasim",
+      "pages": [
+        "https://ffbl.com"
+      ]
+    },
+    {
+      "key": "fatimagroup",
+      "name": "Fatima Fertilizer",
+      "ur": "Fatima Fertilizer",
+      "pages": [
+        "https://fatima-group.com"
+      ]
+    },
+    {
+      "key": "agritech",
+      "name": "Agritech",
+      "ur": "Agritech",
+      "pages": [
+        "https://agritech.com.pk"
+      ]
+    },
+    {
+      "key": "nfoods",
+      "name": "National Foods",
+      "ur": "National Foods",
+      "pages": [
+        "https://nfoods.com"
+      ]
+    },
+    {
+      "key": "dawlance",
+      "name": "Dawlance",
+      "ur": "Dawlance",
+      "pages": [
+        "https://dawlance.com.pk"
+      ]
+    },
+    {
+      "key": "pel",
+      "name": "Pak Elektron",
+      "ur": "Pak Elektron",
+      "pages": [
+        "https://pel.com.pk"
+      ]
+    },
+    {
+      "key": "haier",
+      "name": "Haier Pakistan",
+      "ur": "Haier Pakistan",
+      "pages": [
+        "https://haier.com.pk"
+      ]
+    },
+    {
+      "key": "honda",
+      "name": "Honda Atlas",
+      "ur": "Honda Atlas",
+      "pages": [
+        "https://honda.com.pk"
+      ]
+    },
+    {
+      "key": "toyotaindus",
+      "name": "Indus Motor Toyota",
+      "ur": "Indus Motor Toyota",
+      "pages": [
+        "https://toyota-indus.com"
+      ]
+    },
+    {
+      "key": "paksuzuki",
+      "name": "Pak Suzuki",
+      "ur": "Pak Suzuki",
+      "pages": [
+        "https://paksuzuki.com.pk"
+      ]
+    },
+    {
+      "key": "millat",
+      "name": "Millat Tractors",
+      "ur": "Millat Tractors",
+      "pages": [
+        "https://millat.com.pk"
+      ]
+    },
+    {
+      "key": "hinopak",
+      "name": "Hinopak Motors",
+      "ur": "Hinopak Motors",
+      "pages": [
+        "https://hinopak.com"
+      ]
+    },
+    {
+      "key": "mastermotors",
+      "name": "Master Motors",
+      "ur": "Master Motors",
+      "pages": [
+        "https://mastermotors.com.pk"
+      ]
+    },
+    {
+      "key": "ptc",
+      "name": "Pakistan Tobacco Company",
+      "ur": "Pakistan Tobacco Company",
+      "pages": [
+        "https://ptc.com.pk"
+      ]
+    },
+    {
+      "key": "pmimarkets",
+      "name": "Philip Morris Pakistan",
+      "ur": "Philip Morris Pakistan",
+      "pages": [
+        "https://pmi.com/markets/pakistan"
+      ]
+    },
+    {
+      "key": "colgatepalmolive",
+      "name": "Colgate Palmolive Pakistan",
+      "ur": "Colgate Palmolive Pakistan",
+      "pages": [
+        "https://colgatepalmolive.com.pk"
+      ]
+    },
+    {
+      "key": "pg",
+      "name": "Procter and Gamble Pakistan",
+      "ur": "Procter and Gamble Pakistan",
+      "pages": [
+        "https://pg.com.pk"
+      ]
+    },
+    {
+      "key": "reckitt",
+      "name": "Reckitt Pakistan",
+      "ur": "Reckitt Pakistan",
+      "pages": [
+        "https://reckitt.com"
+      ]
+    },
+    {
+      "key": "ccbpl",
+      "name": "Coca-Cola Beverages Pakistan",
+      "ur": "Coca-Cola Beverages Pakistan",
+      "pages": [
+        "https://ccbpl.com"
+      ]
+    },
+    {
+      "key": "pepsico",
+      "name": "Pepsi Pakistan",
+      "ur": "Pepsi Pakistan",
+      "pages": [
+        "https://pepsico.com.pk"
+      ]
+    },
+    {
+      "key": "murreebrewery",
+      "name": "Murree Brewery",
+      "ur": "Murree Brewery",
+      "pages": [
+        "https://murreebrewery.com"
+      ]
+    },
+    {
+      "key": "gsk",
+      "name": "GlaxoSmithKline Pakistan",
+      "ur": "GlaxoSmithKline Pakistan",
+      "pages": [
+        "https://gsk.com.pk"
+      ]
+    },
+    {
+      "key": "getzpharma",
+      "name": "Getz Pharma",
+      "ur": "Getz Pharma",
+      "pages": [
+        "https://getzpharma.com"
+      ]
+    },
+    {
+      "key": "searlecompany",
+      "name": "Searle Pakistan",
+      "ur": "Searle Pakistan",
+      "pages": [
+        "https://searlecompany.com"
+      ]
+    },
+    {
+      "key": "abbott",
+      "name": "Abbott Pakistan",
+      "ur": "Abbott Pakistan",
+      "pages": [
+        "https://abbott.com.pk"
+      ]
+    },
+    {
+      "key": "pfizer",
+      "name": "Pfizer Pakistan",
+      "ur": "Pfizer Pakistan",
+      "pages": [
+        "https://pfizer.com.pk"
+      ]
+    },
+    {
+      "key": "sanofi",
+      "name": "Sanofi Pakistan",
+      "ur": "Sanofi Pakistan",
+      "pages": [
+        "https://sanofi.com.pk"
+      ]
+    },
+    {
+      "key": "novartis",
+      "name": "Novartis Pakistan",
+      "ur": "Novartis Pakistan",
+      "pages": [
+        "https://novartis.com.pk"
+      ]
+    },
+    {
+      "key": "bayer",
+      "name": "Bayer Pakistan",
+      "ur": "Bayer Pakistan",
+      "pages": [
+        "https://bayer.com.pk"
+      ]
+    },
+    {
+      "key": "highnoon",
+      "name": "Highnoon Laboratories",
+      "ur": "Highnoon Laboratories",
+      "pages": [
+        "https://highnoon.com.pk"
+      ]
+    },
+    {
+      "key": "hiltonpharma",
+      "name": "Hilton Pharma",
+      "ur": "Hilton Pharma",
+      "pages": [
+        "https://hiltonpharma.com"
+      ]
+    },
+    {
+      "key": "martindow",
+      "name": "Martin Dow",
+      "ur": "Martin Dow",
+      "pages": [
+        "https://martindow.com"
+      ]
+    },
+    {
+      "key": "ferozsonslabs",
+      "name": "Ferozsons Laboratories",
+      "ur": "Ferozsons Laboratories",
+      "pages": [
+        "https://ferozsons-labs.com"
+      ]
+    },
+    {
+      "key": "dra",
+      "name": "DRAP",
+      "ur": "DRAP",
+      "pages": [
+        "https://dra.gov.pk"
+      ]
+    },
+    {
+      "key": "pmdc",
+      "name": "Pakistan Medical and Dental Council",
+      "ur": "Pakistan Medical and Dental Council",
+      "pages": [
+        "https://pmdc.pk"
+      ]
+    },
+    {
+      "key": "pnc",
+      "name": "Pakistan Nursing Council",
+      "ur": "Pakistan Nursing Council",
+      "pages": [
+        "https://pnc.org.pk"
+      ]
+    },
+    {
+      "key": "pec",
+      "name": "Pakistan Engineering Council",
+      "ur": "Pakistan Engineering Council",
+      "pages": [
+        "https://pec.org.pk"
+      ]
+    },
+    {
+      "key": "hecenglish",
+      "name": "Higher Education Commission Jobs",
+      "ur": "Higher Education Commission Jobs",
+      "pages": [
+        "https://hec.gov.pk/english/HECAnnouncements/Pages/Jobs.aspx"
+      ]
+    },
+    {
+      "key": "pakistanbarcouncil",
+      "name": "Pakistan Bar Council",
+      "ur": "Pakistan Bar Council",
+      "pages": [
+        "https://pakistanbarcouncil.org"
+      ]
+    },
+    {
+      "key": "icap",
+      "name": "Institute of Chartered Accountants of Pakistan",
+      "ur": "Institute of Chartered Accountants of Pakistan",
+      "pages": [
+        "https://icap.org.pk"
+      ]
+    },
+    {
+      "key": "icmap",
+      "name": "Institute of Cost and Management Accountants",
+      "ur": "Institute of Cost and Management Accountants",
+      "pages": [
+        "https://icmap.com.pk"
+      ]
+    },
+    {
+      "key": "secp",
+      "name": "Securities and Exchange Commission",
+      "ur": "Securities and Exchange Commission",
+      "pages": [
+        "https://secp.gov.pk"
+      ]
+    },
+    {
+      "key": "psx",
+      "name": "Pakistan Stock Exchange",
+      "ur": "Pakistan Stock Exchange",
+      "pages": [
+        "https://psx.com.pk"
+      ]
+    },
+    {
+      "key": "cdcpakistan",
+      "name": "Central Depository Company",
+      "ur": "Central Depository Company",
+      "pages": [
+        "https://cdcpakistan.com"
+      ]
+    },
+    {
+      "key": "nccpl",
+      "name": "National Clearing Company",
+      "ur": "National Clearing Company",
+      "pages": [
+        "https://nccpl.com.pk"
+      ]
+    },
+    {
+      "key": "scpk",
+      "name": "Standard Chartered Pakistan",
+      "ur": "Standard Chartered Pakistan",
+      "pages": [
+        "https://sc.com/pk"
+      ]
+    },
+    {
+      "key": "bankislami",
+      "name": "Bank Islami",
+      "ur": "Bank Islami",
+      "pages": [
+        "https://bankislami.com.pk"
+      ]
+    },
+    {
+      "key": "dibpak",
+      "name": "Dubai Islamic Bank Pakistan",
+      "ur": "Dubai Islamic Bank Pakistan",
+      "pages": [
+        "https://dibpak.com"
+      ]
+    },
+    {
+      "key": "albaraka",
+      "name": "Al Baraka Bank Pakistan",
+      "ur": "Al Baraka Bank Pakistan",
+      "pages": [
+        "https://albaraka.com.pk"
+      ]
+    },
+    {
+      "key": "habibmetro",
+      "name": "Habib Metropolitan Bank",
+      "ur": "Habib Metropolitan Bank",
+      "pages": [
+        "https://habibmetro.com"
+      ]
+    },
+    {
+      "key": "soneribank",
+      "name": "Soneri Bank",
+      "ur": "Soneri Bank",
+      "pages": [
+        "https://soneribank.com"
+      ]
+    },
+    {
+      "key": "summitbank",
+      "name": "Summit Bank",
+      "ur": "Summit Bank",
+      "pages": [
+        "https://summitbank.com.pk"
+      ]
+    },
+    {
+      "key": "silkbank",
+      "name": "Silkbank",
+      "ur": "Silkbank",
+      "pages": [
+        "https://silkbank.com.pk"
+      ]
+    },
+    {
+      "key": "jsbl",
+      "name": "JS Bank",
+      "ur": "JS Bank",
+      "pages": [
+        "https://jsbl.com"
+      ]
+    },
+    {
+      "key": "sindhbank2",
+      "name": "Sindh Bank",
+      "ur": "Sindh Bank",
+      "pages": [
+        "https://sindhbank.com.pk"
+      ]
+    },
+    {
+      "key": "fwbl",
+      "name": "First Women Bank",
+      "ur": "First Women Bank",
+      "pages": [
+        "https://fwbl.com.pk"
+      ]
+    },
+    {
+      "key": "idbp",
+      "name": "Industrial Development Bank",
+      "ur": "Industrial Development Bank",
+      "pages": [
+        "https://idbp.com.pk"
+      ]
+    },
+    {
+      "key": "hbfc",
+      "name": "House Building Finance Company",
+      "ur": "House Building Finance Company",
+      "pages": [
+        "https://hbfc.com.pk"
+      ]
+    },
+    {
+      "key": "ppcbl",
+      "name": "Punjab Provincial Cooperative Bank",
+      "ur": "Punjab Provincial Cooperative Bank",
+      "pages": [
+        "https://ppcbl.com.pk"
+      ]
+    },
+    {
+      "key": "savings",
+      "name": "National Savings",
+      "ur": "National Savings",
+      "pages": [
+        "https://savings.gov.pk"
+      ]
+    },
+    {
+      "key": "pmrc",
+      "name": "Pakistan Mortgage Refinance",
+      "ur": "Pakistan Mortgage Refinance",
+      "pages": [
+        "https://pmrc.com.pk"
+      ]
+    },
+    {
+      "key": "jubileelife",
+      "name": "Jubilee Life",
+      "ur": "Jubilee Life",
+      "pages": [
+        "https://jubileelife.com"
+      ]
+    },
+    {
+      "key": "efulife",
+      "name": "EFU Life Assurance",
+      "ur": "EFU Life Assurance",
+      "pages": [
+        "https://efulife.com"
+      ]
+    },
+    {
+      "key": "adamjeeinsurance",
+      "name": "Adamjee Insurance",
+      "ur": "Adamjee Insurance",
+      "pages": [
+        "https://adamjeeinsurance.com"
+      ]
+    },
+    {
+      "key": "igi",
+      "name": "IGI Life",
+      "ur": "IGI Life",
+      "pages": [
+        "https://igi.com.pk"
+      ]
+    },
+    {
+      "key": "igicareers",
+      "name": "IGI General Insurance",
+      "ur": "IGI General Insurance",
+      "pages": [
+        "https://igi.com.pk/careers"
+      ]
+    },
+    {
+      "key": "tplinsurance",
+      "name": "TPL Insurance",
+      "ur": "TPL Insurance",
+      "pages": [
+        "https://tplinsurance.com"
+      ]
+    },
+    {
+      "key": "nicl",
+      "name": "National Insurance Company",
+      "ur": "National Insurance Company",
+      "pages": [
+        "https://nicl.com.pk"
+      ]
+    },
+    {
+      "key": "pakre",
+      "name": "Pakistan Reinsurance Company",
+      "ur": "Pakistan Reinsurance Company",
+      "pages": [
+        "https://pakre.org.pk"
+      ]
+    },
+    {
+      "key": "habibinsurance",
+      "name": "Habib Insurance",
+      "ur": "Habib Insurance",
+      "pages": [
+        "https://habibinsurance.com"
+      ]
+    },
+    {
+      "key": "secpcareers",
+      "name": "Security and Exchange Careers",
+      "ur": "Security and Exchange Careers",
+      "pages": [
+        "https://secp.gov.pk/careers"
+      ]
+    },
+    {
+      "key": "ufone",
+      "name": "Ufone",
+      "ur": "Ufone",
+      "pages": [
+        "https://ufone.com"
+      ]
+    },
+    {
+      "key": "jazz2",
+      "name": "Jazz",
+      "ur": "Jazz",
+      "pages": [
+        "https://jazz.com.pk"
+      ]
+    },
+    {
+      "key": "telenor",
+      "name": "Telenor Pakistan",
+      "ur": "Telenor Pakistan",
+      "pages": [
+        "https://telenor.com.pk"
+      ]
+    },
+    {
+      "key": "sco",
+      "name": "SCO Special Communications Organization",
+      "ur": "SCO Special Communications Organization",
+      "pages": [
+        "https://sco.gov.pk"
+      ]
+    },
+    {
+      "key": "ntc",
+      "name": "NTC National Telecommunication Corporation",
+      "ur": "NTC National Telecommunication Corporation",
+      "pages": [
+        "https://ntc.net.pk"
+      ]
+    },
+    {
+      "key": "nayatel",
+      "name": "Nayatel",
+      "ur": "Nayatel",
+      "pages": [
+        "https://nayatel.com"
+      ]
+    },
+    {
+      "key": "stormfiber",
+      "name": "StormFiber",
+      "ur": "StormFiber",
+      "pages": [
+        "https://stormfiber.com"
+      ]
+    },
+    {
+      "key": "wateen",
+      "name": "Wateen",
+      "ur": "Wateen",
+      "pages": [
+        "https://wateen.com"
+      ]
+    },
+    {
+      "key": "worldcall",
+      "name": "WorldCall",
+      "ur": "WorldCall",
+      "pages": [
+        "https://worldcall.com.pk"
+      ]
+    },
+    {
+      "key": "systemsltd",
+      "name": "Systems Limited",
+      "ur": "Systems Limited",
+      "pages": [
+        "https://systemsltd.com"
+      ]
+    },
+    {
+      "key": "netsolpk",
+      "name": "NetSol Technologies",
+      "ur": "NetSol Technologies",
+      "pages": [
+        "https://netsolpk.com"
+      ]
+    },
+    {
+      "key": "10pearls",
+      "name": "10Pearls",
+      "ur": "10Pearls",
+      "pages": [
+        "https://10pearls.com"
+      ]
+    },
+    {
+      "key": "arbisoft",
+      "name": "Arbisoft",
+      "ur": "Arbisoft",
+      "pages": [
+        "https://arbisoft.com"
+      ]
+    },
+    {
+      "key": "folio3",
+      "name": "Folio3",
+      "ur": "Folio3",
+      "pages": [
+        "https://folio3.com"
+      ]
+    },
+    {
+      "key": "afiniti",
+      "name": "Afiniti",
+      "ur": "Afiniti",
+      "pages": [
+        "https://afiniti.com"
+      ]
+    },
+    {
+      "key": "contoursoftware",
+      "name": "Contour Software",
+      "ur": "Contour Software",
+      "pages": [
+        "https://contour-software.com"
+      ]
+    },
+    {
+      "key": "techlogix",
+      "name": "Techlogix",
+      "ur": "Techlogix",
+      "pages": [
+        "https://techlogix.com"
+      ]
+    },
+    {
+      "key": "confiz",
+      "name": "Confiz",
+      "ur": "Confiz",
+      "pages": [
+        "https://confiz.com"
+      ]
+    },
+    {
+      "key": "venturedive",
+      "name": "VentureDive",
+      "ur": "VentureDive",
+      "pages": [
+        "https://venturedive.com"
+      ]
+    },
+    {
+      "key": "bazaartech",
+      "name": "Bazaar Technologies",
+      "ur": "Bazaar Technologies",
+      "pages": [
+        "https://bazaartech.com"
+      ]
+    },
+    {
+      "key": "daraz",
+      "name": "Daraz Pakistan",
+      "ur": "Daraz Pakistan",
+      "pages": [
+        "https://daraz.pk"
+      ]
+    },
+    {
+      "key": "careem",
+      "name": "Careem Pakistan",
+      "ur": "Careem Pakistan",
+      "pages": [
+        "https://careem.com"
+      ]
+    },
+    {
+      "key": "bykea",
+      "name": "Bykea",
+      "ur": "Bykea",
+      "pages": [
+        "https://bykea.com"
+      ]
+    },
+    {
+      "key": "airlift",
+      "name": "Airlift",
+      "ur": "Airlift",
+      "pages": [
+        "https://airlift.tech"
+      ]
+    },
+    {
+      "key": "jazzcareers",
+      "name": "Jazz Digital",
+      "ur": "Jazz Digital",
+      "pages": [
+        "https://jazz.com.pk/careers"
+      ]
+    },
+    {
+      "key": "zongcareers",
+      "name": "Zong Digital",
+      "ur": "Zong Digital",
+      "pages": [
+        "https://zong.com.pk/careers"
+      ]
+    },
+    {
+      "key": "ufonecareers",
+      "name": "Ufone Careers",
+      "ur": "Ufone Careers",
+      "pages": [
+        "https://ufone.com/careers"
+      ]
+    },
+    {
+      "key": "tcsexpress",
+      "name": "TCS Courier",
+      "ur": "TCS Courier",
+      "pages": [
+        "https://tcsexpress.com"
+      ]
+    },
+    {
+      "key": "leopardscourier",
+      "name": "Leopards Courier",
+      "ur": "Leopards Courier",
+      "pages": [
+        "https://leopardscourier.com"
+      ]
+    },
+    {
+      "key": "mulphilog",
+      "name": "M&P Express",
+      "ur": "M&P Express",
+      "pages": [
+        "https://mulphilog.com"
+      ]
+    },
+    {
+      "key": "piac",
+      "name": "Pakistan International Airlines",
+      "ur": "Pakistan International Airlines",
+      "pages": [
+        "https://piac.com.pk"
+      ]
+    },
+    {
+      "key": "airblue",
+      "name": "Airblue",
+      "ur": "Airblue",
+      "pages": [
+        "https://airblue.com"
+      ]
+    },
+    {
+      "key": "flyserene",
+      "name": "Serene Air",
+      "ur": "Serene Air",
+      "pages": [
+        "https://flyserene.com"
+      ]
+    },
+    {
+      "key": "airsial",
+      "name": "AirSial",
+      "ur": "AirSial",
+      "pages": [
+        "https://airsial.com"
+      ]
+    },
+    {
+      "key": "flyjinnah",
+      "name": "Fly Jinnah",
+      "ur": "Fly Jinnah",
+      "pages": [
+        "https://flyjinnah.com"
+      ]
+    },
+    {
+      "key": "caapakistan",
+      "name": "Civil Aviation Authority",
+      "ur": "Civil Aviation Authority",
+      "pages": [
+        "https://caapakistan.com.pk"
+      ]
+    },
+    {
+      "key": "paa",
+      "name": "Pakistan Airports Authority",
+      "ur": "Pakistan Airports Authority",
+      "pages": [
+        "https://paa.gov.pk"
+      ]
+    },
+    {
+      "key": "pakrailcareers",
+      "name": "Pakistan Railways Careers",
+      "ur": "Pakistan Railways Careers",
+      "pages": [
+        "https://pakrail.gov.pk/careers"
+      ]
+    },
+    {
+      "key": "daewoo",
+      "name": "Daewoo Pakistan",
+      "ur": "Daewoo Pakistan",
+      "pages": [
+        "https://daewoo.com.pk"
+      ]
+    },
+    {
+      "key": "faisalmovers",
+      "name": "Faisal Movers",
+      "ur": "Faisal Movers",
+      "pages": [
+        "https://faisalmovers.com"
+      ]
+    },
+    {
+      "key": "nlc",
+      "name": "National Logistics Cell",
+      "ur": "National Logistics Cell",
+      "pages": [
+        "https://nlc.com.pk"
+      ]
+    },
+    {
+      "key": "pakistancables",
+      "name": "Pakistan Cables",
+      "ur": "Pakistan Cables",
+      "pages": [
+        "https://pakistancables.com"
+      ]
+    },
+    {
+      "key": "ptclptcltrust",
+      "name": "Pakistan Telecommunication Employees",
+      "ur": "Pakistan Telecommunication Employees",
+      "pages": [
+        "https://ptcl.com.pk/ptcltrust"
+      ]
+    },
+    {
+      "key": "tribune",
+      "name": "Express Tribune",
+      "ur": "Express Tribune",
+      "pages": [
+        "https://tribune.com.pk"
+      ]
+    },
+    {
+      "key": "dawnclassifieds",
+      "name": "Dawn Jobs",
+      "ur": "Dawn Jobs",
+      "pages": [
+        "https://dawn.com/classifieds"
+      ]
+    },
+    {
+      "key": "jangjobs",
+      "name": "Jang Jobs",
+      "ur": "Jang Jobs",
+      "pages": [
+        "https://jang.com.pk/jobs"
+      ]
+    },
+    {
+      "key": "expressjobs",
+      "name": "Express Jobs",
+      "ur": "Express Jobs",
+      "pages": [
+        "https://express.pk/jobs"
+      ]
+    },
+    {
+      "key": "thenewsjobs",
+      "name": "The News Jobs",
+      "ur": "The News Jobs",
+      "pages": [
+        "https://thenews.com.pk/jobs"
+      ]
+    },
+    {
+      "key": "nawaiwaqt",
+      "name": "Nawa-i-Waqt Jobs",
+      "ur": "Nawa-i-Waqt Jobs",
+      "pages": [
+        "https://nawaiwaqt.com.pk"
+      ]
+    },
+    {
+      "key": "propakistanicategory",
+      "name": "ProPakistani Jobs",
+      "ur": "ProPakistani Jobs",
+      "pages": [
+        "https://propakistani.pk/category/jobs"
+      ]
+    },
+    {
+      "key": "eduvision",
+      "name": "Eduvision",
+      "ur": "Eduvision",
+      "pages": [
+        "https://eduvision.edu.pk"
+      ]
+    },
+    {
+      "key": "paperjobsads",
+      "name": "PaperJobsAds",
+      "ur": "PaperJobsAds",
+      "pages": [
+        "https://paperjobsads.com"
+      ]
+    },
+    {
+      "key": "pakistanjobsbank",
+      "name": "Pakistan Jobs Bank",
+      "ur": "Pakistan Jobs Bank",
+      "pages": [
+        "https://pakistanjobsbank.com"
+      ]
+    },
+    {
+      "key": "jobs",
+      "name": "Jobs.com.pk",
+      "ur": "Jobs.com.pk",
+      "pages": [
+        "https://jobs.com.pk"
+      ]
+    },
+    {
+      "key": "rozee",
+      "name": "Rozee",
+      "ur": "Rozee",
+      "pages": [
+        "https://rozee.pk"
+      ]
+    },
+    {
+      "key": "mustakbil",
+      "name": "Mustakbil",
+      "ur": "Mustakbil",
+      "pages": [
+        "https://mustakbil.com"
+      ]
+    },
+    {
+      "key": "bayten",
+      "name": "Bayt Pakistan",
+      "ur": "Bayt Pakistan",
+      "pages": [
+        "https://bayt.com/en/pakistan"
+      ]
+    },
+    {
+      "key": "pk",
+      "name": "Indeed Pakistan",
+      "ur": "Indeed Pakistan",
+      "pages": [
+        "https://pk.indeed.com"
+      ]
+    },
+    {
+      "key": "linkedinjobs",
+      "name": "LinkedIn Pakistan Jobs",
+      "ur": "LinkedIn Pakistan Jobs",
+      "pages": [
+        "https://linkedin.com/jobs/pakistan-jobs"
+      ]
+    },
+    {
+      "key": "brightspyre",
+      "name": "Brightspyre",
+      "ur": "Brightspyre",
+      "pages": [
+        "https://brightspyre.com"
+      ]
+    },
+    {
+      "key": "jobz",
+      "name": "Jobz.pk",
+      "ur": "Jobz.pk",
+      "pages": [
+        "https://jobz.pk"
+      ]
+    },
+    {
+      "key": "jobsalert",
+      "name": "JobsAlert",
+      "ur": "JobsAlert",
+      "pages": [
+        "https://jobsalert.pk"
+      ]
+    },
+    {
+      "key": "ilmkidunyajobs",
+      "name": "Ilmkidunya Jobs",
+      "ur": "Ilmkidunya Jobs",
+      "pages": [
+        "https://ilmkidunya.com/jobs"
+      ]
+    },
+    {
+      "key": "careers3",
+      "name": "Careers360 Pakistan",
+      "ur": "Careers360 Pakistan",
+      "pages": [
+        "https://careers.com.pk"
+      ]
+    },
+    {
+      "key": "aaj",
+      "name": "Aaj News Jobs",
+      "ur": "Aaj News Jobs",
+      "pages": [
+        "https://aaj.tv"
+      ]
+    },
+    {
+      "key": "geo",
+      "name": "Geo News Jobs",
+      "ur": "Geo News Jobs",
+      "pages": [
+        "https://geo.tv"
+      ]
+    },
+    {
+      "key": "arynews",
+      "name": "ARY News Jobs",
+      "ur": "ARY News Jobs",
+      "pages": [
+        "https://arynews.tv"
+      ]
+    },
+    {
+      "key": "samaa",
+      "name": "Samaa Jobs",
+      "ur": "Samaa Jobs",
+      "pages": [
+        "https://samaa.tv"
+      ]
+    },
+    {
+      "key": "dunyanews",
+      "name": "Dunya News Jobs",
+      "ur": "Dunya News Jobs",
+      "pages": [
+        "https://dunyanews.tv"
+      ]
+    },
+    {
+      "key": "bolnews",
+      "name": "Bol News",
+      "ur": "Bol News",
+      "pages": [
+        "https://bolnews.com"
+      ]
+    },
+    {
+      "key": "hum",
+      "name": "Hum Network",
+      "ur": "Hum Network",
+      "pages": [
+        "https://hum.tv"
+      ]
+    },
+    {
+      "key": "brecorder",
+      "name": "Business Recorder Jobs",
+      "ur": "Business Recorder Jobs",
+      "pages": [
+        "https://brecorder.com"
+      ]
+    },
+    {
+      "key": "dailytimes",
+      "name": "Daily Times Jobs",
+      "ur": "Daily Times Jobs",
+      "pages": [
+        "https://dailytimes.com.pk"
+      ]
+    }
+  ]
+}

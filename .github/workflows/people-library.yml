@@ -1,0 +1,86 @@
+# Builds the people photo library (politicians, officials, international leaders), flags and place photos.
+# Runs on GitHub's machines because it takes longer than the site's 60-second limit. Daily: new names from
+# the news are added and more cut-outs are made.
+name: People library
+on:
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: "Which parts: flags,people,urdu,scenes,cutouts"
+        required: false
+        default: "flags,people,urdu,scenes,cutouts"
+      only:
+        description: "seeds = only the seed list (quick)"
+        required: false
+        default: ""
+      minutes:
+        description: "Time for cut-outs (minutes)"
+        required: false
+        default: "45"
+  # schedule paused until 10 Dec 2026: the Blob store is over its free limit (cut-outs cannot be saved) and this job uses ~48 min a day of GitHub's free minutes.
+  # schedule:
+  #   - cron: "40 22 * * *"   # 03:40 PKT
+permissions:
+  contents: write
+concurrency: { group: people-library, cancel-in-progress: false }
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      SITE: https://www.pakdhartitv.com
+      TOKEN: ${{ secrets.CRON_TOKEN }}
+      STEPS: ${{ github.event.inputs.steps || 'people,cutouts' }}
+      ONLY: ${{ github.event.inputs.only || '' }}
+      MINUTES: ${{ github.event.inputs.minutes || '40' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Flags of all countries and organisations
+        if: contains(env.STEPS, 'flags')
+        run: |
+          git clone --depth 1 https://github.com/lipis/flag-icons /tmp/fi
+          mkdir -p public/flags
+          cp /tmp/fi/flags/4x3/*.svg public/flags/
+          cp /tmp/fi/country.json public/flags/countries.json || true
+          pip install requests
+          python scripts/people/orgflags.py
+          N=$(ls public/flags | wc -l)
+          git config user.name "Pak Dharti bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add public/flags
+          if ! git diff --cached --quiet; then git commit -m "Flags: all countries and organisations"; git pull --rebase; git push; fi
+          echo "::notice title=flags::$N flag files"
+      - name: Install Python packages
+        run: pip install requests pillow
+      - name: People (assemblies, Senate, seeds, names from the news) with free photos
+        if: contains(env.STEPS, 'people')
+        run: python scripts/people/build.py
+      - name: Urdu names and roles
+        if: contains(env.STEPS, 'urdu')
+        run: |
+          for i in $(seq 1 80); do
+            R=$(curl -sS --max-time 70 -H "x-cron-token: $TOKEN" "$SITE/api/cron/people?op=fill-urdu")
+            echo "$R"
+            echo "$R" | grep -q '"left":0' && break
+            echo "$R" | grep -q '"error"' && sleep 20
+          done
+          echo "::notice title=urdu::$(echo $R | head -c 300)"
+      - name: Place photos for card backgrounds
+        if: contains(env.STEPS, 'scenes')
+        run: python scripts/people/scenes.py
+      - name: Start cut-outs again (after a change in the method)
+        if: contains(env.STEPS, 'reset')
+        run: |
+          echo "::notice title=reset::$(curl -sS -X POST --max-time 60 -H "x-cron-token: $TOKEN" -H "content-type: application/json" -d '{}' "$SITE/api/cron/people?op=reset-cutouts")"
+      - name: Cut-outs (head-and-shoulders, background removed)
+        if: contains(env.STEPS, 'cutouts')
+        run: |
+          pip install "rembg[cpu]" onnxruntime pymatting scipy
+          python scripts/people/cutouts.py
+      - name: Library totals
+        if: always()
+        run: |
+          echo "::notice title=library::$(curl -sS --max-time 60 -H "x-cron-token: $TOKEN" "$SITE/api/cron/people?op=stats" | head -c 900)"

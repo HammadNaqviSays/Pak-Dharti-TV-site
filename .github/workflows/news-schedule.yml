@@ -1,0 +1,61 @@
+# Runs the newsroom on a schedule: pulls the RSS feeds, then writes, checks and (if it passes the
+# quality gate) publishes it. Pakistan daytime (06:00-23:59 PKT): two stories per run; night: one.
+# About 1-2 minutes of Actions time per run (roughly 1,300 minutes a month).
+name: Newsroom schedule
+on:
+  schedule:
+    - cron: "17 * * * *"   # every hour at :17 (UTC)
+  workflow_dispatch: {}
+concurrency: { group: newsroom, cancel-in-progress: false }
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      SITE: https://www.pakdhartitv.com
+      # Only the SHA-256 of this token is in the site's code (lib/util.js); it can only start these two jobs.
+      TOKEN: ${{ secrets.CRON_TOKEN }}
+    steps:
+      - name: Pull feeds (also updates petrol prices)
+        run: |
+          R=$(curl -sS --max-time 70 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/ingest" 2>&1 | tr -d '\n' | head -c 3000)
+          echo "::notice title=ingest::$R"
+      - name: Write, check and publish one story
+        run: |
+          R=$(curl -sS --max-time 75 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/process" 2>&1 | tr -d '\n' | head -c 600)
+          echo "::notice title=process 1::$R"
+      - name: Second story during Pakistan daytime (01-18 UTC = 06:00-23:59 PKT)
+        run: |
+          H=$(date -u +%-H)
+          if [ "$H" -ge 1 ] && [ "$H" -le 18 ]; then
+            R=$(curl -sS --max-time 75 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/process" 2>&1 | tr -d '\n' | head -c 600)
+            echo "::notice title=process 2::$R"
+          fi
+      - name: Quick answers (Urdu, English, Roman Urdu) for stories that have none
+        run: |
+          for i in 1 2; do
+            R=$(curl -sS --max-time 75 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/faq?n=4" 2>&1 | tr -d '\n' | head -c 400)
+            echo "::notice title=faq $i::$R"
+          done
+      - name: Third and fourth story during Pakistan daytime
+        run: |
+          H=$(date -u +%-H)
+          if [ "$H" -ge 1 ] && [ "$H" -le 18 ]; then
+            for i in 3 4; do
+              R=$(curl -sS --max-time 75 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/process" 2>&1 | tr -d '\n' | head -c 600)
+              echo "::notice title=process $i::$R"
+            done
+          fi
+      - name: Fix and re-check stories the quality check held back (two per run)
+        run: |
+          for i in 1 2; do
+            R=$(curl -sS --max-time 75 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/process?mode=repair" 2>&1 | tr -d '\n' | head -c 500)
+            echo "::notice title=repair $i::$R"
+          done
+      - name: Post one fresh story to Facebook and Instagram
+        run: |
+          R=$(curl -sS --max-time 75 -w ' [HTTP %{http_code}]' -H "x-cron-token: $TOKEN" "$SITE/api/cron/social" 2>&1 | tr -d '\n' | head -c 700)
+          echo "::notice title=social::$R"

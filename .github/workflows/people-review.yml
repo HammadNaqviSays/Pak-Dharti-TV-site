@@ -1,0 +1,44 @@
+# Quality check: a sheet comparing cut-out models for the most important people (pushed to branch people-review).
+name: People cut-out review
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: "rembg models to compare"
+        required: false
+        default: ""
+permissions:
+  contents: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SITE: https://www.pakdhartitv.com
+      TOKEN: ${{ secrets.CRON_TOKEN }}
+      MODELS: ${{ github.event.inputs.models || '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          pip install requests pillow "rembg[cpu]" onnxruntime pymatting scipy
+      - name: Make the sheet
+        env:
+          REVIEW_N: "16"
+        run: |
+          free -m; df -h / | tail -1
+          timeout 1500 python scripts/people/review.py || echo "::warning title=review::script stopped ($?)"
+      - name: Push the sheet
+        if: always()
+        run: |
+          ls -la review || exit 0
+          git config user.name "Pak Dharti bot"
+          git config user.email "bot@users.noreply.github.com"
+          git checkout --orphan review-tmp
+          git rm -rf --cached . > /dev/null
+          git add -f review/cutouts.jpg
+          git commit -m "Cut-out review sheet"
+          git push -f origin HEAD:people-review

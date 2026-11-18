@@ -1,0 +1,22 @@
+# Puts a guest article from data/guest/ into the database as a draft (see scripts/guest-import.mjs). Run by hand.
+name: guest-import
+on:
+  workflow_dispatch:
+    inputs:
+      file: { description: "json file", required: true, default: "data/guest/these-are-children.json" }
+      publish: { description: "1 = publish it now (default: draft)", required: false, default: "0" }
+permissions:
+  contents: read
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      PUBLISH: ${{ inputs.publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund 2>&1 | tail -2
+      - run: node scripts/guest-import.mjs "${{ inputs.file }}"

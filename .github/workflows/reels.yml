@@ -1,0 +1,77 @@
+# Makes the video for reels whose script is ready: voice + pictures are prepared by the site, the video is drawn here
+# (ffmpeg + a browser), uploaded to the site's database in pieces, and the reel then waits for your OK in Mission Control > Reels.
+name: Reels
+on:
+  workflow_dispatch:
+  # automatic hourly schedule switched off to save GitHub minutes; run it by hand (Run workflow) when reels are wanted
+permissions:
+  contents: read
+concurrency: { group: reels, cancel-in-progress: false }
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SITE: https://www.pakdhartitv.com
+      TOKEN: ${{ secrets.CRON_TOKEN }}
+    steps:
+      - name: Anything to do?
+        id: chk
+        run: |
+          W=$(curl -sS --max-time 30 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=peek" | python3 -c "import sys,json; print(json.load(sys.stdin).get('waiting',0))" 2>/dev/null || echo 0)
+          echo "waiting=$W"
+          echo "waiting=$W" >> "$GITHUB_OUTPUT"
+          echo "hour=$(date -u +%H) min=$(date -u +%M)"
+      - name: Write a new script (the site decides, from the Reels page settings)
+        if: github.event_name == 'schedule'
+        run: |
+          M=$(date -u +%M)
+          if [ "$M" -lt 30 ]; then
+            echo "script: $(curl -sS --max-time 100 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels" | head -c 300)"
+          fi
+      - name: Peek again after the new script
+        id: chk2
+        run: |
+          W=$(curl -sS --max-time 30 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=peek" | python3 -c "import sys,json; print(json.load(sys.stdin).get('waiting',0))" 2>/dev/null || echo 0)
+          echo "waiting=$W" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+      - name: Unpack private fonts
+        env: { FONTS_KEY: "${{ secrets.FONTS_KEY }}" }
+        run: bash scripts/fonts-unpack.sh
+        if: steps.chk2.outputs.waiting != '0'
+      - uses: actions/setup-python@v5
+        if: steps.chk2.outputs.waiting != '0'
+        with: { python-version: "3.11" }
+      - name: Tools
+        if: steps.chk2.outputs.waiting != '0'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install playwright pillow numpy requests
+          playwright install --with-deps chromium
+      - name: Make videos (up to 3 per run)
+        if: steps.chk2.outputs.waiting != '0'
+        run: |
+          for n in 1 2 3; do
+            curl -sS --max-time 100 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=prepare" -o plan.json || { echo "prepare call failed"; break; }
+            if grep -q '"none":true' plan.json; then echo "No script waiting."; break; fi
+            if ! python -c "import json,sys; m=json.load(open('plan.json')).get('manifest'); sys.exit(0 if m else 1)"; then echo "prepare: $(head -c 300 plan.json)"; break; fi
+            python -c "import json; m=json.load(open('plan.json'))['manifest']; json.dump(m, open('manifest.json','w')); open('reel.id','w').write(m['id'])"
+            ID=$(cat reel.id)
+            if python scripts/reels/render.py manifest.json reel.mp4; then
+              rm -f part_*; split -b 3000000 -d -a 2 reel.mp4 part_
+              OK=1; N=0
+              for f in part_*; do
+                curl -sS --fail --max-time 120 -X POST -H "x-cron-token: $TOKEN" -H "content-type: application/octet-stream" --data-binary @$f "$SITE/api/cron/reels?op=upload&id=$ID&part=$N" >/dev/null || OK=0
+                N=$((N+1))
+              done
+              SEC=$(ffprobe -v error -show_entries format=duration -of csv=p=0 reel.mp4)
+              if [ "$OK" = 1 ]; then
+                echo "::notice title=reel $ID::$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=done" --data-urlencode "id=$ID" --data-urlencode "sec=$SEC" --data-urlencode "parts=$N" "$SITE/api/cron/reels")"
+              else
+                curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=upload failed" "$SITE/api/cron/reels"
+              fi
+            else
+              curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=render failed" "$SITE/api/cron/reels"
+            fi
+            rm -rf reel_work reel.mp4 part_* plan.json manifest.json
+          done

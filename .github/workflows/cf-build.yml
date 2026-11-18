@@ -1,0 +1,112 @@
+# Builds the site for Cloudflare Workers and deploys it (every change on main), then sends the secrets and smoke-tests it.
+name: Cloudflare build
+on:
+  push: { branches: [main] }
+  workflow_dispatch: {}
+concurrency: { group: cloudflare-deploy, cancel-in-progress: false }
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      NEXT_PUBLIC_SITE_URL: https://www.pakdhartitv.com
+      NEXT_PUBLIC_FACEBOOK_URL: https://www.facebook.com/PakDhartiTV
+      NEXT_PUBLIC_INSTAGRAM_URL: https://www.instagram.com/pakdhartitv/
+      NEXT_PUBLIC_X_URL: https://x.com/PakDhartiHDTV
+      NEXT_PUBLIC_TIKTOK_URL: https://www.tiktok.com/@Pakdhartitvoff
+    steps:
+      - uses: actions/checkout@v4
+      - name: Unpack private fonts
+        env: { FONTS_KEY: "${{ secrets.FONTS_KEY }}" }
+        run: bash scripts/fonts-unpack.sh
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund
+      - name: Create database indexes (safe to repeat)
+        if: env.MONGODB_URI != ''
+        run: node scripts/create-indexes.mjs
+      - name: Page-cache stores (created once, then reused)
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          python3 - <<'PY'
+          import json, subprocess, re
+          def run(*a): return subprocess.run(["npx", "wrangler", *a], capture_output=True, text=True)
+          def listed():
+              out = run("kv", "namespace", "list").stdout
+              return json.loads(out[out.index("["):out.rindex("]") + 1])
+          ids = {}
+          for ph, title in (("__KV_INC__", "pak-dharti-page-cache"), ("__KV_TAG__", "pak-dharti-tag-cache")):
+              hit = [n for n in listed() if n["title"] == title]
+              if not hit:
+                  r = run("kv", "namespace", "create", title); print(r.stdout[-300:], r.stderr[-300:])
+                  hit = [n for n in listed() if title in n["title"]]
+              ids[ph] = hit[0]["id"]; print(title, "->", ids[ph])
+          s = open("wrangler.jsonc").read()
+          for ph, i in ids.items(): s = s.replace(ph, i)
+          open("wrangler.jsonc", "w").write(s)
+          PY
+      - name: Build for Cloudflare
+        run: npx opennextjs-cloudflare build 2>&1 | tail -150
+      - name: Worker size
+        run: du -sh .open-next .open-next/assets 2>/dev/null; ls -la .open-next/worker.js 2>/dev/null
+      - name: Deploy (only if the Cloudflare token is set)
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx opennextjs-cloudflare deploy 2>&1 | tail -12
+      - name: Send secrets to the Worker
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          WORKER_ENV: ${{ secrets.WORKER_ENV }}
+          GH_DISPATCH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import os, json
+          d = {}
+          raw = os.environ.get("WORKER_ENV") or ""
+          # shape only (names and lengths, never the values) so a formatting slip is easy to spot
+          print("WORKER_ENV:", len(raw), "chars,", len(raw.splitlines()), "lines")
+          for n, line in enumerate(raw.splitlines(), 1):
+              k, sep, v = line.partition("=")
+              print(f"  line {n}: name={k.strip()[:24] if sep else '(no = sign)'} value_length={len(v.strip()) if sep else len(line.strip())}")
+          for line in raw.splitlines():
+              line = line.strip()
+              if not line or line.startswith("#") or "=" not in line: continue
+              k, v = line.split("=", 1)
+              k = k.strip()
+              if k.startswith("export "): k = k[7:].strip()
+              v = v.strip()
+              if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'": v = v[1:-1]
+              if k and v: d[k] = v
+          if os.environ.get("MONGODB_URI"): d["MONGODB_URI"] = os.environ["MONGODB_URI"]
+          if os.environ.get("GH_DISPATCH_TOKEN"): d["GH_DISPATCH_TOKEN"] = os.environ["GH_DISPATCH_TOKEN"]
+          # internal keys nobody types: made once (random) if the Worker does not have them yet
+          import subprocess, secrets as rnd
+          have = subprocess.run(["npx", "wrangler", "secret", "list", "--name", "pak-dharti-tv"], capture_output=True, text=True).stdout
+          for k in ("SESSION_SECRET", "CRON_SECRET", "ADMIN_API_KEY"):
+              if k not in d and f'"{k}"' not in have: d[k] = rnd.token_urlsafe(36)
+          print("already on the Worker:", sorted(set(__import__("re").findall(r'"name":\s*"([A-Z0-9_]+)"', have))))
+          json.dump(d, open("secrets.json", "w"))
+          print("secrets to send:", sorted(d))
+          PY
+          [ -s secrets.json ] && npx wrangler secret bulk secrets.json --name pak-dharti-tv 2>&1 | tail -8
+          rm -f secrets.json
+      - name: Smoke test the live Worker (with live logs)
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: |
+          U=https://pak-dharti-tv.hammadnaqvisays.workers.dev
+          for p in /en /admin /sitemap.xml /news-sitemap.xml /ur/feed.xml; do
+            echo "== $p"; curl -sS -m 60 -L -o /tmp/b.txt -w "HTTP %{http_code} %{size_download}B %{time_total}s\n" "$U$p" || true
+          done
+          echo "== redirects"; for h in https://pakdhartitv.com/en https://pak-dharti-tv.hammadnaqvisays.workers.dev/en; do curl -sS -m 30 -o /dev/null -w "$h -> %{http_code} %{redirect_url}\n" "$h" || true; done
+          echo "== warm sitemap"; for i in 1 2; do curl -sS -m 90 -o /dev/null -w "sitemap %{http_code} %{time_total}s\n" https://www.pakdhartitv.com/sitemap.xml || true; done
+          echo "== ads.txt"; curl -sS -m 30 -w "\nHTTP %{http_code}\n" https://www.pakdhartitv.com/ads.txt || true
+          echo "== hreflang / canonical (home and an article)"
+          curl -sS -m 60 https://www.pakdhartitv.com/en | grep -o '<link rel="\(alternate\|canonical\)"[^>]*>' | head -12 || true
+          A=$(curl -sS -m 60 https://www.pakdhartitv.com/sitemap.xml | grep -o 'https://www.pakdhartitv.com/en/news/[^<]*' | head -1); echo "article: $A"
+          curl -sS -m 60 "$A" | grep -o '<link rel="\(alternate\|canonical\)"[^>]*>' | head -12 || true
+          echo done

@@ -1,0 +1,1499 @@
+{
+ "_note": "Names are resolved on Wikipedia (exact title, then search). priority: 100 = top story figure (most photos + cut-outs). Roles come from Wikipedia/Wikidata and are refreshed by the newsroom.",
+ "pti": {
+  "priority": 70,
+  "groups": [
+   "pti"
+  ],
+  "names": [
+   [
+    "Imran Khan",
+    100
+   ],
+   [
+    "Bushra Bibi",
+    90
+   ],
+   [
+    "Aleema Khan",
+    90
+   ],
+   [
+    "Uzma Khan",
+    80
+   ],
+   [
+    "Noreen Niazi",
+    80
+   ],
+   [
+    "Shah Mahmood Qureshi",
+    90
+   ],
+   [
+    "Yasmin Rashid",
+    85
+   ],
+   [
+    "Mian Mahmood ur Rasheed",
+    80
+   ],
+   [
+    "Ejaz Chaudhary",
+    80
+   ],
+   [
+    "Omar Sarfraz Cheema",
+    80
+   ],
+   [
+    "Sanam Javed",
+    80
+   ],
+   [
+    "Falak Javed",
+    70
+   ],
+   [
+    "Mehr Bano Qureshi",
+    80
+   ],
+   [
+    "Zain Qureshi",
+    70
+   ],
+   [
+    "Gohar Ali Khan",
+    90
+   ],
+   [
+    "Ali Amin Gandapur",
+    90
+   ],
+   [
+    "Sohail Afridi",
+    95
+   ],
+   [
+    "Junaid Akbar",
+    85
+   ],
+   [
+    "Asad Qaiser",
+    85
+   ],
+   [
+    "Omar Ayub Khan",
+    85
+   ],
+   [
+    "Salman Akram Raja",
+    85
+   ],
+   [
+    "Sheikh Waqas Akram",
+    75
+   ],
+   [
+    "Raoof Hasan",
+    70
+   ],
+   [
+    "Zulfi Bukhari",
+    70
+   ],
+   [
+    "Shahbaz Gill",
+    70
+   ],
+   [
+    "Latif Khosa",
+    75
+   ],
+   [
+    "Sher Afzal Khan Marwat",
+    75
+   ],
+   [
+    "Hamid Khan (lawyer)",
+    70
+   ],
+   [
+    "Ali Muhammad Khan",
+    70
+   ],
+   [
+    "Shibli Faraz",
+    75
+   ],
+   [
+    "Zartaj Gul",
+    75
+   ],
+   [
+    "Alia Hamza Malik",
+    65
+   ],
+   [
+    "Kanwal Shauzab",
+    60
+   ],
+   [
+    "Aun Abbas Bappi",
+    60
+   ],
+   [
+    "Hammad Azhar",
+    80
+   ],
+   [
+    "Murad Saeed",
+    75
+   ],
+   [
+    "Qasim Suri",
+    65
+   ],
+   [
+    "Azam Swati",
+    70
+   ],
+   [
+    "Ali Haider Zaidi",
+    65
+   ],
+   [
+    "Andleeb Abbas",
+    60
+   ],
+   [
+    "Asad Umar",
+    65
+   ],
+   [
+    "Hassaan Niazi",
+    70
+   ],
+   [
+    "Fawad Chaudhry",
+    75
+   ],
+   [
+    "Chaudhry Pervaiz Elahi",
+    80
+   ],
+   [
+    "Moonis Elahi",
+    65
+   ],
+   [
+    "Pervez Khattak",
+    65
+   ],
+   [
+    "Mahmood Khan (politician)",
+    65
+   ],
+   [
+    "Ali Zafar (politician)",
+    70
+   ],
+   [
+    "Babar Awan",
+    65
+   ],
+   [
+    "Shireen Mazari",
+    75
+   ],
+   [
+    "Imaan Mazari",
+    70
+   ],
+   [
+    "Ahmad Khan Bhachar",
+    60
+   ],
+   [
+    "Malik Ahmad Khan Bhachar",
+    60
+   ],
+   [
+    "Shehryar Afridi",
+    65
+   ],
+   [
+    "Atif Khan",
+    60
+   ],
+   [
+    "Taimur Saleem Jhagra",
+    65
+   ],
+   [
+    "Kamran Bangash",
+    60
+   ],
+   [
+    "Meena Khan Afridi",
+    55
+   ],
+   [
+    "Mushal Yousafzai",
+    65
+   ],
+   [
+    "Arbab Sher Ali",
+    55
+   ],
+   [
+    "Shaukat Yousafzai",
+    55
+   ],
+   [
+    "Faisal Javed Khan",
+    65
+   ],
+   [
+    "Shandana Gulzar",
+    60
+   ],
+   [
+    "Mahmood Khan Achakzai",
+    80
+   ],
+   [
+    "Raja Nasir Abbas",
+    75
+   ],
+   [
+    "Sahibzada Hamid Raza",
+    60
+   ],
+   [
+    "Ijaz Chaudhry",
+    60
+   ],
+   [
+    "Usman Dar",
+    60
+   ],
+   [
+    "Farrukh Habib",
+    60
+   ],
+   [
+    "Musarrat Jamshed Cheema",
+    60
+   ],
+   [
+    "Jamshed Iqbal Cheema",
+    55
+   ],
+   [
+    "Ali Nawaz Awan",
+    55
+   ],
+   [
+    "Qasim Khan Suri",
+    55
+   ],
+   [
+    "Waseem Shahzad",
+    50
+   ],
+   [
+    "Abuzar Chaddar",
+    50
+   ],
+   [
+    "Akhtar Mengal",
+    70
+   ],
+   [
+    "Shaukat Basra",
+    55
+   ]
+  ]
+ },
+ "federal": {
+  "priority": 75,
+  "groups": [
+   "federal"
+  ],
+  "names": [
+   [
+    "Shehbaz Sharif",
+    100
+   ],
+   [
+    "Nawaz Sharif",
+    95
+   ],
+   [
+    "Maryam Nawaz",
+    100
+   ],
+   [
+    "Asif Ali Zardari",
+    95
+   ],
+   [
+    "Bilawal Bhutto Zardari",
+    95
+   ],
+   [
+    "Aseefa Bhutto Zardari",
+    75
+   ],
+   [
+    "Ishaq Dar",
+    85
+   ],
+   [
+    "Khawaja Asif",
+    85
+   ],
+   [
+    "Ahsan Iqbal",
+    80
+   ],
+   [
+    "Mohsin Naqvi",
+    90
+   ],
+   [
+    "Rana Sanaullah",
+    85
+   ],
+   [
+    "Attaullah Tarar",
+    85
+   ],
+   [
+    "Muhammad Aurangzeb",
+    80
+   ],
+   [
+    "Azam Nazeer Tarar",
+    80
+   ],
+   [
+    "Talal Chaudhry",
+    70
+   ],
+   [
+    "Ayaz Sadiq",
+    80
+   ],
+   [
+    "Yusuf Raza Gilani",
+    80
+   ],
+   [
+    "Hamza Shahbaz",
+    75
+   ],
+   [
+    "Marriyum Aurangzeb",
+    75
+   ],
+   [
+    "Azma Bukhari",
+    75
+   ],
+   [
+    "Sarfraz Bugti",
+    85
+   ],
+   [
+    "Murad Ali Shah",
+    85
+   ],
+   [
+    "Faisal Karim Kundi",
+    70
+   ],
+   [
+    "Kamran Tessori",
+    70
+   ],
+   [
+    "Sardar Saleem Haider Khan",
+    65
+   ],
+   [
+    "Jafar Khan Mandokhail",
+    60
+   ],
+   [
+    "Musadik Malik",
+    65
+   ],
+   [
+    "Khalid Maqbool Siddiqui",
+    70
+   ],
+   [
+    "Mustafa Kamal",
+    70
+   ],
+   [
+    "Aleem Khan",
+    70
+   ],
+   [
+    "Ahad Cheema",
+    60
+   ],
+   [
+    "Jam Kamal Khan",
+    60
+   ],
+   [
+    "Awais Leghari",
+    60
+   ],
+   [
+    "Qaiser Ahmed Sheikh",
+    55
+   ],
+   [
+    "Ali Pervaiz Malik",
+    55
+   ],
+   [
+    "Shaza Fatima Khawaja",
+    60
+   ],
+   [
+    "Hanif Abbasi",
+    60
+   ],
+   [
+    "Sherry Rehman",
+    70
+   ],
+   [
+    "Sharmila Faruqui",
+    60
+   ],
+   [
+    "Saeed Ghani",
+    60
+   ],
+   [
+    "Nasir Hussain Shah",
+    55
+   ],
+   [
+    "Sharjeel Memon",
+    65
+   ],
+   [
+    "Raja Pervaiz Ashraf",
+    65
+   ],
+   [
+    "Khursheed Shah",
+    60
+   ],
+   [
+    "Nayyar Hussain Bukhari",
+    55
+   ],
+   [
+    "Shazia Marri",
+    60
+   ],
+   [
+    "Nadeem Afzal Chan",
+    55
+   ],
+   [
+    "Qamar Zaman Kaira",
+    60
+   ],
+   [
+    "Faisal Vawda",
+    70
+   ],
+   [
+    "Jahangir Tareen",
+    70
+   ],
+   [
+    "Shahid Khaqan Abbasi",
+    70
+   ],
+   [
+    "Miftah Ismail",
+    65
+   ],
+   [
+    "Chaudhry Shujaat Hussain",
+    70
+   ],
+   [
+    "Chaudhry Salik Hussain",
+    55
+   ],
+   [
+    "Fazal-ur-Rehman (politician)",
+    90
+   ],
+   [
+    "Hafiz Naeem ur Rehman",
+    85
+   ],
+   [
+    "Siraj-ul-Haq",
+    70
+   ],
+   [
+    "Aimal Wali Khan",
+    60
+   ],
+   [
+    "Asfandyar Wali Khan",
+    60
+   ],
+   [
+    "Altaf Hussain",
+    65
+   ],
+   [
+    "Farooq Sattar",
+    60
+   ],
+   [
+    "Javed Hashmi",
+    70
+   ],
+   [
+    "Sheikh Rasheed Ahmad",
+    75
+   ],
+   [
+    "Mustafa Nawaz Khokhar",
+    55
+   ],
+   [
+    "Fatima Bhutto",
+    55
+   ],
+   [
+    "Arif Alvi",
+    80
+   ],
+   [
+    "Mamnoon Hussain",
+    50
+   ],
+   [
+    "Anwaar-ul-Haq Kakar",
+    65
+   ],
+   [
+    "Mohsin Dawar",
+    55
+   ],
+   [
+    "Manzoor Pashteen",
+    70
+   ],
+   [
+    "Ali Wazir",
+    55
+   ],
+   [
+    "Ghulam Ahmad Bilour",
+    50
+   ],
+   [
+    "Amir Muqam",
+    65
+   ],
+   [
+    "Kamran Murtaza",
+    50
+   ],
+   [
+    "Abdul Ghafoor Haideri",
+    55
+   ],
+   [
+    "Mian Javed Latif",
+    55
+   ],
+   [
+    "Rana Mashhood Ahmad Khan",
+    55
+   ],
+   [
+    "Maryam Aurangzeb",
+    60
+   ]
+  ]
+ },
+ "military": {
+  "priority": 80,
+  "groups": [
+   "military"
+  ],
+  "names": [
+   [
+    "Asim Munir",
+    100
+   ],
+   [
+    "Zaheer Ahmad Babar Sidhu",
+    80
+   ],
+   [
+    "Naveed Ashraf",
+    75
+   ],
+   [
+    "Sahir Shamshad Mirza",
+    70
+   ],
+   [
+    "Ahmed Sharif Chaudhry",
+    90
+   ],
+   [
+    "Muhammad Asim Malik",
+    80
+   ],
+   [
+    "Qamar Javed Bajwa",
+    80
+   ],
+   [
+    "Faiz Hameed",
+    85
+   ],
+   [
+    "Raheel Sharif",
+    70
+   ],
+   [
+    "Ashfaq Parvez Kayani",
+    65
+   ],
+   [
+    "Nadeem Anjum",
+    60
+   ],
+   [
+    "Babar Iftikhar",
+    60
+   ]
+  ]
+ },
+ "police": {
+  "priority": 45,
+  "groups": [
+   "police"
+  ],
+  "names": [
+   [
+    "Usman Anwar",
+    60
+   ],
+   [
+    "Zulfiqar Hameed",
+    50
+   ],
+   [
+    "Ghulam Nabi Memon",
+    50
+   ],
+   [
+    "Ali Nasir Rizvi",
+    50
+   ],
+   [
+    "Moazzam Jah Ansari",
+    45
+   ]
+  ]
+ },
+ "judiciary": {
+  "priority": 70,
+  "groups": [
+   "judiciary"
+  ],
+  "names": [
+   [
+    "Yahya Afridi",
+    90
+   ],
+   [
+    "Qazi Faez Isa",
+    85
+   ],
+   [
+    "Syed Mansoor Ali Shah",
+    85
+   ],
+   [
+    "Athar Minallah",
+    80
+   ],
+   [
+    "Munib Akhtar",
+    75
+   ],
+   [
+    "Aminuddin Khan",
+    75
+   ],
+   [
+    "Jamal Khan Mandokhail",
+    65
+   ],
+   [
+    "Ayesha Malik",
+    70
+   ],
+   [
+    "Umar Ata Bandial",
+    70
+   ],
+   [
+    "Saqib Nisar",
+    70
+   ],
+   [
+    "Iftikhar Muhammad Chaudhry",
+    70
+   ],
+   [
+    "Aamer Farooq",
+    65
+   ],
+   [
+    "Babar Sattar",
+    70
+   ],
+   [
+    "Mohsin Akhtar Kayani",
+    65
+   ],
+   [
+    "Tariq Mehmood Jahangiri",
+    65
+   ],
+   [
+    "Sikandar Sultan Raja",
+    85
+   ],
+   [
+    "Asma Jahangir",
+    60
+   ],
+   [
+    "Aitzaz Ahsan",
+    70
+   ],
+   [
+    "Shoaib Shaheen",
+    60
+   ],
+   [
+    "Faisal Chaudhry",
+    55
+   ]
+  ]
+ },
+ "historical": {
+  "priority": 60,
+  "groups": [
+   "historical"
+  ],
+  "names": [
+   [
+    "Muhammad Ali Jinnah",
+    90
+   ],
+   [
+    "Allama Iqbal",
+    85
+   ],
+   [
+    "Liaquat Ali Khan",
+    75
+   ],
+   [
+    "Fatima Jinnah",
+    75
+   ],
+   [
+    "Zulfikar Ali Bhutto",
+    90
+   ],
+   [
+    "Benazir Bhutto",
+    90
+   ],
+   [
+    "Muhammad Zia-ul-Haq",
+    85
+   ],
+   [
+    "Pervez Musharraf",
+    85
+   ],
+   [
+    "Ayub Khan",
+    75
+   ],
+   [
+    "Yahya Khan",
+    65
+   ],
+   [
+    "Muhammad Khan Junejo",
+    55
+   ],
+   [
+    "Ghulam Ishaq Khan",
+    60
+   ],
+   [
+    "Farooq Leghari",
+    55
+   ],
+   [
+    "Muhammad Rafiq Tarar",
+    55
+   ],
+   [
+    "Abdul Qadeer Khan",
+    80
+   ],
+   [
+    "Abdul Sattar Edhi",
+    80
+   ],
+   [
+    "Nusrat Bhutto",
+    60
+   ],
+   [
+    "Murtaza Bhutto",
+    55
+   ],
+   [
+    "Arshad Sharif",
+    70
+   ],
+   [
+    "Abdul Rashid Ghazi",
+    50
+   ],
+   [
+    "Khan Abdul Ghaffar Khan",
+    60
+   ],
+   [
+    "Hussain Shaheed Suhrawardy",
+    50
+   ],
+   [
+    "Iskander Mirza",
+    50
+   ],
+   [
+    "Khawaja Nazimuddin",
+    50
+   ],
+   [
+    "Faiz Ahmad Faiz",
+    60
+   ],
+   [
+    "Abdul Hafeez Kardar",
+    30
+   ],
+   [
+    "Arfa Karim",
+    40
+   ]
+  ]
+ },
+ "sports": {
+  "priority": 55,
+  "groups": [
+   "sports"
+  ],
+  "names": [
+   [
+    "Babar Azam",
+    85
+   ],
+   [
+    "Shaheen Afridi",
+    80
+   ],
+   [
+    "Mohammad Rizwan",
+    80
+   ],
+   [
+    "Salman Ali Agha",
+    75
+   ],
+   [
+    "Fakhar Zaman",
+    65
+   ],
+   [
+    "Naseem Shah",
+    65
+   ],
+   [
+    "Haris Rauf",
+    60
+   ],
+   [
+    "Shadab Khan",
+    60
+   ],
+   [
+    "Saim Ayub",
+    65
+   ],
+   [
+    "Abrar Ahmed",
+    55
+   ],
+   [
+    "Arshad Nadeem",
+    85
+   ],
+   [
+    "Wasim Akram",
+    70
+   ],
+   [
+    "Shoaib Akhtar",
+    70
+   ],
+   [
+    "Shahid Afridi",
+    75
+   ],
+   [
+    "Inzamam-ul-Haq",
+    60
+   ],
+   [
+    "Misbah-ul-Haq",
+    60
+   ],
+   [
+    "Ramiz Raja",
+    60
+   ],
+   [
+    "Aqib Javed",
+    55
+   ],
+   [
+    "Jahangir Khan",
+    50
+   ],
+   [
+    "Jansher Khan",
+    45
+   ],
+   [
+    "Fatima Sana",
+    55
+   ],
+   [
+    "Nida Dar",
+    50
+   ]
+  ]
+ },
+ "public": {
+  "priority": 50,
+  "groups": [
+   "public"
+  ],
+  "names": [
+   [
+    "Malala Yousafzai",
+    80
+   ],
+   [
+    "Tariq Jameel",
+    70
+   ],
+   [
+    "Mufti Taqi Usmani",
+    65
+   ],
+   [
+    "Javed Ahmad Ghamidi",
+    60
+   ],
+   [
+    "Atif Aslam",
+    55
+   ],
+   [
+    "Mahira Khan",
+    55
+   ],
+   [
+    "Hamid Mir",
+    75
+   ],
+   [
+    "Asma Shirazi",
+    60
+   ],
+   [
+    "Najam Sethi",
+    60
+   ],
+   [
+    "Kamran Khan (journalist)",
+    55
+   ],
+   [
+    "Moeed Pirzada",
+    60
+   ],
+   [
+    "Sabir Shakir",
+    55
+   ],
+   [
+    "Imran Riaz Khan",
+    70
+   ],
+   [
+    "Ahmad Noorani",
+    55
+   ],
+   [
+    "Mansoor Ali Khan (journalist)",
+    50
+   ],
+   [
+    "Malik Riaz",
+    70
+   ],
+   [
+    "Mian Muhammad Mansha",
+    50
+   ],
+   [
+    "Fakhr-e-Alam",
+    40
+   ],
+   [
+    "Muneeb Farooq",
+    60
+   ],
+   [
+    "Gharidah Farooqi",
+    55
+   ],
+   [
+    "Shahzeb Khanzada",
+    55
+   ],
+   [
+    "Kashif Abbasi",
+    50
+   ],
+   [
+    "Syed Talat Hussain",
+    55
+   ],
+   [
+    "Javed Chaudhry",
+    50
+   ],
+   [
+    "Hassan Nisar",
+    50
+   ],
+   [
+    "Orya Maqbool Jan",
+    50
+   ],
+   [
+    "Sami Ibrahim",
+    45
+   ],
+   [
+    "Rauf Klasra",
+    50
+   ],
+   [
+    "Matiullah Jan",
+    50
+   ],
+   [
+    "Asad Ali Toor",
+    45
+   ],
+   [
+    "Habib Akram",
+    40
+   ],
+   [
+    "Mubashir Lucman",
+    50
+   ],
+   [
+    "Iqrar ul Hassan",
+    45
+   ],
+   [
+    "Wajahat Saeed Khan",
+    45
+   ],
+   [
+    "Saqib Bashir",
+    40
+   ],
+   [
+    "Arshad Sharif",
+    60
+   ]
+  ]
+ },
+ "international": {
+  "priority": 70,
+  "groups": [
+   "international"
+  ],
+  "names": [
+   [
+    "Donald Trump",
+    100
+   ],
+   [
+    "JD Vance",
+    75
+   ],
+   [
+    "Marco Rubio",
+    80
+   ],
+   [
+    "Pete Hegseth",
+    65
+   ],
+   [
+    "Steve Witkoff",
+    60
+   ],
+   [
+    "Elon Musk",
+    75
+   ],
+   [
+    "Joe Biden",
+    65
+   ],
+   [
+    "Barack Obama",
+    55
+   ],
+   [
+    "Kamala Harris",
+    55
+   ],
+   [
+    "Vladimir Putin",
+    95
+   ],
+   [
+    "Sergey Lavrov",
+    70
+   ],
+   [
+    "Xi Jinping",
+    95
+   ],
+   [
+    "Wang Yi",
+    75
+   ],
+   [
+    "Li Qiang",
+    65
+   ],
+   [
+    "Narendra Modi",
+    95
+   ],
+   [
+    "S. Jaishankar",
+    80
+   ],
+   [
+    "Rajnath Singh",
+    75
+   ],
+   [
+    "Amit Shah",
+    70
+   ],
+   [
+    "Rahul Gandhi",
+    70
+   ],
+   [
+    "Ajit Doval",
+    65
+   ],
+   [
+    "Ali Khamenei",
+    90
+   ],
+   [
+    "Masoud Pezeshkian",
+    85
+   ],
+   [
+    "Abbas Araghchi",
+    80
+   ],
+   [
+    "Mohammed bin Salman",
+    90
+   ],
+   [
+    "King Salman",
+    70
+   ],
+   [
+    "Faisal bin Farhan Al Saud",
+    70
+   ],
+   [
+    "Mohamed bin Zayed Al Nahyan",
+    80
+   ],
+   [
+    "Tamim bin Hamad Al Thani",
+    75
+   ],
+   [
+    "Recep Tayyip Erdoğan",
+    90
+   ],
+   [
+    "Hakan Fidan",
+    70
+   ],
+   [
+    "Benjamin Netanyahu",
+    90
+   ],
+   [
+    "Volodymyr Zelenskyy",
+    85
+   ],
+   [
+    "Keir Starmer",
+    75
+   ],
+   [
+    "Emmanuel Macron",
+    75
+   ],
+   [
+    "Friedrich Merz",
+    70
+   ],
+   [
+    "Giorgia Meloni",
+    65
+   ],
+   [
+    "Ursula von der Leyen",
+    65
+   ],
+   [
+    "António Guterres",
+    80
+   ],
+   [
+    "Mark Rutte",
+    55
+   ],
+   [
+    "Hibatullah Akhundzada",
+    80
+   ],
+   [
+    "Amir Khan Muttaqi",
+    80
+   ],
+   [
+    "Sirajuddin Haqqani",
+    70
+   ],
+   [
+    "Zabihullah Mujahid",
+    65
+   ],
+   [
+    "Hamid Karzai",
+    60
+   ],
+   [
+    "Ashraf Ghani",
+    55
+   ],
+   [
+    "Ilham Aliyev",
+    70
+   ],
+   [
+    "Kassym-Jomart Tokayev",
+    60
+   ],
+   [
+    "Shavkat Mirziyoyev",
+    60
+   ],
+   [
+    "Emomali Rahmon",
+    50
+   ],
+   [
+    "Anwar Ibrahim",
+    70
+   ],
+   [
+    "Prabowo Subianto",
+    65
+   ],
+   [
+    "Muhammad Yunus",
+    70
+   ],
+   [
+    "Sheikh Hasina",
+    65
+   ],
+   [
+    "Abdel Fattah el-Sisi",
+    70
+   ],
+   [
+    "Abdullah II of Jordan",
+    60
+   ],
+   [
+    "Mahmoud Abbas",
+    70
+   ],
+   [
+    "Khalil al-Hayya",
+    55
+   ],
+   [
+    "Ahmed al-Sharaa",
+    70
+   ],
+   [
+    "Mohammed bin Abdulrahman bin Jassim Al Thani",
+    60
+   ],
+   [
+    "Hamad bin Isa Al Khalifa",
+    50
+   ],
+   [
+    "Haitham bin Tariq",
+    50
+   ],
+   [
+    "Mohammed Shia' Al Sudani",
+    50
+   ],
+   [
+    "Abdelmadjid Tebboune",
+    40
+   ],
+   [
+    "Lee Jae-myung",
+    55
+   ],
+   [
+    "Kim Jong Un",
+    65
+   ],
+   [
+    "Sanae Takaichi",
+    55
+   ],
+   [
+    "Anthony Albanese",
+    50
+   ],
+   [
+    "Mark Carney",
+    60
+   ],
+   [
+    "Luiz Inácio Lula da Silva",
+    55
+   ],
+   [
+    "Javier Milei",
+    50
+   ],
+   [
+    "Claudia Sheinbaum",
+    45
+   ],
+   [
+    "Pope Leo XIV",
+    65
+   ],
+   [
+    "Mohammed VI of Morocco",
+    45
+   ],
+   [
+    "Bill Gates",
+    50
+   ],
+   [
+    "Mark Zuckerberg",
+    50
+   ],
+   [
+    "Sam Altman",
+    50
+   ],
+   [
+    "Cristiano Ronaldo",
+    60
+   ],
+   [
+    "Lionel Messi",
+    60
+   ],
+   [
+    "Virat Kohli",
+    60
+   ]
+  ]
+ }
+}
