@@ -970,3 +970,13 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .wp-photo { object-view-box: inset(0 4.5% 9% 4.5%); border-radius: 20px; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #E2B007, 0 8px 18px rgba(0,0,0,.16); margin-top: 1.7rem; }
 .wp-hero { padding: .9rem 1.2rem; gap: 1.4rem; border-inline-start-width: 4px; margin-bottom: 1rem; }
 @media (max-width: 640px) { .wp-hero { padding: .8rem; gap: 1rem; } .wp-photo { margin-top: 0; } }
+
+/* writer card: the text side is exactly as tall as the picture; the three buttons sit in one row */
+.wp-hero { align-items: stretch; }
+.wp-photo { align-self: stretch; margin-top: 0; height: auto; min-height: 357px; }
+.wp-hero > div { justify-content: space-between; align-self: stretch; }
+.wp-connect { margin-top: auto; padding-top: .7rem; }
+.wp-connect .wlinks { flex-wrap: nowrap; gap: .5rem; }
+.wp-connect .wlinks li { flex: 1 1 0; min-width: 0; }
+.wp-connect .wlink { padding: .5rem .4rem; font-size: .88rem; justify-content: center; white-space: nowrap; gap: .35rem; }
+@media (max-width: 640px) { .wp-photo { align-self: center; min-height: 0; height: min(98.5vw, 372px); } .wp-connect .wlinks { flex-wrap: wrap; } .wp-connect .wlinks li { flex: 1 1 8rem; } }
