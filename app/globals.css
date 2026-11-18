@@ -965,3 +965,8 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 /* writer photo: the full tall picture (crown + sides + shoulders), nothing cut */
 .wp-photo { width: 240px; height: 357px; padding: 0; object-fit: cover; object-position: top center; background: none; }
 @media (max-width: 640px) { .wp-photo { width: min(66vw, 250px); height: min(98.5vw, 372px); padding: 0; } }
+
+/* writer photo: 10% zoom-in (top kept), thinner frame, tighter card so the text and the columns start higher */
+.wp-photo { object-view-box: inset(0 4.5% 9% 4.5%); border-radius: 20px; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #E2B007, 0 8px 18px rgba(0,0,0,.16); margin-top: 1.7rem; }
+.wp-hero { padding: .9rem 1.2rem; gap: 1.4rem; border-inline-start-width: 4px; margin-bottom: 1rem; }
+@media (max-width: 640px) { .wp-hero { padding: .8rem; gap: 1rem; } .wp-photo { margin-top: 0; } }
