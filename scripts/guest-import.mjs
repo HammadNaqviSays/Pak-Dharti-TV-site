@@ -19,6 +19,16 @@ const mediaUrl = async (name, credit) => {
   const m = await Media.create({ data: buf, type: "image/jpeg", size: buf.length, credit });
   return `/api/media/${m._id}`;
 };
+// IMAGE_ONLY=1: swap just the article picture on the already-saved article (text, author and status stay exactly as they are)
+if (process.env.IMAGE_ONLY === "1") {
+  if (!existing) throw new Error("no article with this slug yet");
+  const u = await mediaUrl("article.jpg", `Article picture: ${d.slug}`);
+  if (!u) throw new Error("article.jpg not found");
+  await Article.updateOne({ _id: existing._id }, { $set: { "image.url": u, "image.thumb": u } });
+  console.log(`::notice title=guest picture::slug=${d.slug} image=${u}`);
+  await mongoose.disconnect();
+  process.exit(0);
+}
 const photo = existing?.author?.photo || await mediaUrl("author.jpg", `Writer photo: ${d.author.name}`);
 const imgUrl = existing?.image?.url || await mediaUrl("article.jpg", `Article picture: ${d.slug}`);
 const plain = (b) => b.replace(/[#*_>\[\]()`]/g, " ").replace(/\s+/g, " ").trim();
