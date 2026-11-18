@@ -63,8 +63,8 @@ jobs:
           T0=$SECONDS
           for i in $(seq 1 40); do curl -s -o /dev/null http://localhost:3000/robots.txt && break; sleep 1; done
           echo "::notice title=site start::$((SECONDS-T0)) s"
-          # every waiting story goes out one after the other (at most 3 per run); the 2nd and 3rd skip the 20-minute gap
-          for n in 1 2 3; do
+          # ONE story per run (a run starts every 15 minutes); the shared gap keeps cards and stories apart
+          for n in 1; do
             B=""; [ "$n" -gt 1 ] && B="?burst=1"
             R=$(curl -sS --max-time 240 -w ' [HTTP %{http_code}]' -H "authorization: Bearer $CRON_SECRET" "http://localhost:3000/api/cron/social$B" 2>&1 | tr -d '\n' | head -c 2500)
             echo "::notice title=social $n::$R"
