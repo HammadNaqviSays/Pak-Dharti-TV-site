@@ -48,7 +48,7 @@ export default async function WriterPage({ params }) {
       <div className="wrap with-sidebar">
         <div className="main-col">
           <section className="wp-hero">
-            {au.photo && <img className="wp-photo" src={au.photo} alt={name} width="132" height="132" />}
+            {au.photo && <img className="wp-photo" src={au.photo} alt={name} width="240" height="240" />}
             <div>
               <p className="colx-kicker">{ur ? "لکھاری" : "Writer"}</p>
               <h1 className="wp-name">{name}</h1>
