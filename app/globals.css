@@ -957,3 +957,7 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 /* writer photo: picture zoomed out a further 15% inside its frame (frame size unchanged) */
 .wp-photo { box-sizing: border-box; object-fit: contain; object-position: top center; padding: 12px 11px 26px; background: #f4ecdd; }
 @media (max-width: 640px) { .wp-photo { padding: 5% 4.5% 10%; } }
+
+/* writer bio: one point larger, justified, words never split across lines */
+.wp-bio { font-size: calc(1.12rem + 1pt); text-align: justify; text-justify: inter-word; hyphens: none; -webkit-hyphens: none; word-break: normal; overflow-wrap: normal; }
+.author-card p { hyphens: none; -webkit-hyphens: none; word-break: normal; overflow-wrap: normal; }
