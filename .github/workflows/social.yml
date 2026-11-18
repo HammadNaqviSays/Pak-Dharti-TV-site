@@ -29,7 +29,7 @@ jobs:
         with: { node-version: 22 }
       - name: Reuse the installed packages and the built site (rebuilt only when the code changes)
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             node_modules
