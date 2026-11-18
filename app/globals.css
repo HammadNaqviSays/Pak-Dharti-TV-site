@@ -949,3 +949,7 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 @media (max-width: 640px) { .wp-photo { width: min(78vw, 280px); height: min(78vw, 280px); } .wp-hero { padding: 1.2rem; gap: 1.3rem; } }
 .wp-connect .wlinks li { flex: 1 1 11rem; }
 .wp-connect .wlink { min-width: 0; width: 100%; padding: .5rem .8rem; }
+/* bigger picture, same hero box */
+.wp-photo { width: 320px; height: 320px; border-radius: 24px; }
+.wp-hero { gap: 1.8rem; }
+@media (max-width: 640px) { .wp-photo { width: min(88vw, 340px); height: min(88vw, 340px); } }
