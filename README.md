@@ -3,9 +3,8 @@
 A multilingual news portal (English, اردو, العربية, Deutsch) with an AI content pipeline,
 an editorial control panel, and a readership analytics layer.
 
-**Live:** https://YOUR-DOMAIN  ·  **Stack:** Next.js 15, MongoDB Atlas, Vercel, Google Gemini API (Claude optional), Unsplash API
+**Live:** https://www.pakdhartitv.com  ·  **Stack:** Next.js 15 on Cloudflare Workers (OpenNext), MongoDB Atlas, Google Gemini API, GitHub Actions
 
-<!-- Add 2-3 screenshots here: homepage (Urdu), article page, Mission Control -->
 
 ## What it does
 
