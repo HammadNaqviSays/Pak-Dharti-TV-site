@@ -39,7 +39,7 @@ jobs:
         env: { FONTS_KEY: "${{ secrets.FONTS_KEY }}" }
         run: bash scripts/fonts-unpack.sh
         if: steps.chk2.outputs.waiting != '0'
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         if: steps.chk2.outputs.waiting != '0'
         with: { python-version: "3.11" }
       - name: Tools
