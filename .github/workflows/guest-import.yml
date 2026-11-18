@@ -6,6 +6,7 @@ on:
       file: { description: "json file", required: true, default: "data/guest/these-are-children.json" }
       publish: { description: "1 = publish it now (default: draft)", required: false, default: "0" }
       links_only: { description: "1 = only set the writer links (website / Instagram / Facebook)", required: false, default: "0" }
+      photo_only: { description: "1 = only swap the writer profile photo (author.jpg), change nothing else", required: false, default: "0" }
       image_only: { description: "1 = only swap the article picture (article.jpg), change nothing else", required: false, default: "0" }
 permissions:
   contents: read
@@ -17,6 +18,7 @@ jobs:
       MONGODB_URI: ${{ secrets.MONGODB_URI }}
       PUBLISH: ${{ inputs.publish }}
       IMAGE_ONLY: ${{ inputs.image_only }}
+      PHOTO_ONLY: ${{ inputs.photo_only }}
       LINKS_ONLY: ${{ inputs.links_only }}
     steps:
       - uses: actions/checkout@v4

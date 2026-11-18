@@ -28,6 +28,16 @@ if (process.env.LINKS_ONLY === "1") {
   await mongoose.disconnect();
   process.exit(0);
 }
+// PHOTO_ONLY=1: swap just the writer's profile photo (author.jpg) on the saved article
+if (process.env.PHOTO_ONLY === "1") {
+  if (!existing) throw new Error("no article with this slug yet");
+  const u = await mediaUrl("author.jpg", `Writer photo: ${d.author.name}`);
+  if (!u) throw new Error("author.jpg not found");
+  await Article.updateOne({ _id: existing._id }, { $set: { "author.photo": u } });
+  console.log(`::notice title=guest photo::slug=${d.slug} photo=${u}`);
+  await mongoose.disconnect();
+  process.exit(0);
+}
 // IMAGE_ONLY=1: swap just the article picture on the already-saved article (text, author and status stay exactly as they are)
 if (process.env.IMAGE_ONLY === "1") {
   if (!existing) throw new Error("no article with this slug yet");
