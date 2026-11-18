@@ -5,6 +5,7 @@ import { Ticker, Sidebar } from "@/components/SiteChrome";
 import { DICT } from "@/lib/i18n";
 import { SITE } from "@/lib/site";
 import { getWriter } from "@/lib/writers";
+import WriterLinks, { writerLinks } from "@/components/WriterLinks";
 
 export const revalidate = 300;
 const absImg = (u) => (u ? (u.startsWith("http") ? u : `${SITE.url}${u}`) : undefined);
@@ -37,7 +38,7 @@ export default async function WriterPage({ params }) {
   const ld = {
     "@context": "https://schema.org", "@type": "ProfilePage",
     mainEntity: { "@type": "Person", name: au.name, ...(au.nameUr ? { alternateName: au.nameUr } : {}), ...(role ? { jobTitle: au.role } : {}),
-      ...(au.bio ? { description: au.bio } : {}), ...(au.photo ? { image: absImg(au.photo) } : {}), ...(au.url ? { sameAs: [au.url] } : {}),
+      ...(au.bio ? { description: au.bio } : {}), ...(au.photo ? { image: absImg(au.photo) } : {}), ...(writerLinks(au).length ? { sameAs: writerLinks(au).map((x) => x.url) } : {}),
       url: `${SITE.url}/${lang}/writers/${slug}` },
   };
   return (
@@ -53,7 +54,8 @@ export default async function WriterPage({ params }) {
               <h1 className="wp-name">{name}</h1>
               {role && <p className="wp-role">{role}</p>}
               {bio && <p className="wp-bio">{bio}</p>}
-              {au.url && <a className="colx-btn" href={au.url} target="_blank" rel="noopener noreferrer nofollow">{ur ? "انسٹاگرام پروفائل" : "Instagram profile"} <span aria-hidden="true">{ur ? "←" : "→"}</span></a>}
+              <WriterLinks au={au} ur={ur} />
+              {au.photoCredit && <small className="wp-credit">{ur ? "تصویر" : "Photo"}: {ur && au.photoCredit === "Courtesy of the writer" ? "بشکریہ لکھاری" : au.photoCredit}</small>}
             </div>
           </section>
           <h2 className="wp-sub">{ur ? `${name} کی تحریریں` : `Columns by ${name}`}</h2>

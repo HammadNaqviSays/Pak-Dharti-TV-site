@@ -19,6 +19,15 @@ const mediaUrl = async (name, credit) => {
   const m = await Media.create({ data: buf, type: "image/jpeg", size: buf.length, credit });
   return `/api/media/${m._id}`;
 };
+// LINKS_ONLY=1: set just the writer's website / Instagram / Facebook links on the saved article
+if (process.env.LINKS_ONLY === "1") {
+  if (!existing) throw new Error("no article with this slug yet");
+  if (!d.author?.links) throw new Error("no author.links in the json");
+  await Article.updateOne({ _id: existing._id }, { $set: { "author.links": d.author.links } });
+  console.log(`::notice title=guest links::slug=${d.slug} links=${Object.keys(d.author.links).join(",")}`);
+  await mongoose.disconnect();
+  process.exit(0);
+}
 // IMAGE_ONLY=1: swap just the article picture on the already-saved article (text, author and status stay exactly as they are)
 if (process.env.IMAGE_ONLY === "1") {
   if (!existing) throw new Error("no article with this slug yet");

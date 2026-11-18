@@ -1,4 +1,5 @@
 import { writerSlug } from "@/lib/writerSlug";
+import WriterLinks from "@/components/WriterLinks";
 import ReactMarkdown from "react-markdown";
 import { DICT, LOCALES } from "@/lib/i18n";
 import { pickText } from "@/lib/queries";
@@ -135,7 +136,7 @@ export function ArticleView({ a, lang, children, collage = [] }) {
             <h2><a href={`/${lang}/writers/${writerSlug(au.name)}`}>{auName}</a></h2>
             {auRole && <p className="author-card-role">{auRole}</p>}
             {auBio && <p>{auBio}</p>}
-            {au.url && <p><a href={au.url} target="_blank" rel="noopener noreferrer nofollow">{urdu ? "انسٹاگرام پروفائل" : "Instagram profile"}</a></p>}
+            <WriterLinks au={au} ur={urdu} />
             {au.photoCredit && <small>{urdu ? "تصویر" : "Photo"}: {au.photoCredit}</small>}
           </div>
           <p className="author-card-note">{urdu
