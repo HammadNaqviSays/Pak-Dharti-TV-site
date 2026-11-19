@@ -2,6 +2,7 @@ import { writerSlug } from "@/lib/writerSlug";
 import { focusStyle } from "@/lib/focus";
 import WriterLinks from "@/components/WriterLinks";
 import ReactMarkdown from "react-markdown";
+import { SITE } from "@/lib/site";
 import ReelPlayer from "@/components/ReelPlayer";
 import { DICT, LOCALES } from "@/lib/i18n";
 import { pickText } from "@/lib/queries";
@@ -125,7 +126,7 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
             </figcaption>
           )}
         </figure>
-        {reel && <ReelPlayer id={reel.id} title={x.title} label="ویڈیو" caption={urdu ? "ویڈیو: پاک دھرتی ٹی وی" : "Video: Pak Dharti TV"} />}
+        {reel && <ReelPlayer id={reel.id} title={x.title} label="ویڈیو" caption={urdu ? "ویڈیو: پاک دھرتی ٹی وی" : "Video: Pak Dharti TV"} shareUrl={`${SITE.url}/${lang}/news/${a.slug}`} />}
         </div>
       )}
 
@@ -142,7 +143,7 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
         return (
           <div className="article-body" lang={textLang} dir={x.fallback ? "ltr" : undefined}>
             <ReactMarkdown>{parts.slice(0, at + 1).join("\n\n")}</ReactMarkdown>
-            <ReelPlayer id={reel.id} title={x.title} label="ویڈیو" caption="ویڈیو: پاک دھرتی ٹی وی" />
+            <ReelPlayer id={reel.id} title={x.title} label="ویڈیو" caption="ویڈیو: پاک دھرتی ٹی وی" shareUrl={`${SITE.url}/${lang}/news/${a.slug}`} />
             <ReactMarkdown>{parts.slice(at + 1).join("\n\n")}</ReactMarkdown>
           </div>
         );

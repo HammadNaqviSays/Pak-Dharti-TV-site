@@ -1119,3 +1119,10 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 /* the same small line under the picture and under the video */
 .media-pair .reel-embed figcaption { font-family: var(--f-display), system-ui, sans-serif; font-size: .8rem; font-weight: 400; color: var(--muted); margin-top: .45rem; text-align: start; direction: rtl; }
 .reel-dur { display: none; }
+
+/* share buttons under the video */
+.reel-share { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .55rem; }
+.reel-share a, .reel-share button { all: unset; cursor: pointer; box-sizing: border-box; color: #fff; font: 700 .72rem system-ui, sans-serif; padding: .32rem .6rem; border-radius: 999px; text-align: center; line-height: 1; }
+.reel-share a:hover, .reel-share button:hover { filter: brightness(1.15); }
+.reel-share-msg { flex-basis: 100%; font: .78rem system-ui, sans-serif; color: #1b6b2f; }
+@media (max-width: 640px) { .reel-share a, .reel-share button { font-size: .62rem; padding: .3rem .45rem; } }
