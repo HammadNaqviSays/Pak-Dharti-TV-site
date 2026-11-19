@@ -148,9 +148,10 @@ CSS_STATIC = CSS_BASE + """
 .bar{position:absolute;top:26px;left:56px;right:56px;display:flex;gap:8px;direction:ltr} .bar i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.28)} .bar i.on{background:#fff}
 .band{position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,#8a0000 0%,#6a0000 55%,#4c0000 100%);border-top:4px solid #fff;display:flex;align-items:center;justify-content:center;gap:24px;direction:ltr}
 .badge{position:absolute;right:56px;top:96px;background:linear-gradient(180deg,#8a0000,#5a0000);color:#fff;border:3px solid #e8c15a;border-radius:10px;padding:0 26px 10px;font:60px/1.8 J,serif;direction:rtl;box-shadow:0 4px 14px rgba(0,0,0,.4)}
-.colcard{position:absolute;right:56px;top:92px;width:800px;display:flex;align-items:center;gap:22px;direction:rtl;background:linear-gradient(180deg,rgba(138,0,0,.94),rgba(90,0,0,.94));border:3px solid #e8c15a;border-radius:18px;padding:16px 20px;box-shadow:0 6px 18px rgba(0,0,0,.45)}
-.wph{width:150px;height:150px;border-radius:50%;object-fit:cover;object-position:center top;border:4px solid #e8c15a;flex:none}
-.colt{flex:1;min-width:0}.colby{font:44px/1.6 J,serif;color:#f6d77a}.coltt{font:42px/1.55 J,serif;color:#fff;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cc{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.colcard{width:900px;display:flex;flex-direction:column;align-items:center;gap:18px;direction:rtl;text-align:center;background:linear-gradient(180deg,rgba(138,0,0,.96),rgba(90,0,0,.96));border:4px solid #e8c15a;border-radius:26px;padding:34px 36px 30px;box-shadow:0 10px 30px rgba(0,0,0,.55)}
+.wph{width:260px;height:260px;border-radius:50%;object-fit:cover;object-position:center top;border:6px solid #e8c15a}
+.colby{font:56px/1.6 J,serif;color:#f6d77a;-webkit-text-stroke:1px #f6d77a}.coltt{font:56px/1.7 J,serif;color:#fff;-webkit-text-stroke:1px #fff}
 .band svg{width:66px;height:66px;flex:none;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .band svg .f{fill:#fff;stroke:none}
 .band .sep{width:3px;height:56px;background:rgba(255,255,255,.55);border-radius:2px}
@@ -179,13 +180,6 @@ def static_page(i):
         pad = ""
         band = f'<div class="band" style="{pad}">{ICONS["fb"]}{ICONS["ig"]}{ICONS["tt"]}{ICONS["yt"]}{ICONS["in"]}{ICONS["web"]}<b>PakDhartiTv.com</b></div>'
     badge = f'<div class="badge">{html.escape(plan["badge"])}</div>' if plan.get("badge") else ""
-    col = plan.get("column")
-    if col:   # a guest column: the writer's small photo + the title + her credit, on top of the pictures for the whole video
-        ph = ""
-        pp = fetch(col.get("photo"), os.path.join(WORK, "writer.jpg")) if col.get("photo") else None
-        if pp: ph = f'<img class="wph" src="{b64(pp, "image/jpeg")}">'
-        badge = (f'<div class="colcard">{ph}<div class="colt"><div class="colby">{html.escape(col.get("by") or "")}</div>'
-                 f'<div class="coltt">{html.escape(col.get("title") or "")}</div></div></div>')
     return (f'<html><head><meta charset="utf-8"><style>{CSS_STATIC}</style></head><body><div class="tint"></div>{badge}{band}</body></html>')
 
 def word_html(i):
@@ -261,6 +255,22 @@ async def draw():
         await b.close()
     return stat, per
 stat_pngs, per = asyncio.run(draw()); T("caption pictures drawn")
+
+CARD_PNG = None
+col = plan.get("column")
+if col:   # a guest column: the writer's photo, her credit and the title, centred on the screen for the first seconds only
+    async def draw_card():
+        ph = ""
+        pp = fetch(col.get("photo"), os.path.join(WORK, "writer.jpg")) if col.get("photo") else None
+        if pp: ph = f'<img class="wph" src="{b64(pp, "image/jpeg")}">'
+        h = (f'<html><head><meta charset="utf-8"><style>{CSS_STATIC}</style></head><body><div class="cc"><div class="colcard">{ph}'
+             f'<div class="colby">{html.escape(col.get("by") or "")}</div><div class="coltt">{html.escape(col.get("title") or "")}</div></div></div></body></html>')
+        async with async_playwright() as p:
+            b = await p.chromium.launch(); pg = await b.new_page(viewport=dict(width=W, height=H))
+            await pg.set_content(h); await pg.wait_for_timeout(150)
+            out_ = os.path.join(WORK, "colcard.png"); await pg.screenshot(path=out_, omit_background=True); await b.close()
+        return out_
+    CARD_PNG = asyncio.run(draw_card()); T("column card drawn")
 
 line_t = []   # when each group (sentence) of each scene comes in
 for i, d in enumerate(per):
@@ -356,12 +366,15 @@ if LOGO_FILE:
     SH_IDX, LG_IDX = 4, 3
 else:
     LOGO_IN = []; SH_IDX = 3
-SH_IN = ["-loop", "1", "-i", SHINE]
+SH_IN = ["-loop", "1", "-i", SHINE] + (["-loop", "1", "-i", CARD_PNG] if CARD_PNG else [])
 SH_F = f"[vw][{SH_IDX}:v]overlay=x='-200+mod(t\\,3.4)*({W}+400)/3.4':y={H - 130}:format=auto:shortest=1[vs];"
+CARD_IDX = (SH_IDX + 1)
 if LOGO_FILE:
     LOGO_F = SH_F + f"[{LG_IDX}:v]format=rgba[lg];[vs][lg]overlay=40:50:format=auto:shortest=0,format=yuv420p[v]"
 else:
     LOGO_F = SH_F + "[vs]format=yuv420p[v]"
+if CARD_PNG:    # the column card: in the middle of the screen for about 3 seconds (fades in and out), then gone
+    LOGO_F = LOGO_F[:-3] + "[vz];" + f"[{CARD_IDX}:v]format=rgba,fade=t=in:st=0.3:d=0.4:alpha=1,fade=t=out:st=2.9:d=0.4:alpha=1[cc];[vz][cc]overlay=0:0:enable='between(t,0.3,3.4)':format=auto,format=yuv420p[v]"
 # ---- voice bars: a sound-level display that jumps with the voice and disappears in silence ----
 BW, BH, NB = 880, 100, 44                       # picture size, number of bars (mirrored: loud low tones in the middle, high tones outside)
 def make_bars(wav_path, out_mov, total):
