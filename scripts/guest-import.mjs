@@ -70,9 +70,16 @@ const fields = {
   author: { ...d.author, photo }, ...(d.sources ? { sources: d.sources } : {}),
   disclosure: { aiGenerated: false, humanReviewed: true, reviewedBy: d.author.name },
 };
-if (process.env.PUBLISH === "1") { fields.status = "published"; fields.publishedAt = existing?.publishedAt || new Date(); }
+if (process.env.PUBLISH === "1") { fields.status = "published"; fields.publishedAt = existing?.publishedAt || new Date(); fields.autoSocial = true; }
+if (d.socialTags) fields.socialTags = d.socialTags;
 let a;
 if (existing) { Object.assign(existing, fields); a = await existing.save(); }
 else a = await Article.create({ slug: d.slug, origin: "manual", status: "draft", placement: { slot: "standard", priority: 60 }, ...fields });
+if (process.env.PUBLISH === "1") await Article.updateOne({ _id: a._id }, { $unset: { scheduledAt: 1 } });
+// hand-made social cards (card-en.jpg / card-ur.jpg next to the json): posted as they are by the automatic posting
+for (const l of ["en", "ur"]) {
+  const u = await mediaUrl(`card-${l}.jpg`, `Social card ${l}: ${d.slug}`);
+  if (u) await Article.updateOne({ _id: a._id }, { $set: { [`social.${l}.customCard`]: u.split("/").pop() } });
+}
 console.log(`::notice title=guest draft::id=${a._id} status=${a.status} slug=${a.slug}`);
 await mongoose.disconnect();
