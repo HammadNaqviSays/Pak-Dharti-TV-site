@@ -14,7 +14,11 @@ for (const sl of String(process.env.APPROVE || "").split(",").map((x) => x.trim(
 }
 const rows = await Reel.find({ status: "approved", r2: { $ne: true } }).select("title").lean();
 console.log("approved reels still in the database:", rows.length);
-for (const x of await Reel.find({}).sort({ updatedAt: -1 }).limit(12).select("title status r2 slug").lean()) console.log("REEL", x.status, "r2=" + !!x.r2, String(x.slug), "|", String(x.title).slice(0, 30));
+console.log("COUNT total reels:", await Reel.countDocuments({}));
+for (const g of await Reel.aggregate([{ $group: { _id: { s: "$status", r2: { $ifNull: ["$r2", false] } }, n: { $sum: 1 } } }, { $sort: { "_id.s": 1 } }])) console.log("COUNT", g._id.s, "r2=" + g._id.r2, g.n);
+try { for (const g of await ReelFile.aggregate([{ $group: { _id: "$kind", n: { $sum: 1 }, bytes: { $sum: { $bsonSize: "$$ROOT" } } } }])) console.log("DBFILES", g._id, "parts=" + g.n, (g.bytes / 1048576).toFixed(1) + " MB"); } catch (e) { console.log("DBFILES unavailable", String(e.message).slice(0, 80)); }
+for (const x of await Reel.find({ status: "approved" }).sort({ updatedAt: -1 }).select("title status r2 slug").lean()) console.log("APPROVED", "r2=" + !!x.r2, "|", String(x.title).slice(0, 40), "|", x.slug);
+for (const x of await Reel.find({}).sort({ updatedAt: -1 }).limit(1).select("title status r2 slug").lean()) console.log("REEL", x.status, "r2=" + !!x.r2, String(x.slug), "|", String(x.title).slice(0, 30));
 for (const r of rows) {
   const id = String(r._id);
   try {
