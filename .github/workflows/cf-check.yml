@@ -14,3 +14,7 @@ jobs:
           echo "== subscriptions"; api /accounts/$A/subscriptions | python3 -c "import sys,json;d=json.load(sys.stdin);print(d.get('success'),[(s.get('rate_plan',{}).get('public_name'),s.get('price'),s.get('currency'),s.get('frequency')) for s in d.get('result',[])] if d.get('success') else d.get('errors'))"
           echo "== r2 buckets"; api /accounts/$A/r2/buckets | python3 -c "import sys,json;d=json.load(sys.stdin);print(d.get('success'),[b.get('name') for b in d.get('result',{}).get('buckets',[])] if d.get('success') else [e.get('message') for e in d.get('errors',[])])"
           echo "== kv"; api /accounts/$A/storage/kv/namespaces | python3 -c "import sys,json;d=json.load(sys.stdin);print(d.get('success'),[n.get('title') for n in d.get('result',[])] if d.get('success') else [e.get('message') for e in d.get('errors',[])])"
+      - name: Create R2 bucket for reel videos
+        run: |
+          curl -s -X POST -H "Authorization: Bearer $T" -H "Content-Type: application/json" "https://api.cloudflare.com/client/v4/accounts/$A/r2/buckets" --data '{"name":"pak-dharti-reels"}' | python3 -c "import sys,json;d=json.load(sys.stdin);print('create:',d.get('success'),[e.get('message') for e in d.get('errors',[])],d.get('result',{}).get('name'))"
+          curl -s -H "Authorization: Bearer $T" "https://api.cloudflare.com/client/v4/accounts/$A/r2/buckets" | python3 -c "import sys,json;d=json.load(sys.stdin);print('list:',d.get('success'),[b.get('name') for b in d.get('result',{}).get('buckets',[])])"
