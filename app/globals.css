@@ -1001,3 +1001,11 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 /* rate strip: Bitcoin tile - the symbol gets room above the label */
 .rate-strip a:has(.rs-ic.btc) .rs-k { margin-top: .5rem; }
 .rate-strip .rs-ic.btc { font-size: 1.15rem; }
+
+/* crypto table: badge, name and ticker always on ONE line (English and Urdu) */
+.coin-cell { flex-wrap: nowrap; white-space: nowrap; }
+.coin-name, .coin-sym { white-space: nowrap; }
+.util-table th[scope="row"] { white-space: nowrap; min-width: 13rem; }
+.util-table td { white-space: nowrap; }
+.lang-en .coin-sym { margin-inline-start: .35rem; }
+@media (max-width: 640px) { .util-table th[scope="row"] { min-width: 0; } .coin-cell { gap: .5rem; } .coin-badge { width: 1.8rem; height: 1.8rem; } }
