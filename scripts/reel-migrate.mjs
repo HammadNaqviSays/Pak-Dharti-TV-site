@@ -7,6 +7,11 @@ const SITE = "https://www.pakdhartitv.com";
 await mongoose.connect(process.env.MONGODB_URI, { dbName: process.env.MONGODB_DB || "pakdharti" });
 const asBuf = (x) => (Buffer.isBuffer(x) ? x : Buffer.from(x?.buffer || x));
 const put = (key, file, ct) => execFileSync("npx", ["--yes", "wrangler@4", "r2", "object", "put", `pak-dharti-reels/${key}`, "--file", file, "--content-type", ct, "--remote"], { stdio: "pipe" });
+// APPROVE=slug1,slug2: the owner pressed Approve on these but it did not save: mark the READY ones approved
+for (const sl of String(process.env.APPROVE || "").split(",").map((x) => x.trim()).filter(Boolean)) {
+  const r = await Reel.updateOne({ slug: sl, status: "ready" }, { $set: { status: "approved" } });
+  console.log("approve", sl.slice(0, 50), r.modifiedCount);
+}
 const rows = await Reel.find({ status: "approved", r2: { $ne: true } }).select("title").lean();
 console.log("approved reels still in the database:", rows.length);
 for (const x of await Reel.find({}).sort({ updatedAt: -1 }).limit(12).select("title status r2 slug").lean()) console.log("REEL", x.status, "r2=" + !!x.r2, String(x.slug).slice(0, 60), "|", String(x.title).slice(0, 30));
