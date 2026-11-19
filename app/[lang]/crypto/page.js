@@ -63,7 +63,7 @@ export default async function CryptoPage({ params }) {
               <tbody>
                 {rows.map((k) => (
                   <tr key={k.sym}>
-                    <th scope="row"><span aria-hidden="true">{k.mark}</span> {ur ? k.ur : k.en} <small dir="ltr">({k.sym})</small></th>
+                    <th scope="row"><span className="coin-cell"><span className="coin-badge" aria-hidden="true" data-sym={k.sym}>{k.mark}</span><span className="coin-name">{ur ? k.ur : k.en}</span><span className="coin-sym" dir="ltr">{k.sym}</span></span></th>
                     <td dir="ltr">${money(k.p.usd, digits(k.p.usd))}</td>
                     {usdPkr && <td dir="ltr">{money(k.p.usd * usdPkr, digits(k.p.usd * usdPkr))}</td>}
                     <td dir="ltr" className={k.p.pct > 0 ? "up" : k.p.pct < 0 ? "down" : ""}>{k.p.pct != null ? `${k.p.pct >= 0 ? "▲ +" : "▼ "}${k.p.pct.toFixed(2)}%` : "—"}</td>

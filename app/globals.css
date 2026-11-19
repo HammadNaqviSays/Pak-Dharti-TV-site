@@ -990,3 +990,14 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 /* Bitcoin tile: orange coin mark, floating small coins */
 .rate-strip .rs-ic.btc { color: #F7931A; font-weight: 800; }
 .rs-fx-coin i { position: absolute; bottom: -1.2rem; font-style: normal; font-weight: 800; font-size: 1rem; color: #F7931A; opacity: 0; font-family: var(--f-display), system-ui, sans-serif; animation: rs-float 5.5s ease-in-out infinite; animation-delay: var(--d); }
+
+/* crypto table: badge, name and symbol each with its own space */
+.coin-cell { display: flex; align-items: center; gap: .75rem; }
+.coin-badge { flex: none; width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border-radius: 50%; background: #fff; border: 2px solid #C9A227; color: #F7931A; font-size: 1.05rem; font-weight: 800; line-height: 1; box-shadow: 0 1px 4px rgba(0,0,0,.12); }
+.coin-badge[data-sym="USDT"] { color: #1F8A4C; } .coin-badge[data-sym="ETH"] { color: #5C6BC0; } .coin-badge[data-sym="BNB"] { color: #C99A00; } .coin-badge[data-sym="XRP"] { color: #333; } .coin-badge[data-sym="SOL"] { color: #7A3FD1; }
+.coin-name { font-weight: 700; }
+.coin-sym { margin-inline-start: .15rem; padding: .08rem .5rem; border-radius: 999px; background: #F4ECDD; color: #6B5A3A; font-size: .72rem; font-weight: 700; letter-spacing: .06em; }
+.util-table td, .util-table th[scope="col"] { padding-inline: 1rem; }
+/* rate strip: Bitcoin tile - the symbol gets room above the label */
+.rate-strip a:has(.rs-ic.btc) .rs-k { margin-top: .5rem; }
+.rate-strip .rs-ic.btc { font-size: 1.15rem; }
