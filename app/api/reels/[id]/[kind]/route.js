@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req, { params }) {
   const { id, kind } = await params;
-  if (!/^[a-f0-9]{24}$/.test(id) || !/^(audio|video|clip\d{1,2}|pic\d{1,2}(x[1-3])?)$/.test(kind)) return new Response("Not found", { status: 404 });
+  if (!/^[a-f0-9]{24}$/.test(id) || !/^(audio|video|clip\d{1,2}|pic\d{1,2}(x[1-3])?|stk\d{1,2})$/.test(kind)) return new Response("Not found", { status: 404 });
   const buf = await readReelFile(id, kind);
   if (!buf) return new Response("Not found", { status: 404 });
   const type = kind === "video" || kind.startsWith("clip") ? "video/mp4" : kind === "audio" ? "audio/wav" : "image/jpeg";
