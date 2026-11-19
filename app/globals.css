@@ -1069,3 +1069,11 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .reel-play { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(0,0,0,.6); color: #fff; font-size: 26px; display: grid; place-items: center; padding-inline-start: 4px; box-shadow: 0 0 0 3px rgba(255,255,255,.85); }
 .reel-embed figcaption { margin-top: .45rem; font-weight: 700; font-size: .95rem; }
 .reel-embed figcaption small { display: block; font-weight: 400; opacity: .7; margin-top: .1rem; }
+
+/* story with a video: picture (whole, uncropped) on the left, video on the right; one under the other on phones */
+.media-pair { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 1rem; align-items: start; direction: ltr; margin-bottom: 1.5rem; }
+.media-pair .article-figure { margin: 0; }
+.media-pair .article-figure img { width: 100%; height: auto; object-fit: contain; }
+.media-pair .reel-embed { margin: 0; width: 100%; }
+.media-pair figcaption { direction: rtl; }
+@media (max-width: 640px) { .media-pair { grid-template-columns: 1fr; } .media-pair .reel-embed { width: min(100%, 300px); margin-inline: auto; } }

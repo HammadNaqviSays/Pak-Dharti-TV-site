@@ -108,7 +108,9 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
           <figcaption>{t.photo}: {collage.map((p) => `${p.name}${p.credit ? ` — ${p.credit}` : ""}`).join("; ")}</figcaption>
         </figure>
       )}
+      {/* a story with a video: the picture on the left (whole, never cropped) and the video on its right */}
       {!collage.length && a.image?.url && (
+        <div className={reel ? "media-pair" : undefined}>
         <figure className="article-figure">
           <span className="figure-frame"><img src={a.image.url} alt={a.image.alt || ""} style={focusStyle(a)} /></span>
           {a.image.credit && (
@@ -123,13 +125,15 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
             </figcaption>
           )}
         </figure>
+        {reel && <ReelPlayer id={reel.id} sec={reel.sec} title={x.title} label="ویڈیو میں دیکھیں" hint={a.contentType === "opinion" ? "پورا کالم نیچے پڑھیں" : "پوری خبر نیچے پڑھیں"} />}
+        </div>
       )}
 
       {/* react-markdown does not render raw HTML, so AI output cannot inject scripts */}
       {(() => {
         // with a video: the first paragraph, then the video, then the rest of the story
         const parts = String(x.body || "").split(/\n\s*\n/);
-        const at = reel ? parts.findIndex((c) => c.trim() && !/^\s*(#|[-*>]|\d+\.)/.test(c)) : -1;
+        const at = reel && (collage.length || !a.image?.url) ? parts.findIndex((c) => c.trim() && !/^\s*(#|[-*>]|\d+\.)/.test(c)) : -1;
         if (at < 0) return (
           <div className="article-body" lang={textLang} dir={x.fallback ? "ltr" : undefined}>
             <ReactMarkdown>{x.body}</ReactMarkdown>
