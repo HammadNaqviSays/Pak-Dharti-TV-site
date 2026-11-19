@@ -39,6 +39,7 @@
     }
   },
   "image": {
+    "focusX": 30, "focusY": 30,
     "credit": "Moazzma Hunain (courtesy of the writer)",
     "alt": "Moazzma Hunain"
   },
