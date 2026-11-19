@@ -62,19 +62,44 @@ for k, v_ in enumerate(rms):
     if v_ < thr:
         run = k if run is None else run
     elif run is not None:
-        if (k - run) * 0.02 >= 0.14: sil.append(((run + k) / 2) * 0.02)
+        if (k - run) * 0.02 >= 0.14: sil.append((((run + k) / 2) * 0.02, (k - run) * 0.02))   # (middle of the pause, how long it lasts)
         run = None
 def snap(t, lo, hi, tol):
-    c = [x for x in sil if abs(x - t) <= tol and lo < x < hi]
-    return min(c, key=lambda x: abs(x - t)) if c else t
+    c = [(x, l) for x, l in sil if abs(x - t) <= tol and lo < x < hi]
+    return min(c, key=lambda q: abs(q[0] - t) - 1.2 * q[1])[0] if c else t     # near the expected moment, and a longer pause wins over a short breath
 # first and last bit of speech: ignore leading/trailing silence
 speech = [k * 0.02 for k, v_ in enumerate(rms) if v_ >= thr]; s_beg, s_end = (speech[0], speech[-1] + 0.02) if speech else (0.0, VSEC)
 span = max(0.5, s_end - s_beg)
 cs = [max(12, len(x["text"])) for x in scenes]; tot = sum(cs)
-bounds = [s_beg]; acc = 0
+# The voice reads every scene as its own paragraph, so the scene ends are the LONG pauses (about 1 s). Estimating by letters alone drifts by
+# a second or two (the next words then appear while the last ones are still spoken): choose, among the long pauses, the ones that fit best.
+exps = []; acc = 0
 for k in range(len(scenes) - 1):
-    acc += cs[k]; exp = s_beg + span * acc / tot
-    bounds.append(snap(exp, bounds[-1] + 0.8, s_end - 0.5, min(1.4, 0.35 * span / len(scenes))))
+    acc += cs[k]; exps.append(s_beg + span * acc / tot)
+for _lim in (0.75, 0.55):                            # the scene-end pauses are the longest ones: look at those first
+    cand = [x for x, l in sil if l >= _lim and s_beg + 0.8 < x < s_end - 0.5]
+    if len(cand) >= len(exps): break
+P = 8.0                                              # cost of "no long pause found for this boundary": use the estimate
+opts = [[(c, abs(c - e)) for c in cand] + [(e, P)] for e in exps]
+best = [{}]                                          # best[k][option index] = (total cost, previous option index)
+for k, o in enumerate(opts):
+    cur = {}
+    for j, (pos, cost) in enumerate(o):
+        if k == 0: cur[j] = (cost, None) if pos > s_beg + 0.8 else None
+        else:
+            prev = [(best[k][pj][0], pj) for pj in best[k] if best[k][pj] and opts[k - 1][pj][0] + 0.8 < pos]
+            cur[j] = (min(prev)[0] + cost, min(prev)[1]) if prev else None
+    best.append(cur)
+bounds = [s_beg]
+if exps:
+    fin = {j: v for j, v in best[len(exps)].items() if v}
+    if fin:
+        j = min(fin, key=lambda q: fin[q][0]); pick = []
+        for k in range(len(exps), 0, -1):
+            pick.append(opts[k - 1][j][0]); j = best[k][j][1]
+        bounds += pick[::-1]
+    else:
+        bounds += [snap(e, bounds[-1] + 0.8, s_end - 0.5, 1.4) for e in exps]
 bounds.append(s_end)
 starts = [b_ + OFF for b_ in bounds[:-1]]
 vis = [(0.0 if i == 0 else starts[i], (starts[i + 1] if i + 1 < len(scenes) else bounds[-1] + OFF + TAIL)) for i in range(len(scenes))]
