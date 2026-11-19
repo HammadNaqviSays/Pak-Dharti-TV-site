@@ -1,0 +1,18 @@
+# Read-only: prints pause positions of the newest reels' voice-overs. Run by hand.
+name: reel-timing-debug
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund 2>&1 | tail -1
+      - run: node scripts/reel-timing-debug.mjs
+      - run: pip install numpy -q 2>&1 | tail -1; python3 scripts/reel-timing-debug.py
