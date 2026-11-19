@@ -1115,3 +1115,7 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
   .media-pair .article-figure figcaption { font-size: .68rem; }
   .reel-play { width: 52px; height: 52px; font-size: 20px; }
 }
+
+/* the same small line under the picture and under the video */
+.media-pair .reel-embed figcaption { font-family: var(--f-display), system-ui, sans-serif; font-size: .8rem; font-weight: 400; color: var(--muted); margin-top: .45rem; text-align: start; direction: rtl; }
+.reel-dur { display: none; }

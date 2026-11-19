@@ -125,7 +125,7 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
             </figcaption>
           )}
         </figure>
-        {reel && <ReelPlayer id={reel.id} sec={reel.sec} title={x.title} label="ویڈیو میں دیکھیں" hint={a.contentType === "opinion" ? "پورا کالم نیچے پڑھیں" : "پوری خبر نیچے پڑھیں"} />}
+        {reel && <ReelPlayer id={reel.id} title={x.title} label="ویڈیو" caption={urdu ? "ویڈیو: پاک دھرتی ٹی وی" : "Video: Pak Dharti TV"} />}
         </div>
       )}
 
@@ -142,7 +142,7 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
         return (
           <div className="article-body" lang={textLang} dir={x.fallback ? "ltr" : undefined}>
             <ReactMarkdown>{parts.slice(0, at + 1).join("\n\n")}</ReactMarkdown>
-            <ReelPlayer id={reel.id} sec={reel.sec} title={x.title} label="ویڈیو میں دیکھیں" hint={a.contentType === "opinion" ? "پورا کالم نیچے پڑھیں" : "پوری خبر نیچے پڑھیں"} />
+            <ReelPlayer id={reel.id} title={x.title} label="ویڈیو" caption="ویڈیو: پاک دھرتی ٹی وی" />
             <ReactMarkdown>{parts.slice(at + 1).join("\n\n")}</ReactMarkdown>
           </div>
         );
