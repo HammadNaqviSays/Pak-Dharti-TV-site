@@ -30,6 +30,8 @@
     { "binding": "NEXT_INC_CACHE_KV", "id": "__KV_INC__" },
     { "binding": "NEXT_TAG_CACHE_KV", "id": "__KV_TAG__" }
   ],
+  // finished reel videos live here (not in the database)
+  "r2_buckets": [{ "binding": "REELS_R2", "bucket_name": "pak-dharti-reels" }],
   // lets the site ask itself to rebuild a page in the background
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "pak-dharti-tv" }],
   "placement": { "mode": "smart" },

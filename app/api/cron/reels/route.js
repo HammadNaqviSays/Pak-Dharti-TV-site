@@ -20,7 +20,7 @@ export async function GET(req) {
   try {
     if (op === "peek") { await connectDB(); await releaseDrafts(); return NextResponse.json({ waiting: await Reel.countDocuments({ status: "scripted", tries: { $lt: 3 } }) }); }
     if (op === "prepare") return NextResponse.json(await prepareNextReel());
-    if (op === "done") return NextResponse.json(await finishReel(q.get("id"), { seconds: q.get("sec"), parts: Number(q.get("parts")) || 0 }));
+    if (op === "done") return NextResponse.json(await finishReel(q.get("id"), { seconds: q.get("sec"), parts: Number(q.get("parts")) || 0, r2: q.get("r2") === "1" }));
     if (op === "fail") return NextResponse.json(await finishReel(q.get("id"), { error: q.get("err") || "render failed" }));
     const r = await makeNextReelScript();
     return NextResponse.json(r.reel ? { ok: true, slug: r.reel.slug, scenes: r.reel.scenes.length } : r);

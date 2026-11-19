@@ -16,6 +16,8 @@ jobs:
     env:
       SITE: https://www.pakdhartitv.com
       TOKEN: ${{ secrets.CRON_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - name: Anything to do?
         id: chk
@@ -64,9 +66,21 @@ jobs:
             python -c "import json; m=json.load(open('plan.json'))['manifest']; json.dump(m, open('manifest.json','w')); open('reel.id','w').write(m['id'])"
             ID=$(cat reel.id)
             if python scripts/reels/render.py manifest.json reel.mp4; then
-              rm -f part_*; split -b 3000000 -d -a 2 reel.mp4 part_
+              # a light copy for the website (720p, about 2-3 MB) and a small poster picture; both videos go to R2 storage (not the database)
+              ffmpeg -y -loglevel error -i reel.mp4 -vf scale=720:1280 -c:v libx264 -preset veryfast -crf 29 -maxrate 1600k -bufsize 3200k -profile:v main -pix_fmt yuv420p -c:a aac -b:a 64k -ac 1 -movflags +faststart web.mp4 || true
+              ffmpeg -y -loglevel error -ss 3 -i reel.mp4 -frames:v 1 -vf scale=360:640 -q:v 6 poster.jpg || true
+              R2OK=0
+              if [ -s web.mp4 ] && [ -s poster.jpg ] && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+                R2OK=1
+                for pair in "reel.mp4:video.mp4:video/mp4" "web.mp4:web.mp4:video/mp4" "poster.jpg:poster.jpg:image/jpeg"; do
+                  IFS=: read src key ct <<< "$pair"
+                  npx --yes wrangler@4 r2 object put "pak-dharti-reels/$ID/$key" --file "$src" --content-type "$ct" --remote >/dev/null 2>&1 || { echo "R2 upload of $key failed"; R2OK=0; }
+                done
+              fi
+              rm -f part_*; [ "$R2OK" = 1 ] || split -b 3000000 -d -a 2 reel.mp4 part_
               OK=1; N=0
-              for f in part_*; do
+              [ "$R2OK" = 1 ] && echo "video kept in R2"
+              for f in $( [ "$R2OK" = 1 ] || ls part_* ); do
                 for try in 1 2 3; do
                   CODE=$(curl -sS --max-time 120 -o up.out -w "%{http_code}" -X POST -H "x-cron-token: $TOKEN" -H "content-type: application/octet-stream" --data-binary @$f "$SITE/api/cron/reels?op=upload&id=$ID&part=$N" || echo 000)
                   [ "$CODE" = "200" ] && break
@@ -78,12 +92,12 @@ jobs:
               done
               SEC=$(ffprobe -v error -show_entries format=duration -of csv=p=0 reel.mp4)
               if [ "$OK" = 1 ]; then
-                echo "::notice title=reel $ID::$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=done" --data-urlencode "id=$ID" --data-urlencode "sec=$SEC" --data-urlencode "parts=$N" "$SITE/api/cron/reels")"
+                echo "::notice title=reel $ID::$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=done" --data-urlencode "id=$ID" --data-urlencode "sec=$SEC" --data-urlencode "parts=$N" --data-urlencode "r2=$R2OK" "$SITE/api/cron/reels")"
               else
                 curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=upload failed" "$SITE/api/cron/reels"
               fi
             else
               curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=render failed" "$SITE/api/cron/reels"
             fi
-            rm -rf reel_work reel.mp4 part_* plan.json manifest.json
+            rm -rf reel_work reel.mp4 web.mp4 poster.jpg part_* plan.json manifest.json
           done
