@@ -986,3 +986,7 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 @media (max-width: 819px) { .colx-big .colx-img img { object-position: center top; } }
 .story-img img { object-position: center 8%; }
 .article-figure .figure-frame img { object-position: center top; }
+
+/* Bitcoin tile: orange coin mark, floating small coins */
+.rate-strip .rs-ic.btc { color: #F7931A; font-weight: 800; }
+.rs-fx-coin i { position: absolute; bottom: -1.2rem; font-style: normal; font-weight: 800; font-size: 1rem; color: #F7931A; opacity: 0; font-family: var(--f-display), system-ui, sans-serif; animation: rs-float 5.5s ease-in-out infinite; animation-delay: var(--d); }

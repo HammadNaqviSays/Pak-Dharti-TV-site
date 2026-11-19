@@ -15,6 +15,7 @@ function FxLayer({ type }) {
     chart: (
       <svg viewBox="0 0 100 40" preserveAspectRatio="none"><polyline points="0,34 14,28 26,31 40,18 54,22 68,10 82,14 100,3" pathLength="100" /></svg>
     ),
+    coin: [14, 40, 66, 86].map((l, k) => <i key={k} style={{ left: `${l}%`, "--d": `${k * 0.9}s` }}>₿</i>),
     stars: [12, 34, 58, 82].map((l, k) => <i key={k} style={{ left: `${l}%`, top: `${[58, 24, 66, 34][k]}%`, "--d": `${k * 0.7}s` }}>✦</i>),
   }[type];
   return <span className={`rs-fx rs-fx-${type}`} aria-hidden="true">{body}</span>;
@@ -29,9 +30,9 @@ export default async function RateStrip({ lang }) {
     rates?.gold && { href: "gold-rate", icon: "🪙", ic: "spin", fx: "gold", k: ur ? "سونا · 24 قیراط · تولہ" : "Gold · 24K · tola", v: money(rates.gold.tola24), u: "PKR" },
     usd && { href: "dollar-rate", icon: "💵", ic: "bob", fx: "usd", k: ur ? "امریکی ڈالر" : "US Dollar", v: money(usd.pkr, 2), u: "PKR", ch: pct(usd.pkr, usd.prev) },
     fuel?.petrol && { href: "petrol-price", icon: "⛽", ic: "beat", fx: "fill", k: ur ? "پیٹرول · فی لیٹر" : "Petrol · per litre", v: money(fuel.petrol, 2), u: "PKR" },
+    { href: "crypto", icon: "₿", ic: "bob btc", fx: "coin", k: ur ? "بٹ کوائن" : "Bitcoin", ...(cry?.prices?.BTC?.usd ? { v: money(cry.prices.BTC.usd, 0), u: "USD", ch: Number.isFinite(cry.prices.BTC.pct) ? cry.prices.BTC.pct : null } : { cta: ur ? "قیمت دیکھیں" : "View prices" }) },
     kse?.close && { href: "psx", icon: "📈", ic: "rise", fx: "chart", k: "KSE-100", v: money(kse.close, 0), ch: Number.isFinite(kse.pct) ? kse.pct : null },
     oil?.brent?.price && { href: "petrol-price", icon: "🛢️", ic: "wobble", fx: "drain", k: ur ? "برینٹ خام تیل · بیرل" : "Brent crude · barrel", v: money(oil.brent.price, 2), u: "USD", ch: pct(oil.brent.price, oil.brent.prev) },
-    cry?.prices?.BTC?.usd && { href: "crypto", icon: "₿", ic: "rise", fx: "chart", k: ur ? "بٹ کوائن" : "Bitcoin", v: money(cry.prices.BTC.usd, 0), u: "USD", ch: Number.isFinite(cry.prices.BTC.pct) ? cry.prices.BTC.pct : null },
     { href: "prayer-times", icon: "🕌", fx: "stars", k: ur ? "نماز کے اوقات" : "Prayer times", cta: ur ? "اوقات دیکھیں" : "View timings" },
   ].filter(Boolean);
   if (items.length < 2) return null;

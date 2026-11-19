@@ -13,6 +13,7 @@ import { Article, Setting } from "@/models";
 import { isCron } from "@/lib/util";
 import { pingRecent } from "@/lib/indexnow";
 import { sweepFocus } from "@/lib/faceFocus";
+import { getCrypto } from "@/lib/crypto";
 import { fillFaq } from "@/lib/faq";
 
 export const runtime = "nodejs";
@@ -69,6 +70,8 @@ export async function GET(req) {
     if (Date.now() - t0 < 28000) { try { result.faq = await fillFaq(1, 20000); } catch (e) { result.faq = { error: String(e.message).slice(0, 120) }; } }
     // Find the face in the newest pictures (2 per run) so cropped cards start from the face
     if (Date.now() - t0 < 30000) { try { result.focus = await sweepFocus(2); } catch (e) { result.focus = { error: String(e.message).slice(0, 120) }; } }
+    // Keep the crypto prices fresh for the home-page strip and the crypto page (a cheap price call, cached 15 minutes)
+    try { await getCrypto(); } catch {}
     // Clean up: archive the newer copy if two published stories cover the same event
     try { result.dedupe = await sweepDuplicates(); if (result.dedupe.archived) revalidatePath("/", "layout"); } catch {}
     // Share a fresh story on the Facebook page and Instagram (off unless SOCIAL_AUTO=true; ignored when this run was long)
