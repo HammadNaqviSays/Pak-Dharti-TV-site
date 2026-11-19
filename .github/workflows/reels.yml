@@ -3,7 +3,9 @@
 name: Reels
 on:
   workflow_dispatch:
-  # automatic hourly schedule switched off to save GitHub minutes; run it by hand (Run workflow) when reels are wanted
+  # hourly again: the repo is public, so the minutes are free (a run with nothing waiting takes about 20 seconds)
+  schedule:
+    - cron: "12 * * * *"
 permissions:
   contents: read
 concurrency: { group: reels, cancel-in-progress: false }
