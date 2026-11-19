@@ -38,11 +38,12 @@ jobs:
       - name: Keys for this run (never printed)
         env:
           WORKER_ENV: ${{ secrets.WORKER_ENV }}
+          SOCIAL_EXTRA_ENV: ${{ secrets.SOCIAL_EXTRA_ENV }}
         run: |
           python3 - <<'PY'
           import os, secrets
           out = []
-          for line in (os.environ.get("WORKER_ENV") or "").splitlines():
+          for line in ((os.environ.get("WORKER_ENV") or "") + "\n" + (os.environ.get("SOCIAL_EXTRA_ENV") or "")).splitlines():
               k, sep, v = line.strip().partition("=")
               k, v = k.strip(), v.strip()
               if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'": v = v[1:-1]
