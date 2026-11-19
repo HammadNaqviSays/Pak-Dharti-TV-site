@@ -1009,3 +1009,12 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .util-table td { white-space: nowrap; }
 .lang-en .coin-sym { margin-inline-start: .35rem; }
 @media (max-width: 640px) { .util-table th[scope="row"] { min-width: 0; } .coin-cell { gap: .5rem; } .coin-badge { width: 1.8rem; height: 1.8rem; } }
+
+/* crypto table: three tidy columns inside the first cell - badge | name | ticker, all on one line with room between */
+.coin-cell { display: grid; grid-template-columns: 2.3rem minmax(8rem, 1fr) 4.6rem; align-items: center; column-gap: 1.1rem; white-space: nowrap; }
+.coin-sym { justify-self: start; min-width: 3.9rem; text-align: center; padding: .2rem .7rem; font-size: .78rem; }
+.coin-badge { width: 2.3rem; height: 2.3rem; font-size: 1.1rem; }
+.coin-name { font-size: 1.05rem; }
+.util-table tbody th[scope="row"], .util-table tbody td { padding-block: .85rem; }
+.util-table th[scope="row"] { min-width: 17rem; }
+@media (max-width: 640px) { .coin-cell { grid-template-columns: 1.9rem minmax(5.5rem, 1fr) 3.6rem; column-gap: .6rem; } .coin-badge { width: 1.9rem; height: 1.9rem; font-size: .95rem; } .coin-sym { min-width: 3.2rem; padding: .15rem .4rem; font-size: .7rem; } .util-table th[scope="row"] { min-width: 0; } }
