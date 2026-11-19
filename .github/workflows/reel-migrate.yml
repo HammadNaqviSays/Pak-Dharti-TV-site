@@ -15,4 +15,5 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: npm install --no-audit --no-fund 2>&1 | tail -1
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - run: node scripts/reel-migrate.mjs
