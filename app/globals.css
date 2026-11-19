@@ -1034,3 +1034,10 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 @media (min-width: 820px) {
   .wp-bio { text-align: justify; text-justify: inter-word; }
 }
+
+/* Writer connect buttons: on phones each button gets its own full-width row, never overflows (EN + UR) */
+@media (max-width: 640px) {
+  .wp-connect .wlinks { flex-wrap: wrap; gap: .55rem; }
+  .wp-connect .wlinks li { flex: 1 1 100%; min-width: 0; }
+  .wp-connect .wlink { width: 100%; box-sizing: border-box; white-space: normal; justify-content: center; padding: .6rem .8rem; font-size: .95rem; }
+}
