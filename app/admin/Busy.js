@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 /** A popup with a running timer: shown while something slow is being done, so it is clear the button was pressed. */
@@ -23,8 +23,34 @@ export function BusyOverlay({ show, text }) {
   );
 }
 
-/** Submit button for a <form action={serverAction}>: shows the popup and stays disabled until the action finishes. */
-export function BusyButton({ children, className = "btn secondary", text }) {
+const fire = (msg) => { try { window.dispatchEvent(new CustomEvent("admin-toast", { detail: msg })); } catch {} };
+
+/** A green message at the bottom of the screen that stays for 8 seconds: proof that the button did its job (put ONE <ToastHost/> on the page). */
+export function ToastHost() {
+  const [msg, setMsg] = useState("");
+  useEffect(() => {
+    let t;
+    const on = (e) => { setMsg(String(e.detail || "Done")); clearTimeout(t); t = setTimeout(() => setMsg(""), 8000); };
+    window.addEventListener("admin-toast", on);
+    return () => { window.removeEventListener("admin-toast", on); clearTimeout(t); };
+  }, []);
+  if (!msg) return null;
+  return (
+    <div role="status" onClick={() => setMsg("")} style={{ position: "fixed", left: "50%", bottom: 24, transform: "translateX(-50%)", zIndex: 10000, background: "#0b6b2c", color: "#fff", padding: ".9rem 1.3rem", borderRadius: 12, fontWeight: 700, fontSize: "1.05rem", boxShadow: "0 8px 30px rgba(0,0,0,.4)", maxWidth: "92vw", textAlign: "center", cursor: "pointer" }}>
+      {msg}
+    </div>
+  );
+}
+
+/** Submit button for a <form action={serverAction}>: shows the popup, stays disabled until the action finishes, then shows a green "done" message
+ *  (even when the button itself disappears because the item moved to another state). */
+export function BusyButton({ children, className = "btn secondary", text, done = "✅ Ho gaya" }) {
   const { pending } = useFormStatus();
+  const was = useRef(false);
+  useEffect(() => {
+    if (pending) was.current = true;
+    else if (was.current) { was.current = false; fire(done); }
+  }, [pending, done]);
+  useEffect(() => () => { if (was.current) fire(done); }, []);   // eslint-disable-line react-hooks/exhaustive-deps
   return (<><button className={className} disabled={pending}>{children}</button><BusyOverlay show={pending} text={text} /></>);
 }

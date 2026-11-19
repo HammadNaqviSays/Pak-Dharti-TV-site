@@ -6,7 +6,7 @@ import { Reel } from "@/models";
 import { SceneLine } from "./SceneMedia";
 import { makeReelScriptAction, setReelStatusAction, saveReelConfigAction, deleteRejectedReelsAction } from "../reelsAction";
 import DeleteReel from "./DeleteReel";
-import { BusyButton } from "../Busy";
+import { BusyButton, ToastHost } from "../Busy";
 import { getReelConfig, REEL_SECTIONS } from "@/lib/reelConfig";
 
 const SECTION_NAME = { pakistan: "Pakistan", politics: "Politics", world: "World", economy: "Economy", sports: "Sports", disaster: "Disasters", entertainment: "Showbiz" };
@@ -23,6 +23,7 @@ export default async function ReelsPage() {
   const list = await Reel.find({}).sort({ createdAt: -1 }).limit(30).lean();
   return (
     <>
+      <ToastHost />
       <div className="admin-top"><div className="wrap">
         <a className="admin-brand" href="/admin"><img src="/brand/logo.png" alt="" width="48" height="48" /><strong>Mission Control</strong></a>
         <AdminInstall />
@@ -55,7 +56,7 @@ export default async function ReelsPage() {
                     <ol dir="rtl" style={{ fontFamily: "\"Jameel Noori Nastaleeq\", var(--f-urdu)", fontSize: "1.15rem", lineHeight: 2 }}>
                       {r.scenes.map((s, i) => <li key={`${i}-${r.scenes.length}`}><SceneLine id={String(r._id)} n={i} extraAt={s.extraAt || []} text={s.text} kw={s.kw} who={s.who} pic={s.pic || ""} clip={s.clip || ""} extra={s.extra || []} canEdit={["draft", "scripted", "ready", "failed"].includes(r.status)} /></li>)}
                     </ol>
-                    {["draft", "ready", "failed"].includes(r.status) && <form action={setReelStatusAction} style={{ margin: ".8rem 0" }}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton className="btn publish" text="Sending to the video maker. Please wait…">Make video again (new voice from these words)</BusyButton></form>}
+                    {["draft", "ready", "failed"].includes(r.status) && <form action={setReelStatusAction} style={{ margin: ".8rem 0" }}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton className="btn publish" text="Sending to the video maker. Please wait…" done="✅ Ho gaya — reel video banne ki line mein chala gaya. Neeche us ka status \"In the queue\" ho jaye ga.">Make video again (new voice from these words)</BusyButton></form>}
                     {r.caption && <p dir="rtl" className="hint">{r.caption}</p>}
                   </details>
                   {r.videoUrl && <video src={r.videoUrl} controls playsInline style={{ maxWidth: 240, borderRadius: 8, marginTop: ".5rem" }} />}
@@ -63,12 +64,12 @@ export default async function ReelsPage() {
                 </div>
                 <div className="actions">
                   <a className={r.status === "draft" ? "btn publish" : "btn secondary"} href={`/admin/reels/${String(r._id)}`}>{r.status === "draft" ? "Edit script" : "Edit look"}</a>
-                  {r.status === "draft" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton text="Sending to the video maker. Please wait…">Make video now</BusyButton></form>}
+                  {r.status === "draft" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton text="Sending to the video maker. Please wait…" done="✅ Ho gaya — reel video banne ki line mein chala gaya. Neeche us ka status \"In the queue\" ho jaye ga.">Make video now</BusyButton></form>}
                   <a className="btn secondary" href={`/ur/news/${r.slug}`} target="_blank" rel="noopener">Story</a>
                   {!["rendering", "posted"].includes(r.status) && <DeleteReel id={String(r._id)} />}
-                  {r.status !== "rejected" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="rejected" /><BusyButton text="Rejecting…">Reject</BusyButton></form>}
-                  {["ready", "failed"].includes(r.status) && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton text="Sending to the video maker. Please wait…">Make video again</BusyButton></form>}
-                  {r.status === "ready" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="approved" /><BusyButton className="btn publish" text="Approving…">Approve</BusyButton></form>}
+                  {r.status !== "rejected" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="rejected" /><BusyButton text="Rejecting…" done="✅ Reject ho gaya">Reject</BusyButton></form>}
+                  {["ready", "failed"].includes(r.status) && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton text="Sending to the video maker. Please wait…" done="✅ Ho gaya — reel video banne ki line mein chala gaya. Neeche us ka status \"In the queue\" ho jaye ga.">Make video again</BusyButton></form>}
+                  {r.status === "ready" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="approved" /><BusyButton className="btn publish" text="Approving…" done="✅ Approve ho gaya (is se kuch post nahi hota, video khud download karni hai)">Approve</BusyButton></form>}
                 </div>
               </li>
             ))}
