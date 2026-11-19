@@ -48,7 +48,7 @@ export default async function WriterPage({ params }) {
       <Ticker lang={lang} items={ticker} />
       <div className="wrap with-sidebar">
         <div className="main-col">
-          <section className="wp-hero">
+          <div className="wp-wrap"><section className="wp-hero">
             {au.photo && <img className="wp-photo" src={au.photo} alt={name} width="240" height="357" />}
             <div>
               <p className="colx-kicker">{ur ? "لکھاری" : "Writer"}</p>
@@ -63,7 +63,7 @@ export default async function WriterPage({ params }) {
                 </div>
               )}
             </div>
-          </section>
+          </section></div>
           <h2 className="wp-sub">{ur ? (w.items.length > 1 ? `${name} کی تحریریں` : `${name} کی تحریر`) : (w.items.length > 1 ? `Columns by ${name}` : `Column by ${name}`)}</h2>
           <div className="colx-grid">
             {w.items.map((a) => {

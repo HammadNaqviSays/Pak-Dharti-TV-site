@@ -1041,3 +1041,22 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
   .wp-connect .wlinks li { flex: 1 1 100%; min-width: 0; }
   .wp-connect .wlink { width: 100%; box-sizing: border-box; white-space: normal; justify-content: center; padding: .6rem .8rem; font-size: .95rem; }
 }
+
+/* ===== Writer page: ONE final responsive system (container-based, works at any width, EN + UR) ===== */
+.wp-wrap { container-type: inline-size; container-name: wp; }
+.wp-hero { display: flex; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; gap: 1.4rem; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+.wp-photo { flex: 0 0 240px; width: 240px; height: auto; min-height: 357px; margin: 0; align-self: stretch; padding: 0; background: none; object-fit: cover; object-position: top center; }
+.wp-hero > div { flex: 1 1 0; min-width: 0; align-self: stretch; justify-content: flex-start; gap: .4rem; }
+.wp-name, .wp-role, .wp-bio { max-width: 100%; overflow-wrap: anywhere; }
+.wp-bio { text-align: start; word-spacing: normal; line-height: 1.95; hyphens: none; }
+.wp-connect { margin-top: auto; padding-top: .7rem; width: 100%; box-sizing: border-box; }
+.wp-connect .wlinks { display: flex; flex-wrap: wrap; gap: .55rem; width: 100%; }
+.wp-connect .wlinks li { flex: 1 1 9.5rem; min-width: 0; }
+.wp-connect .wlink { width: 100%; box-sizing: border-box; min-width: 0; white-space: normal; text-align: center; justify-content: center; padding: .55rem .7rem; font-size: .92rem; }
+@container wp (min-width: 720px) { .wp-bio { text-align: justify; text-justify: inter-word; } }
+@container wp (max-width: 619px) {
+  .wp-hero { flex-direction: column; align-items: center; gap: 1rem; padding: .9rem; }
+  .wp-photo { flex: none; width: min(68cqw, 260px); height: auto; min-height: 0; aspect-ratio: 0.672; align-self: center; }
+  .wp-hero > div { width: 100%; flex: none; align-self: stretch; }
+  .wp-connect .wlinks li { flex: 1 1 100%; }
+}
