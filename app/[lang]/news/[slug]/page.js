@@ -1,7 +1,7 @@
 import { PoetryUrduOnly } from "@/components/PoetryGate";
 import { isThinForSearch } from "@/lib/indexGate";
 import { notFound } from "next/navigation";
-import { getArticle, getRelated, getMostRead, pickText } from "@/lib/queries";
+import { getArticle, getRelated, getMostRead, pickText, getReelFor } from "@/lib/queries";
 import { Sidebar } from "@/components/SiteChrome";
 import AdSlot from "@/components/Ads";
 import { DICT } from "@/lib/i18n";
@@ -51,7 +51,7 @@ export default async function ArticlePage({ params }) {
   if (a.category === "poetry" && lang !== "ur") return <PoetryUrduOnly lang={lang} />;
   const t = DICT[lang];
   const x = pickText(a, lang);
-  const [related, mostRead] = await Promise.all([getRelated(a, 3), getMostRead()]);
+  const [related, mostRead, reel] = await Promise.all([getRelated(a, 3), getMostRead(), lang === "ur" ? getReelFor(slug) : null]);   // the video speaks Urdu: shown on the Urdu page
   // A story about 2-3 public figures gets a collage of their licensed library photos instead of a stock photo
   let collage = [];
   if ((a.visual?.people?.length || 0) >= 2) {
@@ -91,7 +91,7 @@ export default async function ArticlePage({ params }) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbs).replace(/</g, "\\u003c") }} />
         {faqJsonLd(a.faq, lang, pageUrl) && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(a.faq, lang, pageUrl)).replace(/</g, "\\u003c") }} />}
-        <ArticleView a={a} lang={lang} collage={collage}>
+        <ArticleView a={a} lang={lang} collage={collage} reel={reel}>
           <ShareBar lang={lang} url={`${SITE.url}/${lang}/news/${slug}`} title={x.title} />
         </ArticleView>
         <StoryFaq faq={a.faq} lang={lang} />

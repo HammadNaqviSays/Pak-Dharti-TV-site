@@ -2,6 +2,7 @@ import { writerSlug } from "@/lib/writerSlug";
 import { focusStyle } from "@/lib/focus";
 import WriterLinks from "@/components/WriterLinks";
 import ReactMarkdown from "react-markdown";
+import ReelPlayer from "@/components/ReelPlayer";
 import { DICT, LOCALES } from "@/lib/i18n";
 import { pickText } from "@/lib/queries";
 
@@ -63,7 +64,7 @@ export function Story({ a, lang, variant = "card", showCategory = true }) {
 }
 
 /** Full article view, shared by the public page and the admin preview. */
-export function ArticleView({ a, lang, children, collage = [] }) {
+export function ArticleView({ a, lang, children, collage = [], reel = null }) {
   const t = DICT[lang];
   const x = pickText(a, lang);
   const textLang = x.fallback ? "en" : lang;
@@ -125,9 +126,23 @@ export function ArticleView({ a, lang, children, collage = [] }) {
       )}
 
       {/* react-markdown does not render raw HTML, so AI output cannot inject scripts */}
-      <div className="article-body" lang={textLang} dir={x.fallback ? "ltr" : undefined}>
-        <ReactMarkdown>{x.body}</ReactMarkdown>
-      </div>
+      {(() => {
+        // with a video: the first paragraph, then the video, then the rest of the story
+        const parts = String(x.body || "").split(/\n\s*\n/);
+        const at = reel ? parts.findIndex((c) => c.trim() && !/^\s*(#|[-*>]|\d+\.)/.test(c)) : -1;
+        if (at < 0) return (
+          <div className="article-body" lang={textLang} dir={x.fallback ? "ltr" : undefined}>
+            <ReactMarkdown>{x.body}</ReactMarkdown>
+          </div>
+        );
+        return (
+          <div className="article-body" lang={textLang} dir={x.fallback ? "ltr" : undefined}>
+            <ReactMarkdown>{parts.slice(0, at + 1).join("\n\n")}</ReactMarkdown>
+            <ReelPlayer id={reel.id} sec={reel.sec} title={x.title} label="ویڈیو میں دیکھیں" hint={a.contentType === "opinion" ? "پورا کالم نیچے پڑھیں" : "پوری خبر نیچے پڑھیں"} />
+            <ReactMarkdown>{parts.slice(at + 1).join("\n\n")}</ReactMarkdown>
+          </div>
+        );
+      })()}
 
       {au && (
         <aside className="author-card">

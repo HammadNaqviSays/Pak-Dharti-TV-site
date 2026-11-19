@@ -1060,3 +1060,12 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
   .wp-hero > div { width: 100%; flex: none; align-self: stretch; }
   .wp-connect .wlinks li { flex: 1 1 100%; }
 }
+
+/* Reel video inside a story: a poster picture first, the video loads on tap */
+.reel-embed { margin: .4rem auto 1.5rem; width: min(100%, 300px); text-align: center; }
+.reel-frame { position: relative; aspect-ratio: 9 / 16; background: #111; border-radius: 12px; overflow: hidden; }
+.reel-frame button { all: unset; display: block; width: 100%; height: 100%; cursor: pointer; position: relative; }
+.reel-frame img, .reel-frame video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.reel-play { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); width: 64px; height: 64px; border-radius: 50%; background: rgba(0,0,0,.6); color: #fff; font-size: 26px; display: grid; place-items: center; padding-inline-start: 4px; box-shadow: 0 0 0 3px rgba(255,255,255,.85); }
+.reel-embed figcaption { margin-top: .45rem; font-weight: 700; font-size: .95rem; }
+.reel-embed figcaption small { display: block; font-weight: 400; opacity: .7; margin-top: .1rem; }
