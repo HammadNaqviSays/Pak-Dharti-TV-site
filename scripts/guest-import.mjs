@@ -54,7 +54,7 @@ if (process.env.IMAGE_ONLY === "1") {
   if (!existing) throw new Error("no article with this slug yet");
   const u = await mediaUrl("article.jpg", `Article picture: ${d.slug}`);
   if (!u) throw new Error("article.jpg not found");
-  await Article.updateOne({ _id: existing._id }, { $set: { "image.url": u, "image.thumb": u } });
+  await Article.updateOne({ _id: existing._id }, { $set: { "image.url": u, "image.thumb": u, ...(d.image?.credit ? { "image.credit": d.image.credit } : {}), ...(d.image?.alt ? { "image.alt": d.image.alt } : {}) } });
   console.log(`::notice title=guest picture::slug=${d.slug} image=${u}`);
   await mongoose.disconnect();
   process.exit(0);
