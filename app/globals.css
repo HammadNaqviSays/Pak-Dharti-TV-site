@@ -1025,3 +1025,12 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .util-table th[scope="row"] { min-width: 0; }
 .util-table th[scope="row"], .util-table td, .util-table th[scope="col"] { width: auto; }
 @media (max-width: 640px) { .coin-cell { grid-template-columns: 1.9rem 6.2rem 3.2rem; column-gap: .55rem; } .coin-sym { padding: .15rem 0; } }
+
+/* narrow screens: no justified text (it opens big gaps between words on short lines); words still never split.
+   Wider screens keep the justified look. */
+@media (max-width: 819px) {
+  .wp-bio, .author-card p { text-align: start; text-justify: auto; word-spacing: normal; line-height: 1.9; }
+}
+@media (min-width: 820px) {
+  .wp-bio { text-align: justify; text-justify: inter-word; }
+}
