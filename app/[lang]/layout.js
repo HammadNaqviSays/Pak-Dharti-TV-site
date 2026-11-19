@@ -44,6 +44,7 @@ export async function generateMetadata({ params }) {
     icons: ICONS,
     appleWebApp: { capable: true, title: "Pak Dharti", statusBarStyle: "default" },
     openGraph: { siteName: DICT[lang].site, images: ["/brand/og-default.jpg"] },
+    other: { "p:domain_verify": "03ac8f977e2de86a6de4b36778c9f125" },   // Pinterest: proves we own the website
   };
 }
 
