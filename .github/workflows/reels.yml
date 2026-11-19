@@ -63,7 +63,13 @@ jobs:
               rm -f part_*; split -b 3000000 -d -a 2 reel.mp4 part_
               OK=1; N=0
               for f in part_*; do
-                curl -sS --fail --max-time 120 -X POST -H "x-cron-token: $TOKEN" -H "content-type: application/octet-stream" --data-binary @$f "$SITE/api/cron/reels?op=upload&id=$ID&part=$N" >/dev/null || OK=0
+                for try in 1 2 3; do
+                  CODE=$(curl -sS --max-time 120 -o up.out -w "%{http_code}" -X POST -H "x-cron-token: $TOKEN" -H "content-type: application/octet-stream" --data-binary @$f "$SITE/api/cron/reels?op=upload&id=$ID&part=$N" || echo 000)
+                  [ "$CODE" = "200" ] && break
+                  echo "upload part $N try $try -> HTTP $CODE: $(head -c 200 up.out 2>/dev/null)"
+                  sleep 5
+                done
+                [ "$CODE" = "200" ] || OK=0
                 N=$((N+1))
               done
               SEC=$(ffprobe -v error -show_entries format=duration -of csv=p=0 reel.mp4)
