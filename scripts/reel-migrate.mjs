@@ -14,7 +14,7 @@ for (const sl of String(process.env.APPROVE || "").split(",").map((x) => x.trim(
 }
 const rows = await Reel.find({ status: "approved", r2: { $ne: true } }).select("title").lean();
 console.log("approved reels still in the database:", rows.length);
-for (const x of await Reel.find({}).sort({ updatedAt: -1 }).limit(12).select("title status r2 slug").lean()) console.log("REEL", x.status, "r2=" + !!x.r2, String(x.slug).slice(0, 60), "|", String(x.title).slice(0, 30));
+for (const x of await Reel.find({}).sort({ updatedAt: -1 }).limit(12).select("title status r2 slug").lean()) console.log("REEL", x.status, "r2=" + !!x.r2, String(x.slug), "|", String(x.title).slice(0, 30));
 for (const r of rows) {
   const id = String(r._id);
   try {
