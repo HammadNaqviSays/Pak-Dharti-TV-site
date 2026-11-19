@@ -7,6 +7,7 @@ import { isRTL, LANG_NAMES, DICT } from "@/lib/i18n";
 import { ArticleView } from "@/components/Stories";
 import { approveAction, rejectAction, unpublishAction } from "../../actions";
 import PhotoChanger from "../../PhotoChanger";
+import ShareRow from "../../ShareRow";
 import NewsCardMaker from "../../NewsCardMaker";
 import AdminInstall from "../../AdminInstall";
 import { StoryMarks, ReelAction, reelMap } from "../../StoryMarks";
@@ -66,6 +67,7 @@ export default async function PreviewPage({ params, searchParams }) {
         </div>
       </div>
       <div className="wrap" style={{ paddingTop: "1rem" }}>
+        {a.status === "published" && <ShareRow a={a} lang={lang} />}
         <PhotoChanger id={String(a._id)} current={a.image?.url} />
         <p className="hint"><a className="btn secondary" href={`?lang=${lang}&redo=1`}>Re-pick the people and place photo for this story</a> (use this if the card shows the wrong person)</p>
         <p className="hint"><a className="btn publish" href={`/admin/bayan?text=${encodeURIComponent(a.translations?.ur?.title ? cleanUrdu(a.translations.ur.title) : "")}&who=${encodeURIComponent(visual?.people?.[0]?.name || "")}`}>Make a Bayan card from this story</a></p>
