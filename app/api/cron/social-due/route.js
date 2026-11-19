@@ -28,7 +28,8 @@ export async function GET(req) {
       if (mins < s.from || mins >= s.to) continue;
       if (s.weekdays && (dow === 0 || dow === 6)) continue;
       const st = (await Setting.findOne({ key: `ratepost:${s.kind}` }).lean())?.value || {};
-      if (st.day === day && st.done && !(st.igPending && (st.igTries || 0) < 3)) continue;
+      const fbMissing = st.fbPending === true || (st.fbPending === undefined && !!st.result && !st.result.fb && !!st.result.ig);
+      if (st.day === day && st.done && !(st.igPending && (st.igTries || 0) < 3) && !(fbMissing && (st.fbTries || 0) < 3)) continue;
       if (st.day === day && (st.tries || 0) >= 3) continue;
       if (st.day === day && !st.done && st.at && Date.now() - st.at < 30 * 60e3) continue;
       return NextResponse.json({ due: true, why: `rate card ${s.kind}` });
