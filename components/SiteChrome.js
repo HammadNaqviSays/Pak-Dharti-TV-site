@@ -35,6 +35,7 @@ export function SiteHeader({ lang }) {
           { key: "dollar-rate", href: `/${lang}/dollar-rate`, label: W[lang].dollar },
           { key: "petrol-price", href: `/${lang}/petrol-price`, label: W[lang].petrol },
           { key: "psx", href: `/${lang}/psx`, label: W[lang].psx },
+          { key: "crypto", href: `/${lang}/crypto`, label: W[lang].crypto },
           { key: "mandi-rates", href: `/${lang}/mandi-rates`, label: W[lang].mandi },
           ...(lang === "ur" ? [{ key: "history", href: "/ur/history", label: "تاریخِ پاکستان" }, { key: "daily", href: "/ur/daily", label: "روزانہ کارڈز" }] : [])]}>
         <LangSwitcher current={lang} label={t.language} />

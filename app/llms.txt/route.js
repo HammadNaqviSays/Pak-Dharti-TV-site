@@ -20,6 +20,7 @@ export function GET() {
 - [Dollar rate today](${u}/en/dollar-rate)
 - [Petrol and diesel price](${u}/en/petrol-price)
 - [PSX KSE-100 index](${u}/en/psx)
+- [Bitcoin and crypto prices (information only)](${u}/en/crypto)
 - [Mandi rates](${u}/en/mandi-rates)
 - [Prayer times](${u}/en/prayer-times)
 - [Currency rates and calculator](${u}/en/rates)

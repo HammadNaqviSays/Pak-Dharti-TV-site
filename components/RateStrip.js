@@ -2,6 +2,7 @@ import { getRates, money } from "@/lib/rates";
 import { getFuel } from "@/lib/fuel";
 import { peekKse } from "@/lib/psx";
 import { peekOil } from "@/lib/oil";
+import { peekCrypto } from "@/lib/crypto";
 
 const pct = (now, prev) => (prev ? ((now - prev) / prev) * 100 : null);
 
@@ -22,7 +23,7 @@ function FxLayer({ type }) {
 /** Row of today's key rates under the ticker: icon, label, value, daily change. Each tile links to its own page. */
 export default async function RateStrip({ lang }) {
   const ur = lang === "ur";
-  const [rates, fuel, kse, oil] = await Promise.all([getRates().catch(() => null), getFuel().catch(() => null), peekKse(), peekOil()]);
+  const [rates, fuel, kse, oil, cry] = await Promise.all([getRates().catch(() => null), getFuel().catch(() => null), peekKse(), peekOil(), peekCrypto()]);
   const usd = rates?.fx?.find((c) => c.code === "USD");
   const items = [
     rates?.gold && { href: "gold-rate", icon: "🪙", ic: "spin", fx: "gold", k: ur ? "سونا · 24 قیراط · تولہ" : "Gold · 24K · tola", v: money(rates.gold.tola24), u: "PKR" },
@@ -30,6 +31,7 @@ export default async function RateStrip({ lang }) {
     fuel?.petrol && { href: "petrol-price", icon: "⛽", ic: "beat", fx: "fill", k: ur ? "پیٹرول · فی لیٹر" : "Petrol · per litre", v: money(fuel.petrol, 2), u: "PKR" },
     kse?.close && { href: "psx", icon: "📈", ic: "rise", fx: "chart", k: "KSE-100", v: money(kse.close, 0), ch: Number.isFinite(kse.pct) ? kse.pct : null },
     oil?.brent?.price && { href: "petrol-price", icon: "🛢️", ic: "wobble", fx: "drain", k: ur ? "برینٹ خام تیل · بیرل" : "Brent crude · barrel", v: money(oil.brent.price, 2), u: "USD", ch: pct(oil.brent.price, oil.brent.prev) },
+    cry?.prices?.BTC?.usd && { href: "crypto", icon: "₿", ic: "rise", fx: "chart", k: ur ? "بٹ کوائن" : "Bitcoin", v: money(cry.prices.BTC.usd, 0), u: "USD", ch: Number.isFinite(cry.prices.BTC.pct) ? cry.prices.BTC.pct : null },
     { href: "prayer-times", icon: "🕌", fx: "stars", k: ur ? "نماز کے اوقات" : "Prayer times", cta: ur ? "اوقات دیکھیں" : "View timings" },
   ].filter(Boolean);
   if (items.length < 2) return null;
