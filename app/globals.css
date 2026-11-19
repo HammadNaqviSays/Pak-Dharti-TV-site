@@ -1126,3 +1126,12 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .reel-share a:hover, .reel-share button:hover { filter: brightness(1.15); }
 .reel-share-msg { flex-basis: 100%; font: .78rem system-ui, sans-serif; color: #1b6b2f; }
 @media (max-width: 640px) { .reel-share a, .reel-share button { font-size: .62rem; padding: .3rem .45rem; } }
+
+/* ---- final share row: five equal round icon buttons in one line; caption row with a share mark ---- */
+.reel-share { display: flex; flex-wrap: nowrap; justify-content: space-between; gap: .3rem; margin-top: .5rem; }
+.reel-share a, .reel-share button { flex: 1 1 0; max-width: 36px; aspect-ratio: 1 / 1; padding: 0; border-radius: 50%; display: grid; place-items: center; font-size: 0; line-height: 0; }
+.reel-share a svg, .reel-share button svg { width: 55%; height: 55%; }
+.reel-cap { display: flex; align-items: center; justify-content: space-between; gap: .4rem; }
+.reel-cap .reel-share-mark { flex: none; color: #7a0000; }
+.media-pair .article-figure figcaption { line-height: 1.5; }
+@media (max-width: 640px) { .reel-share { gap: .2rem; } .reel-share a, .reel-share button { padding: 0; } }

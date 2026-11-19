@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ReelShare from "@/components/ReelShare";
+import ReelShare, { ShareMark } from "@/components/ReelShare";
 
 /** The reel video inside a story. Only a small poster picture loads with the page; the video itself loads when the reader taps it. */
 export default function ReelPlayer({ id, sec = 0, title = "", label = "", hint = "", caption = "", shareUrl = "" }) {
@@ -18,7 +18,7 @@ export default function ReelPlayer({ id, sec = 0, title = "", label = "", hint =
           </button>
         )}
       </div>
-      {caption ? <figcaption>{caption}</figcaption> : null}
+      {caption ? <figcaption className="reel-cap"><span>{caption}</span>{shareUrl ? <ShareMark /> : null}</figcaption> : null}
       {shareUrl ? <ReelShare url={shareUrl} title={title} /> : null}
     </figure>
   );

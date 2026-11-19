@@ -116,7 +116,7 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
           <span className="figure-frame" style={reel ? { "--bg": `url("${a.image.url}")` } : undefined}><img src={a.image.url} alt={a.image.alt || ""} style={focusStyle(a)} /></span>
           {a.image.credit && (
             <figcaption>
-              {t.photo}: {a.image.creditUrl ? <a href={a.image.creditUrl} rel="noopener noreferrer">{a.image.credit}</a> : a.image.credit}
+              {t.photo}{reel ? <br /> : ": "}{a.image.creditUrl ? <a href={a.image.creditUrl} rel="noopener noreferrer">{a.image.credit}</a> : a.image.credit}
               {a.image.provider === "unsplash" && (
                 <> / <a href="https://unsplash.com/?utm_source=pak_dharti_tv&utm_medium=referral" rel="noopener noreferrer">Unsplash</a></>
               )}
