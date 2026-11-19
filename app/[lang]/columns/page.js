@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { focusStyle } from "@/lib/focus";
 import { connectDB } from "@/lib/db";
 import { Article, LANGS } from "@/models";
 import { getTicker, getMostRead, pickText } from "@/lib/queries";
@@ -39,7 +40,7 @@ export default async function ColumnsPage({ params }) {
       <article key={a.slug} className={big ? "colx colx-big" : "colx"}>
         {a.image?.url && (
           <a href={href} className="colx-img" tabIndex={-1} aria-hidden="true">
-            <img src={a.image.url} alt="" loading={big ? "eager" : "lazy"} />
+            <img src={a.image.url} alt="" loading={big ? "eager" : "lazy"} style={focusStyle(a)} />
             <span className="colx-badge">{t.types[a.contentType] || t.types.opinion}</span>
           </a>
         )}

@@ -1,4 +1,5 @@
 import { writerSlug } from "@/lib/writerSlug";
+import { focusStyle } from "@/lib/focus";
 import WriterLinks from "@/components/WriterLinks";
 import ReactMarkdown from "react-markdown";
 import { DICT, LOCALES } from "@/lib/i18n";
@@ -43,7 +44,7 @@ export function Story({ a, lang, variant = "card", showCategory = true }) {
     <article className={`story story-${variant}`} lang={x.fallback ? "en" : undefined}>
       <a href={href} className="story-link">
         {variant !== "text" && img && (
-          <div className="story-img"><img src={img} alt="" loading={variant === "lead" ? "eager" : "lazy"} /></div>
+          <div className="story-img"><img src={img} alt="" loading={variant === "lead" ? "eager" : "lazy"} style={focusStyle(a)} /></div>
         )}
         <div className="story-body">
           <div className="kicker">
@@ -108,7 +109,7 @@ export function ArticleView({ a, lang, children, collage = [] }) {
       )}
       {!collage.length && a.image?.url && (
         <figure className="article-figure">
-          <span className="figure-frame"><img src={a.image.url} alt={a.image.alt || ""} /></span>
+          <span className="figure-frame"><img src={a.image.url} alt={a.image.alt || ""} style={focusStyle(a)} /></span>
           {a.image.credit && (
             <figcaption>
               {t.photo}: {a.image.creditUrl ? <a href={a.image.creditUrl} rel="noopener noreferrer">{a.image.credit}</a> : a.image.credit}

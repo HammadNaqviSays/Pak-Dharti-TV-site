@@ -12,6 +12,7 @@ import { connectDB } from "@/lib/db";
 import { Article, Setting } from "@/models";
 import { isCron } from "@/lib/util";
 import { pingRecent } from "@/lib/indexnow";
+import { sweepFocus } from "@/lib/faceFocus";
 import { fillFaq } from "@/lib/faq";
 
 export const runtime = "nodejs";
@@ -66,6 +67,8 @@ export async function GET(req) {
     if (result.idle && !result.aiError) { try { result.fill = await fillMissingTranslations(); } catch (e) { result.fill = { error: String(e.message).slice(0, 120) }; } }
     // Quick answers (Urdu / English / Roman Urdu) for the newest stories that have none yet
     if (Date.now() - t0 < 28000) { try { result.faq = await fillFaq(1, 20000); } catch (e) { result.faq = { error: String(e.message).slice(0, 120) }; } }
+    // Find the face in the newest pictures (2 per run) so cropped cards start from the face
+    if (Date.now() - t0 < 30000) { try { result.focus = await sweepFocus(2); } catch (e) { result.focus = { error: String(e.message).slice(0, 120) }; } }
     // Clean up: archive the newer copy if two published stories cover the same event
     try { result.dedupe = await sweepDuplicates(); if (result.dedupe.archived) revalidatePath("/", "layout"); } catch {}
     // Share a fresh story on the Facebook page and Instagram (off unless SOCIAL_AUTO=true; ignored when this run was long)

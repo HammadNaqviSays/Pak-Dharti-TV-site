@@ -46,6 +46,7 @@ const ArticleSchema = new Schema(
       credit: String, creditUrl: String, license: String,
       provider: String, // unsplash | wikimedia | own | link | local
       searchedAt: Date, // when "find photos" last looked for this story
+      focusX: Number, focusY: Number, focusDone: Boolean, focusTries: Number, // where the face is (percent), found by lib/faceFocus.js
     },
 
     sources: [{ _id: false, name: String, url: String, publishedAt: Date }],

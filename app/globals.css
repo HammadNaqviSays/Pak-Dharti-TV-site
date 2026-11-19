@@ -980,3 +980,9 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .wp-connect .wlinks li { flex: 1 1 0; min-width: 0; }
 .wp-connect .wlink { padding: .5rem .4rem; font-size: .88rem; justify-content: center; white-space: nowrap; gap: .35rem; }
 @media (max-width: 640px) { .wp-photo { align-self: center; min-height: 0; height: min(98.5vw, 372px); } .wp-connect .wlinks { flex-wrap: wrap; } .wp-connect .wlinks li { flex: 1 1 8rem; } }
+
+/* pictures are cropped from the TOP (faces first); a face anchor found by the AI (inline style) overrides this */
+.colx-img img, .colx-grid .colx-img img { object-position: center top; }
+@media (max-width: 819px) { .colx-big .colx-img img { object-position: center top; } }
+.story-img img { object-position: center 8%; }
+.article-figure .figure-frame img { object-position: center top; }

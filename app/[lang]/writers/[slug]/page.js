@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { focusStyle } from "@/lib/focus";
 import { LANGS } from "@/models";
 import { getTicker, getMostRead, pickText } from "@/lib/queries";
 import { Ticker, Sidebar } from "@/components/SiteChrome";
@@ -69,7 +70,7 @@ export default async function WriterPage({ params }) {
               const x = pickText(a, lang), href = `/${lang}/news/${a.slug}`;
               return (
                 <article key={a.slug} className="colx">
-                  {a.image?.url && <a href={href} className="colx-img" tabIndex={-1} aria-hidden="true"><img src={a.image.url} alt="" loading="lazy" /><span className="colx-badge">{t.types[a.contentType] || t.types.opinion}</span></a>}
+                  {a.image?.url && <a href={href} className="colx-img" tabIndex={-1} aria-hidden="true"><img src={a.image.url} alt="" loading="lazy" style={focusStyle(a)} /><span className="colx-badge">{t.types[a.contentType] || t.types.opinion}</span></a>}
                   <div className="colx-body">
                     <h3 className="colx-title"><a href={href}>{x.title}</a></h3>
                     {x.summary && <p className="colx-sum">{x.summary}</p>}
