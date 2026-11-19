@@ -1,0 +1,29 @@
+# Read-only: tests which Pixabay picture addresses can be downloaded. Run by hand.
+name: pixabay-test
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - name: Key for this run (never printed)
+        env:
+          WORKER_ENV: ${{ secrets.WORKER_ENV }}
+        run: |
+          python3 - <<'PY'
+          import os
+          out = []
+          for line in (os.environ.get("WORKER_ENV") or "").splitlines():
+              k, sep, v = line.strip().partition("=")
+              k, v = k.strip(), v.strip()
+              if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'": v = v[1:-1]
+              if sep and k == "PIXABAY_API_KEY" and v:
+                  print(f"::add-mask::{v}"); out.append(f"{k}={v}")
+          open(os.environ["GITHUB_ENV"], "a").write("\n".join(out) + "\n")
+          PY
+      - run: node scripts/pixabay-test.mjs
