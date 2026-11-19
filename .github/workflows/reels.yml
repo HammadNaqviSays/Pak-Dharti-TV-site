@@ -54,7 +54,11 @@ jobs:
         if: steps.chk2.outputs.waiting != '0'
         run: |
           for n in 1 2 3; do
-            curl -sS --max-time 100 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=prepare" -o plan.json || { echo "prepare call failed"; break; }
+            for t in 1 2 3 4; do
+              curl -sS --max-time 100 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=prepare" -o plan.json || { echo "prepare call failed"; break 2; }
+              grep -q "different request" plan.json || break   # the site's cached database link belongs to an earlier call: ask again (a fresh worker answers)
+              sleep 4
+            done
             if grep -q '"none":true' plan.json; then echo "No script waiting."; break; fi
             if ! python -c "import json,sys; m=json.load(open('plan.json')).get('manifest'); sys.exit(0 if m else 1)"; then echo "prepare: $(head -c 300 plan.json)"; break; fi
             python -c "import json; m=json.load(open('plan.json'))['manifest']; json.dump(m, open('manifest.json','w')); open('reel.id','w').write(m['id'])"
