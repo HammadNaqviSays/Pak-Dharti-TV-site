@@ -30,7 +30,10 @@ def fetch(url, dest):
     if not url: return None
     try:
         if re.match(r"https?://", url):
-            r = requests.get(url, timeout=60, headers={"User-Agent": "PakDhartiTV-reels/1.0 (+https://www.pakdhartitv.com)"}); r.raise_for_status()
+            r = requests.get(url, timeout=60, headers={"User-Agent": "PakDhartiTV-reels/1.0 (+https://www.pakdhartitv.com)"})
+            if r.status_code in (400, 403) and "pixabay.com" in url:   # Pixabay sometimes refuses a plain download: ask again like a browser that comes from their site
+                r = requests.get(url, timeout=60, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36", "Referer": "https://pixabay.com/"})
+            r.raise_for_status()
             open(dest, "wb").write(r.content)
         else:
             open(dest, "wb").write(open(url, "rb").read())
