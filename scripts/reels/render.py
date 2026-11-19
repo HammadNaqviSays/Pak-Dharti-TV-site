@@ -50,6 +50,8 @@ if abs(SPEED - 1) > 0.01:                                   # voice speed set in
     vpath = os.path.join(WORK, "voice_fast.wav")
 with wave.open(vpath) as w:
     VR, VN = w.getframerate(), w.getnframes(); voice = np.frombuffer(w.readframes(VN), dtype=np.int16).astype(np.float32) / 32768
+INTRO = 3.0 if plan.get("column") else 0.0          # a guest column: the first 3 seconds show only the writer's credit poster, then the voice and the text start
+if INTRO: voice = np.concatenate([np.zeros(int(VR * INTRO), np.float32), voice]); VN = len(voice)
 VSEC = VN / VR
 OFF = 0.35; TAIL = 1.4
 scenes = plan["scenes"]
@@ -73,33 +75,35 @@ span = max(0.5, s_end - s_beg)
 cs = [max(12, len(x["text"])) for x in scenes]; tot = sum(cs)
 # The voice reads every scene as its own paragraph, so the scene ends are the LONG pauses (about 1 s). Estimating by letters alone drifts by
 # a second or two (the next words then appear while the last ones are still spoken): choose, among the long pauses, the ones that fit best.
+def pick_bounds(exps, pool, lims, floor, ceil, gap=0.8, P=8.0):
+    """Choose one real pause of the voice for every expected boundary (increasing, at least `gap` apart); the pauses that fit best win,
+    the longest ones are looked at first. Where no pause fits, the estimate is used."""
+    for lim in lims:
+        cand = [x for x, l in pool if l >= lim and floor < x < ceil]
+        if len(cand) >= len(exps): break
+    opts = [[(c, abs(c - e)) for c in cand] + [(e, P)] for e in exps]
+    best = [{}]
+    for k, o in enumerate(opts):
+        cur = {}
+        for j, (pos, cost) in enumerate(o):
+            if k == 0: cur[j] = (cost, None) if pos > floor else None
+            else:
+                prev = [(best[k][pj][0], pj) for pj in best[k] if best[k][pj] and opts[k - 1][pj][0] + gap < pos]
+                cur[j] = (min(prev)[0] + cost, min(prev)[1]) if prev else None
+        best.append(cur)
+    if not exps: return []
+    fin = {j: v for j, v in best[len(exps)].items() if v}
+    if not fin: return list(exps)
+    j = min(fin, key=lambda q: fin[q][0]); out = []
+    for k in range(len(exps), 0, -1):
+        out.append(opts[k - 1][j][0]); j = best[k][j][1]
+    return out[::-1]
+# The voice reads every scene as its own paragraph, so the scene ends are the LONG pauses (about 1 s). Estimating by letters alone drifts by
+# a second or two (the next words then appear while the last ones are still spoken): choose, among the long pauses, the ones that fit best.
 exps = []; acc = 0
 for k in range(len(scenes) - 1):
     acc += cs[k]; exps.append(s_beg + span * acc / tot)
-for _lim in (0.75, 0.55):                            # the scene-end pauses are the longest ones: look at those first
-    cand = [x for x, l in sil if l >= _lim and s_beg + 0.8 < x < s_end - 0.5]
-    if len(cand) >= len(exps): break
-P = 8.0                                              # cost of "no long pause found for this boundary": use the estimate
-opts = [[(c, abs(c - e)) for c in cand] + [(e, P)] for e in exps]
-best = [{}]                                          # best[k][option index] = (total cost, previous option index)
-for k, o in enumerate(opts):
-    cur = {}
-    for j, (pos, cost) in enumerate(o):
-        if k == 0: cur[j] = (cost, None) if pos > s_beg + 0.8 else None
-        else:
-            prev = [(best[k][pj][0], pj) for pj in best[k] if best[k][pj] and opts[k - 1][pj][0] + 0.8 < pos]
-            cur[j] = (min(prev)[0] + cost, min(prev)[1]) if prev else None
-    best.append(cur)
-bounds = [s_beg]
-if exps:
-    fin = {j: v for j, v in best[len(exps)].items() if v}
-    if fin:
-        j = min(fin, key=lambda q: fin[q][0]); pick = []
-        for k in range(len(exps), 0, -1):
-            pick.append(opts[k - 1][j][0]); j = best[k][j][1]
-        bounds += pick[::-1]
-    else:
-        bounds += [snap(e, bounds[-1] + 0.8, s_end - 0.5, 1.4) for e in exps]
+bounds = [s_beg] + pick_bounds(exps, sil, (0.75, 0.55), s_beg + 0.8, s_end - 0.5)
 bounds.append(s_end)
 starts = [b_ + OFF for b_ in bounds[:-1]]
 vis = [(0.0 if i == 0 else starts[i], (starts[i + 1] if i + 1 < len(scenes) else bounds[-1] + OFF + TAIL)) for i in range(len(scenes))]
@@ -161,7 +165,7 @@ for i, s in enumerate(scenes):
     bgs.append(cover(p, i) if not cf else cover(None, i))
 T("pictures prepared")
 
-SIREN = [bool(re.search(r"hospital|ambulance|emergency|clinic", (s.get("kw") or ""), re.I)) for s in scenes]
+SIREN = [False for s in scenes]     # the ambulance sound is switched off (the editor did not want it)
 
 # Look: photo with a dark tint; the text on WHITE strips with a coloured outline (red or black); the editor can colour words.
 PADX, BORD = 24, 7
@@ -300,10 +304,10 @@ if col:   # a guest column: the writer's photo, her credit and the title, centre
 line_t = []   # when each group (sentence) of each scene comes in
 for i, d in enumerate(per):
     cnt = [g["chars"] for g in d["groups"]]; allc = sum(cnt); t0_, t1_ = bounds[i], bounds[i + 1]
-    ts = [starts[i] if i else 0.2]; acc = 0
+    ts = [starts[i] if i else (INTRO if INTRO else 0.2)]; acc = 0; ex = []
     for n in range(1, len(cnt)):
-        acc += cnt[n - 1]; exp = t0_ + (t1_ - t0_) * acc / allc
-        ts.append(snap(exp, ts[-1] - OFF + 0.6, t1_ - 0.4, 0.8) + OFF)
+        acc += cnt[n - 1]; ex.append(t0_ + (t1_ - t0_) * acc / allc)
+    ts += [x + OFF for x in pick_bounds(ex, sil, (0.3, 0.2), t0_ + 0.5, t1_ - 0.4, gap=0.6, P=1.5)]   # sentence ends inside the scene: the real pauses
     line_t.append(ts)
 
 # ---- sound: voice + low siren under hospital scenes
@@ -399,7 +403,7 @@ if LOGO_FILE:
 else:
     LOGO_F = SH_F + "[vs]format=yuv420p[v]"
 if CARD_PNG:    # the column card: in the middle of the screen for about 3 seconds (fades in and out), then gone
-    LOGO_F = LOGO_F[:-3] + "[vz];" + f"[{CARD_IDX}:v]format=rgba,fade=t=in:st=0.3:d=0.4:alpha=1,fade=t=out:st=2.9:d=0.4:alpha=1[cc];[vz][cc]overlay=0:0:enable='between(t,0.3,3.4)':format=auto,format=yuv420p[v]"
+    LOGO_F = LOGO_F[:-3] + "[vz];" + f"[{CARD_IDX}:v]format=rgba,fade=t=in:st=0.2:d=0.4:alpha=1,fade=t=out:st=2.6:d=0.4:alpha=1[cc];[vz][cc]overlay=0:0:enable='between(t,0.2,3.05)':format=auto,format=yuv420p[v]"
 # ---- voice bars: a sound-level display that jumps with the voice and disappears in silence ----
 BW, BH, NB = 880, 100, 44                       # picture size, number of bars (mirrored: loud low tones in the middle, high tones outside)
 def make_bars(wav_path, out_mov, total):

@@ -1,0 +1,21 @@
+# Puts finished reels (title contains one of the words) back in the video queue. Run by hand.
+name: reel-requeue
+on:
+  workflow_dispatch:
+    inputs:
+      match: { description: "words in the reel title, comma separated", required: true }
+permissions:
+  contents: read
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      MATCH: ${{ inputs.match }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund 2>&1 | tail -1
+      - run: node scripts/reel-requeue.mjs
