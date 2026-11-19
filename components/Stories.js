@@ -112,7 +112,7 @@ export function ArticleView({ a, lang, children, collage = [], reel = null }) {
       {!collage.length && a.image?.url && (
         <div className={reel ? "media-pair" : undefined}>
         <figure className="article-figure">
-          <span className="figure-frame"><img src={a.image.url} alt={a.image.alt || ""} style={focusStyle(a)} /></span>
+          <span className="figure-frame" style={reel ? { "--bg": `url("${a.image.url}")` } : undefined}><img src={a.image.url} alt={a.image.alt || ""} style={focusStyle(a)} /></span>
           {a.image.credit && (
             <figcaption>
               {t.photo}: {a.image.creditUrl ? <a href={a.image.creditUrl} rel="noopener noreferrer">{a.image.credit}</a> : a.image.credit}

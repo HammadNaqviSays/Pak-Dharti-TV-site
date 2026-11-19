@@ -13,11 +13,13 @@ export default function ReelPlayer({ id, sec = 0, title = "", label = "", hint =
         ) : (
           <button type="button" onClick={() => setOn(true)} aria-label={label}>
             <img src={`${src}/poster`} alt={title} width="360" height="640" loading="lazy" decoding="async" />
+            <span className="reel-chip" aria-hidden="true">ویڈیو</span>
+            {sec ? <span className="reel-dur" aria-hidden="true">{Math.round(sec)}″</span> : null}
             <span className="reel-play" aria-hidden="true">▶</span>
           </button>
         )}
       </div>
-      <figcaption>{label}{sec ? ` · ${Math.round(sec)}″` : ""}{hint ? <small>{hint}</small> : null}</figcaption>
+      <figcaption>{label}{hint ? <small>{hint}</small> : null}</figcaption>
     </figure>
   );
 }
