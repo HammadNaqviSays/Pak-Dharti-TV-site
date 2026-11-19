@@ -109,19 +109,25 @@ export default function ReelEditor({ data }) {
   useEffect(() => {
     if (!making) return;
     let live = true;
-    const t = setInterval(async () => {
-      const r = await reelStatusAction(data.id);
-      if (!live || r?.error) return;
-      setSince(r.sec);
-      if (r.status !== status) {
-        setStatus(r.status);
-        if (r.status === "ready" || r.status === "approved" || r.status === "posted") {
-          setDone(true);
+    const tick = async () => {
+      try {
+        const r = await reelStatusAction(data.id);
+        if (!live || r?.error) return;
+        setSince(r.sec);
+        if (r.status !== status) {
+          setStatus(r.status);
+          if (r.status === "ready" || r.status === "approved" || r.status === "posted") {
+            setDone(true);
           try { document.title = "✅ Video ready - Pak Dharti TV"; const a = new (window.AudioContext || window.webkitAudioContext)(); const o = a.createOscillator(); o.connect(a.destination); o.frequency.value = 880; o.start(); setTimeout(() => o.stop(), 400); } catch {}
-        } else if (r.status === "failed") setFailMsg(r.error || "The video maker could not finish.");
-      }
-    }, 8000);
-    return () => { live = false; clearInterval(t); };
+            setTimeout(() => { try { window.location.reload(); } catch {} }, 1500);   // the page refreshes itself and shows the finished video
+          } else if (r.status === "failed") setFailMsg(r.error || "The video maker could not finish.");
+        }
+      } catch { /* a busy moment on the server: the next check tries again */ }
+    };
+    const t = setInterval(tick, 5000);
+    const vis = () => { if (document.visibilityState === "visible") tick(); };   // coming back to this tab checks at once
+    document.addEventListener("visibilitychange", vis);
+    return () => { live = false; clearInterval(t); document.removeEventListener("visibilitychange", vis); };
   }, [making, status, data.id]);
   const [pv, setPv] = useState(0);
   const [voice, setVoice] = useState(data.voice || data.defVoice);
