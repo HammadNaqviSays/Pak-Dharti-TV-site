@@ -28,6 +28,17 @@ if (process.env.LINKS_ONLY === "1") {
   await mongoose.disconnect();
   process.exit(0);
 }
+// SCHEDULE_AT=<ISO time, e.g. 2026-11-20T04:00:00Z>: keep the saved article a draft and let the site publish it then ("none" clears the schedule)
+if (process.env.SCHEDULE_AT) {
+  if (!existing) throw new Error("no article with this slug yet");
+  if (existing.status === "published") throw new Error("already published");
+  const v = process.env.SCHEDULE_AT === "none" ? null : new Date(process.env.SCHEDULE_AT);
+  if (v && (isNaN(v) || v.getTime() < Date.now())) throw new Error("bad or past time");
+  await Article.updateOne({ _id: existing._id }, v ? { $set: { scheduledAt: v } } : { $unset: { scheduledAt: 1 } });
+  console.log(`::notice title=guest schedule::slug=${d.slug} at=${v ? v.toISOString() : "cleared"}`);
+  await mongoose.disconnect();
+  process.exit(0);
+}
 // PHOTO_ONLY=1: swap just the writer's profile photo (author.jpg) on the saved article
 if (process.env.PHOTO_ONLY === "1") {
   if (!existing) throw new Error("no article with this slug yet");

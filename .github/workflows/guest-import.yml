@@ -6,6 +6,7 @@ on:
       file: { description: "json file", required: true, default: "data/guest/these-are-children.json" }
       publish: { description: "1 = publish it now (default: draft)", required: false, default: "0" }
       links_only: { description: "1 = only set the writer links (website / Instagram / Facebook)", required: false, default: "0" }
+      schedule_at: { description: "UTC time to publish the saved draft, e.g. 2026-11-20T04:00:00Z (none = clear)", required: false, default: "" }
       photo_only: { description: "1 = only swap the writer profile photo (author.jpg), change nothing else", required: false, default: "0" }
       image_only: { description: "1 = only swap the article picture (article.jpg), change nothing else", required: false, default: "0" }
 permissions:
@@ -19,6 +20,7 @@ jobs:
       PUBLISH: ${{ inputs.publish }}
       IMAGE_ONLY: ${{ inputs.image_only }}
       PHOTO_ONLY: ${{ inputs.photo_only }}
+      SCHEDULE_AT: ${{ inputs.schedule_at }}
       LINKS_ONLY: ${{ inputs.links_only }}
     steps:
       - uses: actions/checkout@v4

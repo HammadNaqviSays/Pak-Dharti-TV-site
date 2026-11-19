@@ -64,6 +64,7 @@ export default function GuestArticleForm() {
 
       <p>
         <button type="submit" value="draft" disabled={busy} className="btn secondary">Save as draft</button>{" "}
+        <span style={{ display: "inline-flex", gap: ".4rem", alignItems: "center", flexWrap: "wrap" }}><input type="datetime-local" name="scheduleAt" aria-label="Publish at (Pakistan time)" /><button type="submit" value="schedule" disabled={busy} className="btn secondary">Schedule (Pakistan time)</button></span>{" "}
         <button type="submit" value="publish" disabled={busy} className="btn publish">Publish now</button>
       </p>
       {busy && <p>Saving…</p>}

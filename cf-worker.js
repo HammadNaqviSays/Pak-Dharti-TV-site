@@ -15,6 +15,10 @@ export default {
   },
 
   async scheduled(event, env, ctx) {
+    // every tick: publish any scheduled column whose time has come (cheap database look)
+    ctx.waitUntil(env.WORKER_SELF_REFERENCE.fetch(new Request("https://www.pakdhartitv.com/api/cron/publish-scheduled", { headers: { authorization: `Bearer ${env.CRON_SECRET}` } }))
+      .then(async (r) => { const x = await r.text(); if (!x.includes('"published":[]')) console.log(`[cron] publish-scheduled -> ${r.status} ${x.slice(0, 200)}`); })
+      .catch((e) => console.log(`[cron] publish-scheduled failed: ${e?.message}`)));
     // "7,22,37,52 * * * *": start the Facebook / Instagram posting job on GitHub (it needs the image library that cannot run here).
     // Every GitHub run costs minutes of a small monthly allowance, so it is started only when the site says something is due
     // (a fresh story, a rate card, hand-made posts, a catch-up), plus a fixed run every 2 hours (07:00-21:00 Pakistan) for mandi, day count and the rest.

@@ -29,6 +29,14 @@ export async function publishGuestArticleAction(fd) {
     const category = CATEGORIES.includes(str(fd, "category")) ? str(fd, "category") : "pakistan";
     const contentType = ["opinion", "feature"].includes(str(fd, "contentType")) ? str(fd, "contentType") : "opinion";
     const mode = str(fd, "mode") === "publish" ? "publish" : "draft";
+    // "schedule": saved as a draft and published by the cron at this Pakistan time (datetime-local, e.g. 2026-11-20T09:00)
+    let scheduledAt;
+    if (str(fd, "mode") === "schedule") {
+      const m = str(fd, "scheduleAt", 20).match(/^(\d{4})-(\d\d)-(\d\d)T(\d\d):(\d\d)/);
+      if (!m) return { error: "Choose the date and time to publish." };
+      scheduledAt = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4] - 5, +m[5]));
+      if (scheduledAt.getTime() < Date.now() + 60e3) return { error: "The publish time must be in the future." };
+    }
 
     await connectDB();
     const photoUrl = await saveImage(fd.get("authorPhoto"), `Writer photo: ${name}`);
@@ -53,6 +61,7 @@ export async function publishGuestArticleAction(fd) {
       placement: { slot: "standard", priority: 60 },
       disclosure: { aiGenerated: false, humanReviewed: true, reviewedBy: name },
       publishedAt: mode === "publish" ? new Date() : undefined,
+      ...(scheduledAt ? { scheduledAt } : {}),
     });
     return { ok: true, id: String(article._id), slug: article.slug, status: article.status };
   } catch (e) { return { error: String(e.message || e).slice(0, 200) }; }
