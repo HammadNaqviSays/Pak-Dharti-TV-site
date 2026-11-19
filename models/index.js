@@ -221,7 +221,7 @@ const ReelSchema = new Schema({
     marks: [{ _id: false, i: Number, c: String }], anim: String, size: Number, edited: Boolean,
     pic: String, alt: Number, clip: String, mirror: Boolean, imgFixed: Boolean, extra: [String], extraAt: [Number] }],
   style: { font: String, stroke: String, grade: String, badge: String, noise: String, noiseAmt: String, mirror: Boolean, bgAlpha: Number },
-  voiceBlob: String, videoUrl: String, durationSec: Number, voiceSec: Number, voiceModel: String, sources: String, imageCredits: String,
+  voice: String, voiceBlob: String, videoUrl: String, durationSec: Number, voiceSec: Number, voiceModel: String, sources: String, imageCredits: String,
   fb: String, ig: String, postedAt: Date, error: String, tries: { type: Number, default: 0 },
 }, { timestamps: true });
 

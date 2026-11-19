@@ -4,7 +4,7 @@ import { REEL_FONTS, REEL_COLORS, REEL_ANIMS, REEL_STROKES, fontOf } from "@/lib
 import { BusyOverlay } from "../../Busy";
 import SceneMedia from "../SceneMedia";
 import FullPreview from "../../FullPreview";
-import { reelStatusAction, saveReelEditAction, uploadReelPicAction, uploadReelClipAction } from "../../reelsAction";
+import { previewVoiceAction, setReelVoiceAction, reelStatusAction, saveReelEditAction, uploadReelPicAction, uploadReelClipAction } from "../../reelsAction";
 
 // shrink a chosen picture to ~1500 px JPEG in the browser before sending it
 async function shrink(file) {
@@ -124,6 +124,21 @@ export default function ReelEditor({ data }) {
     return () => { live = false; clearInterval(t); };
   }, [making, status, data.id]);
   const [pv, setPv] = useState(0);
+  const [voice, setVoice] = useState(data.voice || data.defVoice);
+  const [vmsg, setVmsg] = useState(""), [vsrc, setVsrc] = useState(""), [vbusy, setVbusy] = useState(false);
+  const listenVoice = async () => {
+    setVbusy(true); setVsrc(""); setVmsg("Making a short sample… (a few seconds)");
+    const r = await previewVoiceAction(data.id, voice);
+    setVbusy(false);
+    if (r?.error) { setVmsg(r.error); return; }
+    setVsrc(r.src); setVmsg("Listen. If you like it, press 'Use this voice'.");
+  };
+  const useVoice = async () => {
+    setVbusy(true);
+    const r = await setReelVoiceAction(data.id, voice === data.defVoice ? "" : voice);
+    setVbusy(false);
+    setVmsg(r?.error ? r.error : `✅ ${voice} will speak this video. Press 'Save and make video again' to hear it in the video.`);
+  };
   const f = fontOf(font);
   const set = (n, patch) => setScenes((a) => a.map((s, i) => (i === n ? { ...s, ...patch } : s)));
 
@@ -187,6 +202,16 @@ export default function ReelEditor({ data }) {
       <h2>Edit look</h2>
       <p className="hint" lang="ur" dir="rtl" style={{ fontFamily: "\"Jameel Noori Nastaleeq\", serif", fontSize: "1.2rem" }}>{data.title}</p>
       <p className="hint">Tap a word to change its colour (black, red, blue, green). Choose how each text comes in, its size and the font. Lines come in one by one with the voice; the first lines are justified automatically.</p>
+      <div style={{ border: "1px solid #ccc", borderRadius: 10, padding: ".7rem .9rem", margin: ".6rem 0", fontFamily: "system-ui, sans-serif", fontSize: ".9rem" }}>
+        <strong>Voice-over</strong>{" "}
+        <select value={voice} onChange={(e) => { setVoice(e.target.value); setVsrc(""); setVmsg(""); }}>
+          {data.voices.map((v) => <option key={v} value={v}>{v}{v === data.defVoice ? " (default)" : ""}</option>)}
+        </select>{" "}
+        <button type="button" className="btn secondary" disabled={vbusy} onClick={listenVoice}>▶ Listen first</button>{" "}
+        <button type="button" className="btn publish" disabled={vbusy} onClick={useVoice}>Use this voice</button>
+        {vsrc && <div><audio controls autoPlay src={vsrc} style={{ marginTop: ".4rem", width: "100%", maxWidth: 360 }} /></div>}
+        {vmsg && <div style={{ marginTop: ".3rem" }}>{vmsg}</div>}
+      </div>
       <LookPreview scenes={scenes} n={pv} setN={setPv} fontFile={f.file} stroke={stroke} bgAlpha={bgAlpha} badge={badge} grade={grade} mirror={mirror} />
       <label>Font:{" "}
         <select value={font} onChange={(e) => setFont(e.target.value)}>{REEL_FONTS.map((x) => <option key={x.key} value={x.key}>{x.label}</option>)}</select>

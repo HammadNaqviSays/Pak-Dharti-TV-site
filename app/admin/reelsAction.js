@@ -10,6 +10,7 @@ import { makeNextReelScript, makeReelForSlug } from "@/lib/reelScript";
 import { saveReelConfig, REEL_SECTIONS } from "@/lib/reelConfig";
 import { previewScenePicture, stockFor, sceneOptions, useSceneOption } from "@/lib/reelMedia";
 import { saveReelFile } from "@/lib/reelMedia";
+import { speak, VOICES } from "@/lib/tts";
 
 
 export async function makeReelScriptAction() {
@@ -412,4 +413,29 @@ export async function useSceneOptionAction(id, n, url, credit = "") {
   id = String(id); n = Number(n); url = String(url || "");
   if (!/^[a-f0-9]{24}$/.test(id) || !Number.isInteger(n) || n < 0 || !/^https:\/\//.test(url)) return { error: "Bad request" };
   try { return await useSceneOption(id, n, url, credit); } catch (e) { return { error: String(e.message || e).slice(0, 120) }; }
+}
+
+/** A short sample of the first line in the chosen voice, to listen to before choosing. */
+export async function previewVoiceAction(id, voice) {
+  if (!(await isLoggedIn())) return { error: "Login again" };
+  id = String(id);
+  if (!/^[a-f0-9]{24}$/.test(id) || !VOICES.includes(voice)) return { error: "Bad request" };
+  try {
+    await connectDB();
+    const r = await Reel.findById(id).select("scenes").lean();
+    const text = String(r?.scenes?.[0]?.text || "").slice(0, 140);
+    if (!text) return { error: "No text" };
+    const v = await speak(text, { voice });
+    return { src: "data:audio/wav;base64," + v.wav.toString("base64") };
+  } catch (e) { return { error: "Could not make the sample now (voice quota?). " + String(e.message || e).slice(0, 80) }; }
+}
+
+/** The voice used for this reel's voice-over ("" = the default voice). It is spoken again the next time the video is made. */
+export async function setReelVoiceAction(id, voice) {
+  if (!(await isLoggedIn())) return { error: "Login again" };
+  id = String(id);
+  if (!/^[a-f0-9]{24}$/.test(id) || (voice && !VOICES.includes(voice))) return { error: "Bad request" };
+  await connectDB();
+  await Reel.updateOne({ _id: id }, { $set: { voice: voice || "" } });
+  return { ok: true };
 }
