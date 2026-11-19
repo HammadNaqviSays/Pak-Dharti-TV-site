@@ -1100,3 +1100,18 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
   .media-pair .article-figure .figure-frame img { height: auto; }
   .media-pair .article-figure .figure-frame::before { display: none; }
 }
+
+/* ---- final: picture and video are exactly the same size (phone / TikTok shape 9:16), side by side; text only under the picture ---- */
+.media-pair { grid-template-columns: 1fr 1fr; align-items: start; gap: .8rem; max-width: 580px; margin-inline: auto; }
+.media-pair .article-figure .figure-frame { flex: none; min-height: 0; aspect-ratio: 9 / 16; display: block; background: #111; }
+.media-pair .article-figure .figure-frame::before { display: none; }
+.media-pair .article-figure .figure-frame img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.media-pair .reel-frame { width: 100%; }
+@media (max-width: 640px) {
+  .media-pair { grid-template-columns: 1fr 1fr; padding: .5rem; gap: .5rem; }
+  .media-pair .article-figure .figure-frame { display: block; min-height: 0; }
+  .media-pair .article-figure .figure-frame img { height: 100%; }
+  .media-pair .reel-embed { width: 100%; margin-inline: 0; }
+  .media-pair .article-figure figcaption { font-size: .68rem; }
+  .reel-play { width: 52px; height: 52px; font-size: 20px; }
+}
