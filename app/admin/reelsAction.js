@@ -11,6 +11,7 @@ import { saveReelConfig, REEL_SECTIONS } from "@/lib/reelConfig";
 import { previewScenePicture, stockFor, sceneOptions, useSceneOption } from "@/lib/reelMedia";
 import { saveReelFile } from "@/lib/reelMedia";
 import { speak, VOICES } from "@/lib/tts";
+import { kickReels } from "@/lib/reelKick";
 
 
 export async function makeReelScriptAction() {
@@ -43,6 +44,7 @@ export async function setReelStatusAction(fd) {
   const status = String(fd.get("status"));
   if (!["approved", "rejected", "scripted"].includes(status)) return;
   await Reel.updateOne({ _id: String(fd.get("id")) }, { $set: status === "scripted" ? { status, tries: 0, error: "" } : { status } });
+  if (status === "scripted") await kickReels();
   revalidatePath("/admin/reels");
 }
 
@@ -72,6 +74,7 @@ export async function saveReelEditAction(id, payload, remake) {
   r.scenes = scenes; r.style = style;
   if (remake) { r.status = "scripted"; r.tries = 0; r.error = ""; r.videoUrl = ""; }
   await r.save();
+  if (remake) await kickReels();
   revalidatePath("/admin/reels");
   return { ok: true };
 }
