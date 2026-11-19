@@ -1018,3 +1018,10 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .util-table tbody th[scope="row"], .util-table tbody td { padding-block: .85rem; }
 .util-table th[scope="row"] { min-width: 17rem; }
 @media (max-width: 640px) { .coin-cell { grid-template-columns: 1.9rem minmax(5.5rem, 1fr) 3.6rem; column-gap: .6rem; } .coin-badge { width: 1.9rem; height: 1.9rem; font-size: .95rem; } .coin-sym { min-width: 3.2rem; padding: .15rem .4rem; font-size: .7rem; } .util-table th[scope="row"] { min-width: 0; } }
+
+/* crypto table, evened out: compact first cell (badge | name | ticker) with equal gaps, columns share the width equally */
+.coin-cell { grid-template-columns: 2.3rem 8.6rem 4rem; justify-content: start; column-gap: 1rem; }
+.coin-sym { justify-self: start; min-width: 0; width: 100%; padding: .2rem 0; text-align: center; }
+.util-table th[scope="row"] { min-width: 0; }
+.util-table th[scope="row"], .util-table td, .util-table th[scope="col"] { width: auto; }
+@media (max-width: 640px) { .coin-cell { grid-template-columns: 1.9rem 6.2rem 3.2rem; column-gap: .55rem; } .coin-sym { padding: .15rem 0; } }
