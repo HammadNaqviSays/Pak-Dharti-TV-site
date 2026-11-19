@@ -8,6 +8,7 @@ import { ArticleView } from "@/components/Stories";
 import { approveAction, rejectAction, unpublishAction } from "../../actions";
 import PhotoChanger from "../../PhotoChanger";
 import ShareRow from "../../ShareRow";
+import MakeReelButton from "../../MakeReelButton";
 import NewsCardMaker from "../../NewsCardMaker";
 import AdminInstall from "../../AdminInstall";
 import { StoryMarks, ReelAction, reelMap } from "../../StoryMarks";
@@ -67,6 +68,7 @@ export default async function PreviewPage({ params, searchParams }) {
         </div>
       </div>
       <div className="wrap" style={{ paddingTop: "1rem" }}>
+        {a.status === "published" && <p className="hint"><strong>Video:</strong> <MakeReelButton slug={a.slug} label={a.reel?.at ? "Make reel again" : "Make reel (video)"} className="btn publish" /> <a className="btn secondary" href="/admin/reels">All reels</a></p>}
         {a.status === "published" && <ShareRow a={a} lang={lang} />}
         <PhotoChanger id={String(a._id)} current={a.image?.url} />
         <p className="hint"><a className="btn secondary" href={`?lang=${lang}&redo=1`}>Re-pick the people and place photo for this story</a> (use this if the card shows the wrong person)</p>

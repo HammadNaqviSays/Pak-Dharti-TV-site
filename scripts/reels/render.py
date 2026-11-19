@@ -157,7 +157,7 @@ CSS_STATIC = CSS_BASE + """
 .band b{font:700 46px P,sans-serif;color:#fff;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.35)}"""
 CSS_TEXT = CSS_BASE + f"""
 .blk{{position:absolute;left:50%;transform:translateX(-50%);width:max-content;display:flex;flex-direction:column;align-items:center}}
-.ln{{background:rgba(255,255,255,{BGA});border:{BORD}px solid {STROKE};margin-top:10px;padding:15px {PADX}px 0;white-space:nowrap;line-height:1.42;text-align:center}}
+.ln{{background:rgba(255,255,255,{BGA});border:{BORD}px solid {STROKE};margin-top:10px;padding:15px {PADX}px 0;white-space:nowrap;line-height:1.42;text-align:center;-webkit-text-stroke:1.1px currentColor}}
 .ln:first-child{{margin-top:0}} .ln.j{{text-align:justify;text-align-last:justify;white-space:normal}} .ln.hide{{visibility:hidden}}
 .nat{{position:absolute;right:{CAPR}px;top:0;width:{CAPW - 2 * (PADX + BORD)}px;line-height:1.9;text-align:right;visibility:hidden}}"""
 
