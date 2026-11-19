@@ -1,13 +1,13 @@
 "use client";
 import { useState } from "react";
 
-const S = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "#fff", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true };
+const S = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.9, strokeLinecap: "round", strokeLinejoin: "round", "aria-hidden": true };
 const ICON = {
-  tiktok: <svg {...S}><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5" /><path d="M14 4c.4 2.4 2 4 4.5 4.2" /></svg>,
-  facebook: <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><text x="12" y="20" textAnchor="middle" fontSize="22" fontWeight="700" fontFamily="Arial, sans-serif" fill="#fff">f</text></svg>,
-  instagram: <svg {...S}><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r=".9" fill="#fff" stroke="none" /></svg>,
-  x: <svg {...S} strokeWidth="2.4"><path d="M5 5l14 14M19 5L5 19" /></svg>,
-  whatsapp: <svg {...S}><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5z" /><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z" fill="#fff" stroke="none" /></svg>,
+  tiktok: <svg {...S}><path d="M14 3.5v11a3.6 3.6 0 1 1-3.6-3.6" /><path d="M14 3.5c.4 2.5 2.1 4.1 4.6 4.3" /></svg>,
+  facebook: <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><text x="12.5" y="22" textAnchor="middle" fontSize="27" fontWeight="700" fontFamily="Georgia, 'Times New Roman', serif" fill="currentColor">f</text></svg>,
+  instagram: <svg {...S}><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none" /></svg>,
+  x: <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 3h4.6l12.4 18h-4.6z" fill="currentColor" /><path d="M20 3L4 21" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" fill="none" /></svg>,
+  whatsapp: <svg {...S}><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5z" /><path d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1-1.5-2-1-1 .8c-1-.4-2-1.4-2.4-2.4l.8-1-1-2z" fill="currentColor" stroke="none" /></svg>,
 };
 const B = [
   { k: "tiktok", label: "TikTok", bg: "#111" },
@@ -39,8 +39,8 @@ export default function ReelShare({ url, title, copied = "لنک کاپی ہو �
   return (
     <div className="reel-share" dir="ltr">
       {B.map((b) => href[b.k]
-        ? <a key={b.k} href={href[b.k]} target="_blank" rel="noopener noreferrer" aria-label={b.label} title={b.label} style={{ background: b.bg }}>{ICON[b.k]}</a>
-        : <button key={b.k} type="button" onClick={() => viaApp(b.k)} aria-label={b.label} title={b.label} style={{ background: b.bg }}>{ICON[b.k]}</button>)}
+        ? <a key={b.k} href={href[b.k]} target="_blank" rel="noopener noreferrer" aria-label={b.label} title={b.label}>{ICON[b.k]}</a>
+        : <button key={b.k} type="button" onClick={() => viaApp(b.k)} aria-label={b.label} title={b.label}>{ICON[b.k]}</button>)}
       {msg && <span className="reel-share-msg" dir="rtl">{msg}</span>}
     </div>
   );
