@@ -63,7 +63,7 @@ export default async function WriterPage({ params }) {
               )}
             </div>
           </section>
-          <h2 className="wp-sub">{ur ? `${name} کی تحریریں` : `Columns by ${name}`}</h2>
+          <h2 className="wp-sub">{ur ? (w.items.length > 1 ? `${name} کی تحریریں` : `${name} کی تحریر`) : (w.items.length > 1 ? `Columns by ${name}` : `Column by ${name}`)}</h2>
           <div className="colx-grid">
             {w.items.map((a) => {
               const x = pickText(a, lang), href = `/${lang}/news/${a.slug}`;

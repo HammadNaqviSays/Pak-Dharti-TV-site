@@ -34,7 +34,7 @@ if (process.env.SCHEDULE_AT) {
   if (existing.status === "published") throw new Error("already published");
   const v = process.env.SCHEDULE_AT === "none" ? null : new Date(process.env.SCHEDULE_AT);
   if (v && (isNaN(v) || v.getTime() < Date.now())) throw new Error("bad or past time");
-  await Article.updateOne({ _id: existing._id }, v ? { $set: { scheduledAt: v } } : { $unset: { scheduledAt: 1 } });
+  await Article.updateOne({ _id: existing._id }, v ? { $set: { scheduledAt: v, autoSocial: true } } : { $unset: { scheduledAt: 1 } });
   console.log(`::notice title=guest schedule::slug=${d.slug} at=${v ? v.toISOString() : "cleared"}`);
   await mongoose.disconnect();
   process.exit(0);

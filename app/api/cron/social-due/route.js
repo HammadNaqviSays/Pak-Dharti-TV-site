@@ -41,7 +41,7 @@ export async function GET(req) {
       const gapOk = !last || Date.now() - Number(last) >= gapMin * 60e3;
       const dayN = Number((await Setting.findOne({ key: `social:day:ur:${day}` }).lean())?.value || 0);
       if (gapOk && dayN < maxDay) {
-        const base = { status: "published", origin: "auto", contentType: "news", "translations.ur.title": { $exists: true, $ne: "" }, "social.ur.done": { $ne: true }, "social.ur.tries": { $not: { $gte: 2 } } };
+        const base = { status: "published", $or: [{ origin: "auto", contentType: "news" }, { autoSocial: true }], "translations.ur.title": { $exists: true, $ne: "" }, "social.ur.done": { $ne: true }, "social.ur.tries": { $not: { $gte: 2 } } };
         if (await Article.exists({ ...base, publishedAt: { $gte: new Date(Date.now() - FRESH_HOURS * 3600e3) } })) return NextResponse.json({ due: true, why: "fresh story" });
         if (await Article.exists({ ...base, "social.ur.again": true })) return NextResponse.json({ due: true, why: "story to send again" });
       }

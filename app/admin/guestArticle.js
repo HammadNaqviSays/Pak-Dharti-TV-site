@@ -61,7 +61,7 @@ export async function publishGuestArticleAction(fd) {
       placement: { slot: "standard", priority: 60 },
       disclosure: { aiGenerated: false, humanReviewed: true, reviewedBy: name },
       publishedAt: mode === "publish" ? new Date() : undefined,
-      ...(scheduledAt ? { scheduledAt } : {}),
+      ...(scheduledAt ? { scheduledAt, autoSocial: true } : {}),
     });
     return { ok: true, id: String(article._id), slug: article.slug, status: article.status };
   } catch (e) { return { error: String(e.message || e).slice(0, 200) }; }

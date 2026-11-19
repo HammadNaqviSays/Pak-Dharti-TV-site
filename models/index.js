@@ -83,6 +83,7 @@ const ArticleSchema = new Schema(
     social: Schema.Types.Mixed, // { ur: { done, at, fb, ig, tries }, en: {...} } automatic Facebook/Instagram posting
 
     publishedAt: Date,
+    autoSocial: Boolean, // a hand-made column that the automatic Facebook / Instagram posting may send when it is published
     scheduledAt: { type: Date, index: true }, // a draft with this set is published by the cron when the time comes
   },
   { timestamps: true }
