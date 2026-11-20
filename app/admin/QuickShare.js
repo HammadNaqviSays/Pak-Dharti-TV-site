@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { shareHrefAction } from "./shareAction";
 
-const SITES = [["Pinterest", "pinterest", "#e60023"], ["X", "x", "#000"], ["Threads", "threads", "#101010"]];
+const SITES = [["Pinterest", "pinterest", "#e60023"], ["X", "x", "#000"]];   // Threads is posted automatically now
 
-/** One-click share on Pinterest, X and Threads: title, blank line, link, blank line, related hashtags (Urdu tags for Urdu, English for English). Opens the site's own share window; you are signed in there yourself. */
+/** One-click share on Pinterest and X: title, blank line, link, blank line, related hashtags (Urdu tags for Urdu, English for English). Opens the site's own share window; you are signed in there yourself. */
 export default function QuickShare({ a, lang = "ur" }) {
   const [busy, setBusy] = useState("");
   const [err, setErr] = useState("");

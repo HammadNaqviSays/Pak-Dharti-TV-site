@@ -11,7 +11,6 @@ export default function ShareRow({ a, lang }) {
   const media = a.image?.url ? (a.image.url.startsWith("http") ? a.image.url : `${SITE.url}${a.image.url}`) : "";
   const links = [
     ["X (Twitter)", `https://twitter.com/intent/tweet?text=${e(title)}&url=${e(url)}`],
-    ["Threads", `https://www.threads.net/intent/post?text=${e(text)}`],
     ["WhatsApp", `https://wa.me/?text=${e(text)}`],
     ["Telegram", `https://t.me/share/url?url=${e(url)}&text=${e(title)}`],
     ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${e(url)}`],
