@@ -63,6 +63,7 @@ export default async function Home({ params }) {
 
   return (
     <>
+      <h1 className="sr-only">{lang === "ur" ? "پاک دھرتی ٹی وی: پاکستان اور دنیا کی تازہ خبریں" : "Pak Dharti TV: latest Pakistan and world news"}</h1>
       <Ticker lang={lang} items={ticker} />
       <RateStrip lang={lang} />
       <div className="wrap with-sidebar">
