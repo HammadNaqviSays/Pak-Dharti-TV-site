@@ -12,13 +12,13 @@ import { socialPanelData } from "./socialAction";
 import AdminInstall from "./AdminInstall";
 import { cleanUrdu } from "@/lib/urdu";
 import SocialQueue from "./SocialQueue";
-import { StoryMarks, ReelAction, reelMap } from "./StoryMarks";
+import { StoryMarks, ReelAction, QuickShare, reelMap } from "./StoryMarks";
 import { approveAction, rejectAction, unpublishAction, logout, markMessagesReadAction } from "./actions";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60; // applies to the server actions on this page
 
-const LIST = { slug: 1, origin: 1, contentType: 1, category: 1, "translations.en.title": 1, "translations.ur.title": 1, createdAt: 1, publishedAt: 1, "stats.views": 1, "quality.score": 1, "quality.decision": 1, social: 1, reel: 1 };
+const LIST = { slug: 1, origin: 1, contentType: 1, category: 1, "translations.en.title": 1, "translations.ur.title": 1, createdAt: 1, publishedAt: 1, "stats.views": 1, "quality.score": 1, "quality.decision": 1, "image.url": 1, social: 1, reel: 1 };
 const fmt = (d) => d ? new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" }).format(new Date(d)) : "";
 
 function TopBar({ loggedIn }) {
@@ -149,6 +149,7 @@ export default async function AdminPage() {
                   <a className="btn secondary" href={`/ur/news/${a.slug}`} target="_blank" rel="noopener">View</a>
                   <a className="btn secondary" href={`/admin/preview/${a._id}`}>Read / Card</a>
                   <ReelAction a={a} reel={rmap[a.slug]} />
+                  <QuickShare a={a} lang="ur" />
                   <form action={unpublishAction}>{id(a)}<button className="btn secondary">Unpublish</button></form>
                 </div>
               </li>
@@ -254,6 +255,7 @@ export default async function AdminPage() {
                   <a className="btn secondary" href={`/en/news/${a.slug}`} target="_blank" rel="noopener">View</a>
                   <a className="btn secondary" href={`/admin/preview/${a._id}`}>Read / Card</a>
                   <ReelAction a={a} reel={rmap[a.slug]} />
+                  <QuickShare a={a} lang="en" />
                   <form action={unpublishAction}>{id(a)}<button className="btn secondary">Unpublish</button></form>
                 </div>
               </li>

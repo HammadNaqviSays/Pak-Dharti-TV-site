@@ -1,4 +1,5 @@
 import { Reel } from "@/models";
+import { SITE } from "@/lib/site";
 import MakeReelButton from "./MakeReelButton";
 
 /** Latest reel (not rejected) of each story: { slug: { _id, status } } */
@@ -33,4 +34,19 @@ export function StoryMarks({ a, reel }) {
 export function ReelAction({ a, reel }) {
   if (reel) return <a className="btn secondary" href={`/admin/reels/${reel._id}`} target="_blank" rel="noopener">Open reel</a>;
   return <MakeReelButton slug={a.slug} label={a.reel?.at ? "Make reel again" : "Make reel"} />;
+}
+
+/** Small one-click share buttons for a story row: Pinterest, X and Threads open the site's own share window (you are signed in there). */
+export function QuickShare({ a, lang = "ur" }) {
+  const x = a.translations?.[lang] || a.translations?.en || {};
+  const url = `${SITE.url}/${lang}/news/${a.slug}`;
+  const title = (x.title || "").trim();
+  const e = encodeURIComponent;
+  const img = a.image?.url ? (a.image.url.startsWith("http") ? a.image.url : `${SITE.url}${a.image.url}`) : `${url}/opengraph-image`;
+  const links = [
+    ["Pinterest", `https://pinterest.com/pin/create/button/?url=${e(url)}&media=${e(img)}&description=${e(title)}`, "#e60023"],
+    ["X", `https://twitter.com/intent/tweet?text=${e(title)}&url=${e(url)}`, "#000"],
+    ["Threads", `https://www.threads.net/intent/post?text=${e(`${title}\n\n${url}`)}`, "#101010"],
+  ];
+  return links.map(([n, h, bg]) => <a key={n} className="btn secondary" style={{ background: bg, color: "#fff", borderColor: bg }} href={h} target="_blank" rel="noopener noreferrer" title={`Share on ${n}`}>{n}</a>);
 }

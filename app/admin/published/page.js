@@ -3,7 +3,7 @@ import { isLoggedIn } from "@/lib/session";
 import { connectDB } from "@/lib/db";
 import { Article } from "@/models";
 import { pkDay } from "@/lib/traffic";
-import { StoryMarks, ReelAction, reelMap } from "../StoryMarks";
+import { StoryMarks, ReelAction, QuickShare, reelMap } from "../StoryMarks";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export default async function PublishedPage({ searchParams }) {
   const cat = sp.cat || "";
   await connectDB();
   const from = dayStart(day), to = dayStart(addDays(day, 1));
-  const fields = { slug: 1, category: 1, contentType: 1, origin: 1, publishedAt: 1, "translations.en.title": 1, "translations.ur.title": 1, "sources.name": 1, social: 1, reel: 1 };
+  const fields = { slug: 1, category: 1, contentType: 1, origin: 1, publishedAt: 1, "translations.en.title": 1, "translations.ur.title": 1, "sources.name": 1, "image.url": 1, social: 1, reel: 1 };
   const [rows, recent] = await Promise.all([
     Article.find({ status: "published", publishedAt: { $gte: from, $lt: to } }, fields).sort({ publishedAt: -1 }).lean(),
     Article.find({ status: "published", publishedAt: { $gte: dayStart(addDays(today, -13)) } }, { publishedAt: 1, category: 1, sources: 1 }).lean(),
@@ -91,7 +91,7 @@ export default async function PublishedPage({ searchParams }) {
             <td>{a.category}</td>
             <td>{[...new Set((a.sources || []).map((s) => s.name))].slice(0, 2).join(", ")}</td>
             <td>{a.origin === "auto" ? "auto" : "hand"}</td>
-            <td><StoryMarks a={a} reel={rmap[a.slug]} /> <ReelAction a={a} reel={rmap[a.slug]} /></td>
+            <td><StoryMarks a={a} reel={rmap[a.slug]} /> <ReelAction a={a} reel={rmap[a.slug]} /> <QuickShare a={a} lang="ur" /></td>
           </tr>
         ))}</tbody>
       </table></div>
