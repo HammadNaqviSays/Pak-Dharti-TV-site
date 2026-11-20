@@ -13,4 +13,8 @@ if (env.BLUESKY_HANDLE && env.BLUESKY_APP_PASSWORD) {
   say("Bluesky", r.ok ? "LOGIN OK" : `LOGIN FAILED (${r.status})`);
 } else say("Bluesky", "keys not set");
 if (env.TELEGRAM_BOT_TOKEN) { const r = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getMe`); say("Telegram", r.ok ? "BOT OK" : `FAILED (${r.status})`); } else say("Telegram", "keys not set");
-if (env.THREADS_TOKEN && env.THREADS_USER_ID) { const r = await fetch(`https://graph.threads.net/v1.0/${env.THREADS_USER_ID}?fields=username&access_token=${encodeURIComponent(env.THREADS_TOKEN)}`); say("Threads", r.ok ? "TOKEN OK" : `FAILED (${r.status})`); } else say("Threads", "keys not set");
+if (env.THREADS_TOKEN) {
+  const r = await fetch(`https://graph.threads.net/v1.0/me?fields=id,username&access_token=${encodeURIComponent(env.THREADS_TOKEN)}`);
+  const j = await r.json().catch(() => ({}));
+  say("Threads", r.ok ? `TOKEN OK | username ${j.username} | user id ${j.id}${env.THREADS_USER_ID ? (env.THREADS_USER_ID === j.id ? " (matches THREADS_USER_ID)" : " (DIFFERENT from THREADS_USER_ID)") : " (THREADS_USER_ID not set)"}` : `FAILED (${r.status}) ${JSON.stringify(j).slice(0, 160)}`);
+} else say("Threads", "keys not set");
