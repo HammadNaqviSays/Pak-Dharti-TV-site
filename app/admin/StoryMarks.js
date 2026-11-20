@@ -20,10 +20,14 @@ export function StoryMarks({ a, reel }) {
   const fb = ["ur", "en"].filter((l) => s[l]?.fb);
   const ig = ["ur", "en"].filter((l) => s[l]?.ig);
   const r = a.reel || {};
+  const ex = (k) => ["ur", "en"].filter((l) => s[l]?.[k]);
   return (
     <span style={{ display: "inline-flex", gap: ".3rem", flexWrap: "wrap", alignItems: "center", marginInlineStart: ".4rem" }}>
       {fb.length > 0 && dot("#1877f2", "f", `Posted on Facebook (${fb.join(", ")})`)}
       {ig.length > 0 && dot("#c13584", "IG", `Posted on Instagram (${ig.join(", ")})`)}
+      {ex("bsky").length > 0 && dot("#0085ff", "Bs", `Posted on Bluesky (${ex("bsky").join(", ")})`)}
+      {ex("th").length > 0 && dot("#101010", "Th", `Posted on Threads (${ex("th").join(", ")})`)}
+      {ex("tg").length > 0 && dot("#229ed9", "Tg", `Posted on Telegram (${ex("tg").join(", ")})`)}
       {reel && <a href={`/admin/reels/${reel._id}`} style={{ textDecoration: "none" }} title="Open this reel">{dot(["failed"].includes(reel.status) ? "#a00" : ["ready", "approved", "posted"].includes(reel.status) ? "#198754" : "#b8860b", REEL_TEXT[reel.status] || reel.status)}</a>}
       {!reel && r.at && dot("#6c757d", "🎬 Reel made earlier", "A reel was made for this story before (it has been deleted since)")}
       {r.dlAt && dot("#0d6efd", "⬇ Downloaded", "The reel video was downloaded")}
