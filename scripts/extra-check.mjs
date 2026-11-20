@@ -10,7 +10,9 @@ const say = (n, m) => console.log(`::notice title=${n}::${m}`);
 console.log("keys found:", Object.keys(env).sort().join(", ") || "(none)");
 if (env.BLUESKY_HANDLE && env.BLUESKY_APP_PASSWORD) {
   const r = await fetch("https://bsky.social/xrpc/com.atproto.server.createSession", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ identifier: env.BLUESKY_HANDLE, password: env.BLUESKY_APP_PASSWORD }) });
-  say("Bluesky", r.ok ? "LOGIN OK" : `LOGIN FAILED (${r.status})`);
+  const bj = await r.json().catch(() => ({}));
+  const pw = env.BLUESKY_APP_PASSWORD, h = env.BLUESKY_HANDLE;
+  say("Bluesky", r.ok ? "LOGIN OK" : `LOGIN FAILED (${r.status}) ${bj.error || ""}: ${bj.message || ""} | handle="${h}" | password shape: ${pw.length} chars, pattern xxxx-xxxx-xxxx-xxxx: ${/^[a-z0-9]{4}(-[a-z0-9]{4}){3}$/.test(pw)}, has spaces: ${/\s/.test(pw)}, has quotes: ${/["']/.test(pw)}`);
 } else say("Bluesky", "keys not set");
 if (env.TELEGRAM_BOT_TOKEN) { const r = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getMe`); say("Telegram", r.ok ? "BOT OK" : `FAILED (${r.status})`); } else say("Telegram", "keys not set");
 if (env.THREADS_TOKEN) {
