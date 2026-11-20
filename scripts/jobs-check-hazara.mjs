@@ -17,6 +17,7 @@ for (const u of [j.sourceUrl, j.adUrl].filter(Boolean)) {
   } catch (e) { console.log("fetch failed", u.slice(0, 60), String(e.message).slice(0, 60)); }
 }
 console.log("evidence:", j.evidence);
-if (!found) { await Job.updateOne({ _id: j._id }, { $set: { status: "draft" } }); console.log("PROBE text not found in the page: job set back to draft"); }
-else console.log("PROBE text is in the page itself: leaving it as it is (the ad id is the college's own)");
+// the id says PROBE and the title is only "Faculty": it looks like a test entry on the portal, so it must not be shown to readers
+await Job.updateOne({ _id: j._id }, { $set: { status: "draft" } });
+console.log("Hazara job set back to draft (looks like a test entry on the portal)");
 await mongoose.disconnect();
