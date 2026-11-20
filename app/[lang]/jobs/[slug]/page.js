@@ -53,6 +53,7 @@ export default async function JobPage({ params }) {
           {row(ur ? "درخواست کیسے دیں" : "How to apply", pick(j.howTo, lang))}
         </tbody></table>
       </div>
+      {j.soft && <p className="rates-note"><b>{ur ? "نوٹ:" : "Note:"}</b> {ur ? "آخری تاریخ اشتہار سے لی گئی ہے مگر اشتہار میں اسے واضح لفظوں میں نہیں لکھا گیا۔ درخواست سے پہلے اصل اشتہار میں آخری تاریخ ضرور دیکھ لیں۔" : "The closing date was read from the advertisement, which does not label it clearly. Please confirm it in the original advertisement before applying."}</p>}
       <p className="job-links">
         <a className="job-btn" href={j.sourceUrl} target="_blank" rel="noopener nofollow">{ur ? "ادارے کا اصل اشتہار" : "Original ad on the official site"}</a>{" "}
         {j.adUrl && j.adUrl !== j.sourceUrl && <a className="job-btn alt" href={j.adUrl} target="_blank" rel="noopener nofollow">{ur ? "اشتہار (PDF)" : "Advertisement (PDF)"}</a>}{" "}

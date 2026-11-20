@@ -238,7 +238,7 @@ const JobSchema = new Schema({
   howTo: { en: String, ur: String },
   positions: String, location: String,
   lastDate: { type: Date, index: true }, lastDateText: String, evidence: String,
-  verified: { type: Boolean, default: false }, issues: [String],
+  verified: { type: Boolean, default: false }, soft: Boolean, issues: [String],   // soft = published although the closing-date sentence has no 'deadline' word (the date itself is in the source)
   status: { type: String, enum: ["published", "draft", "skipped", "rejected"], default: "draft", index: true },
   publishedAt: Date,
 }, { timestamps: true });
