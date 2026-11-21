@@ -83,6 +83,12 @@ export default async function TeamPage({ params }) {
           </div>
         </section>
       )}
+      <section className="tm-join" dir={ur ? "rtl" : "ltr"}>
+        <h2>{ur ? "ہمارے ساتھ شامل ہوں" : "Join our team"}</h2>
+        <p>{ur ? "پاک دھرتی ٹی وی بڑھ رہا ہے۔ اگر آپ لکھنا، رپورٹنگ، ویڈیو یا ڈیزائن کا شوق رکھتے ہیں تو ہمیں اپنا تعارف بھیجیں۔" : "Pak Dharti TV is growing. If you love writing, reporting, video or design, send us a short introduction."}</p>
+        <ul>{(ur ? ["رپورٹر اور نیوز روم ڈیسک", "کالم نگار اور بلاگر", "ویڈیو ایڈیٹر", "گرافک ڈیزائنر", "سوشل میڈیا ایڈیٹر"] : ["Reporters and newsroom desk", "Columnists and bloggers", "Video editors", "Graphic designers", "Social media editors"]).map((r) => <li key={r}>{r}</li>)}</ul>
+        <a className="tm-btn" href={`/${lang}/contact`}>{ur ? "درخواست بھیجیں" : "Apply now"}</a>
+      </section>
     </div>
   );
 }
