@@ -1,15 +1,11 @@
 name: og-shot
 on: { workflow_dispatch: {} }
-permissions: { contents: write }
 jobs:
   s:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - run: |
-          SLUG=$(curl -s https://www.pakdhartitv.com/sitemap.xml | grep -o 'https://www.pakdhartitv.com/ur/news/[a-z0-9-]*' | head -1)
-          echo "OG slug $SLUG"
-          curl -s -o /tmp/og.png -w "OG http %{http_code} %{content_type} %{size_download} %{time_total}s\n" "$SLUG/opengraph-image"
-          curl -s "$SLUG" | grep -o '<meta property="og:image"[^>]*>' | head -2
-          git config user.name shots; git config user.email shots@example.com
-          git checkout --orphan shots; git rm -rf . -q; cp /tmp/og.png og.png; git add og.png; git commit -qm shot; git push -f origin shots
+          SLUG=$(curl -s https://www.pakdhartitv.com/sitemap.xml | grep -o 'https://www.pakdhartitv.com/ur/news/[a-z0-9-]*' | head -1 | sed 's#.*/##')
+          for t in 1 2; do curl -s -o /tmp/c.jpg -w "OGT card http %{http_code} %{content_type} %{size_download} %{time_total}s\n" "https://www.pakdhartitv.com/api/card/news?slug=$SLUG&lang=ur"; done
+          head -c 300 /tmp/c.jpg | strings | head -3
+          for t in 1 2; do curl -s -o /tmp/og.png -w "OGT og http %{http_code} %{size_download} %{time_total}s\n" "https://www.pakdhartitv.com/ur/news/$SLUG/opengraph-image"; done
