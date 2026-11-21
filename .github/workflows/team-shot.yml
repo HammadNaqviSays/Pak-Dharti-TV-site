@@ -1,0 +1,13 @@
+name: team-shot
+on: { workflow_dispatch: {} }
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          npm i playwright >/dev/null 2>&1; npx playwright install --with-deps chromium >/dev/null 2>&1
+          node -e "
+          const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:900,height:1200}});
+          await p.goto('https://www.pakdhartitv.com/ur/team',{waitUntil:'networkidle'});await p.waitForTimeout(1500);await p.screenshot({path:'team.png',fullPage:true});await b.close()})()"
+      - uses: actions/upload-artifact@v4
+        with: { name: team, path: team.png }
