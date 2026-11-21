@@ -45,7 +45,12 @@ def fetch(url, dest):
 vpath = os.path.join(WORK, "voice.wav")
 fetch_ok = False
 u = plan["audioUrl"]
-if re.match(r"https?://", u): open(vpath, "wb").write(requests.get(u, timeout=120).content)
+if re.match(r"https?://", u):
+    for _try in range(8):          # the site sometimes answers with an error page ("different request") instead of the voice: ask again until it is a real sound file
+        _c = requests.get(u, timeout=120).content
+        if _c[:4] == b"RIFF": break
+        print("voice: not a sound file (try", _try + 1, ")", _c[:80], flush=True); _time.sleep(4)
+    open(vpath, "wb").write(_c)
 else: open(vpath, "wb").write(open(u, "rb").read())
 SPEED = float(plan.get("speed") or 1)
 if abs(SPEED - 1) > 0.01:                                   # voice speed set in Mission Control > Reel voice
