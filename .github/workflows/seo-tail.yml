@@ -25,13 +25,17 @@ jobs:
           echo "TAIL lines: $(wc -l < tail.log)"
           node -e '
             const fs=require("fs");const L=fs.readFileSync("tail.log","utf8").split("\n").filter(Boolean);
-            const seen={};let n500=0;
+            const out={},keys={},err={};let shown=0;
             for(const l of L){let j;try{j=JSON.parse(l)}catch{continue}
-              const st=j.event?.response?.status;if(st>=500)n500++;
-              for(const e of j.exceptions||[]){const k=(e.name+": "+e.message).slice(0,300);seen[k]=(seen[k]||0)+1}
-              for(const m of j.logs||[]){const t=(m.message||[]).join(" ").slice(0,300);if(/error|fail|limit|exceed|429|timeout/i.test(t)){seen["LOG "+t]=(seen["LOG "+t]||0)+1}}
-              if(j.outcome&&j.outcome!=="ok"&&!j.exceptions?.length){const k="OUTCOME "+j.outcome;seen[k]=(seen[k]||0)+1}
+              out[j.outcome]=(out[j.outcome]||0)+1;
+              for(const k of Object.keys(j))keys[k]=1;
+              const bad=j.outcome&&j.outcome!=="ok"&&j.outcome!=="canceled";
+              const ex=(j.exceptions||[]).map(e=>e.name+": "+e.message);
+              if(bad||ex.length){const key=(ex[0]||j.outcome).slice(0,260);err[key]=(err[key]||0)+1;
+                if(shown<4){shown++;console.log("TAIL SAMPLE",l.slice(0,900))}}
+              for(const m of j.logs||[]){const t=(m.message||[]).map(x=>typeof x==="string"?x:JSON.stringify(x)).join(" ");
+                if(/error|fail|limit|exceed|429|timeout|ECONN|pool|Mongo/i.test(t)){const key="LOG "+t.slice(0,260);err[key]=(err[key]||0)+1}}
             }
-            console.log("TAIL requests with 5xx:",n500);
-            for(const [k,v] of Object.entries(seen).sort((a,b)=>b[1]-a[1]).slice(0,12))console.log("TAIL",v,"x",k)
+            console.log("TAIL outcomes",JSON.stringify(out),"keys",Object.keys(keys).join(","));
+            for(const [k,v] of Object.entries(err).sort((a,b)=>b[1]-a[1]).slice(0,12))console.log("TAIL",v,"x",k)
           '
