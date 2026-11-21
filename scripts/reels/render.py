@@ -22,7 +22,7 @@ FFILE = FONTS.get(plan.get("font"), FONTS["jameel"])
 FONT = b64(os.path.join(ROOT, "public/fonts", FFILE), "font/woff2" if FFILE.endswith("woff2") else "font/woff")
 BGA = min(1.0, max(0.2, float(plan.get("bgAlpha") or 100) / 100))
 STROKE = {"r": "#7a0000", "k": "#000000"}.get(plan.get("stroke"), "#7a0000")
-COL = {"k": "#111111", "r": "#7a0000", "b": "#0b57d0", "g": "#0a7a3b"}
+COL = {"k": "#ffffff", "r": "#ff8f8f", "b": "#9cc3ff", "g": "#8fe6ab"}   # text colours on the dark caption box
 POPPINS = b64(os.path.join(ROOT, "public/fonts/latin/Poppins-Bold.ttf"), "font/ttf")
 LOGO = b64(os.path.join(ROOT, "public/brand/logo.png"), "image/png")
 
@@ -177,7 +177,8 @@ SIREN = [False for s in scenes]     # the ambulance sound is switched off (the e
 
 # Look: photo with a dark tint; the text on WHITE strips with a coloured outline (red or black); the editor can colour words.
 PADX, BORD = 24, 7
-CAPW, CAPR = 780, 150        # caption strips: 780 px wide (72% of the picture), centred; keeps clear of the Like/Share buttons of TikTok, Reels, Shorts
+CPL, CPR = 30, 34     # caption box: padding left / right (the red bar on the right edge is 14 px)
+CAPW, CAPR = 800, 150        # caption strips: 780 px wide (72% of the picture), centred; keeps clear of the Like/Share buttons of TikTok, Reels, Shorts
 CSS_BASE = f"""@font-face{{font-family:J;src:url({FONT})}} @font-face{{font-family:P;src:url({POPPINS})}}
 *{{box-sizing:border-box;margin:0}} html,body{{width:{W}px;height:{H}px;background:transparent;font-family:J,serif;color:#111;direction:rtl}}"""
 CSS_STATIC = CSS_BASE + """
@@ -194,10 +195,10 @@ CSS_STATIC = CSS_BASE + """
 .band .sep{width:3px;height:56px;background:rgba(255,255,255,.55);border-radius:2px}
 .band b{font:700 46px P,sans-serif;color:#fff;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.35)}"""
 CSS_TEXT = CSS_BASE + f"""
-.blk{{position:absolute;left:50%;transform:translateX(-50%);width:max-content;display:flex;flex-direction:column;align-items:center}}
-.ln{{background:rgba(255,255,255,{BGA});border:{BORD}px solid {STROKE};margin-top:10px;padding:15px {PADX}px 0;white-space:nowrap;line-height:1.42;text-align:center;-webkit-text-stroke:1.1px currentColor}}
-.ln:first-child{{margin-top:0}} .ln.j{{text-align:justify;text-align-last:justify;white-space:normal}} .ln.hide{{visibility:hidden}}
-.nat{{position:absolute;right:{CAPR}px;top:0;width:{CAPW - 2 * (PADX + BORD)}px;line-height:1.9;text-align:right;visibility:hidden}}"""
+.blk{{position:absolute;left:50%;transform:translateX(-50%);width:max-content}}
+.cap{{background:rgba(58,58,62,{0.8 * BGA:.3f});border-radius:22px;border-right:14px solid #e0152b;padding:12px {CPR}px 4px {CPL}px;direction:rtl;text-align:right}}
+.ln{{white-space:nowrap;line-height:1.55;color:#fff;-webkit-text-stroke:.6px currentColor;text-shadow:0 2px 6px rgba(0,0,0,.35)}}
+.nat{{position:absolute;right:{CAPR}px;top:0;width:{CAPW - CPL - CPR - 14}px;line-height:1.55;text-align:right;visibility:hidden}}"""
 
 BAND_IMG = os.path.join(ROOT, "public/brand/reel-band.png")      # your own designed strip (1080 x 130) replaces the built-in one when this file exists
 ICONS = {  # every icon: same circle, same size, same stroke; glyph inside
@@ -222,8 +223,6 @@ def static_page(i):
 def word_html(i):
     sc = scenes[i]; words = sc["text"].split()
     marks = {m["i"]: m["c"] for m in (sc.get("marks") or [])}
-    if not sc.get("edited") and not marks:                 # automatic: the first three words red
-        marks = {k: "r" for k in range(min(3, len(words)))}
     return [f'<span class="w" style="color:{COL.get(marks.get(k, "k"), COL["k"])}">{html.escape(w)}</span>' for k, w in enumerate(words)], words
 
 JS_LINES = """() => { const ws=[...document.querySelectorAll('.nat .w')]; const lines=[]; let top=null;
@@ -232,13 +231,8 @@ JS_LINES = """() => { const ws=[...document.querySelectorAll('.nat .w')]; const 
   return {lines,widths}; }"""
 
 def block_html(spans, size, lines, wmax, top):
-    out = []
-    for n, l in enumerate(lines):
-        last = n == len(lines) - 1
-        cls = "ln" + ("" if last else " j")
-        style = "" if last else f"width:{wmax + 2 * (PADX + BORD) + 2}px"
-        out.append(f'<div class="{cls}" style="{style}">{" ".join(spans[k] for k in l)}</div>')
-    return f'<div class="blk" id="b" style="top:{top}px;font-size:{size}px">{"".join(out)}</div>'
+    out = [f'<div class="ln">{" ".join(spans[k] for k in l)}</div>' for l in lines]
+    return f'<div class="blk" id="b" style="top:{top}px;font-size:{size}px"><div class="cap">{"".join(out)}</div></div>'
 
 def split_groups(words):
     """a group = one sentence or phrase of the voice-over; it is shown all together"""
@@ -252,7 +246,20 @@ def split_groups(words):
         if out and len(x) < 3: out[-1] += x
         else: out.append(x)
     if len(out) > 1 and len(out[0]) < 3: out[1] = out[0] + out[1]; out.pop(0)
-    return out
+    # short pieces that follow the voice: a long sentence is cut into parts of about 10 words at most (after a comma when there is one near the middle)
+    res = []
+    for x in out:
+        if len(x) <= 10: res.append(x); continue
+        n = -(-len(x) // 10); size = len(x) / n; cuts = []
+        for q in range(1, n):
+            ideal = round(q * size)
+            cands = [c for c in range(max(3, ideal - 3), min(len(x) - 2, ideal + 3) + 1) if re.search(r"[،,]$", words[x[c - 1]])]
+            cuts.append(min(cands, key=lambda c: abs(c - ideal)) if cands else ideal)
+        prev = 0
+        for c in cuts + [len(x)]:
+            if c > prev: res.append(x[prev:c])
+            prev = c
+    return res
 
 BOTTOM = 1630
 async def setbody(pg, body):
@@ -379,7 +386,7 @@ with wave.open(os.path.join(WORK, "mix.wav"), "wb") as w:
     w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR); w.writeframes((a * 32767).astype(np.int16).tobytes())
 
 # ---- video: each scene = slow-zoom photo + static layer + its lines arriving one by one in step with the voice
-D = 0.4
+D = 0.22     # the caption slides in fast
 def make_clip(i, t0, t1):
     dur = t1 - t0; frames = max(2, round(dur * FPS)); out = os.path.join(WORK, f"c{i}.mp4")
     zoom = "min(zoom+0.0005,1.16)" if i % 2 == 0 else "if(eq(on,1),1.16,max(zoom-0.0005,1.0))"
@@ -452,7 +459,7 @@ SH_IN = ["-loop", "1", "-i", SHINE] + (["-loop", "1", "-i", CARD_PNG] if CARD_PN
 SH_F = f"[vw][{SH_IDX}:v]overlay=x='-200+mod(t\\,3.4)*({W}+400)/3.4':y={H - 130}:format=auto:shortest=1[vs];"
 CARD_IDX = (SH_IDX + 1)
 if LOGO_FILE:
-    LOGO_F = SH_F + f"[{LG_IDX}:v]format=rgba[lg];[vs][lg]overlay=40:50:format=auto:shortest=0,format=yuv420p[v]"
+    LOGO_F = SH_F + f"[{LG_IDX}:v]format=rgba,scale=trunc(iw*0.9/2)*2:-2[lg];[vs][lg]overlay=40:50:format=auto:shortest=0,format=yuv420p[v]"
 else:
     LOGO_F = SH_F + "[vs]format=yuv420p[v]"
 if CARD_PNG:    # the column card: in the middle of the screen for about 3 seconds (fades in and out), then gone
