@@ -1,3 +1,5 @@
+import ReelPublish from "./ReelPublish";
+import { keysPresent } from "@/lib/reelPost";
 import { redirect } from "next/navigation";
 import AdminInstall from "../AdminInstall";
 import { isLoggedIn } from "@/lib/session";
@@ -28,6 +30,7 @@ const TABS = [
 export default async function ReelsPage({ searchParams }) {
   if (!(await isLoggedIn())) redirect("/admin");
   await connectDB();
+  const keys = keysPresent();
   const cfg = await getReelConfig();
   const sp = (await searchParams) || {};
   const tab = TABS.find((t) => t[0] === sp.s) || TABS[0];
@@ -79,6 +82,7 @@ export default async function ReelsPage({ searchParams }) {
                   </details>
                   {r.videoUrl && <video src={r.videoUrl} controls playsInline style={{ maxWidth: 240, borderRadius: 8, marginTop: ".5rem" }} />}
                   {r.videoUrl && <div><a className="btn secondary" href={`${r.videoUrl}?download=1`}>Download video</a></div>}
+                  {r.videoUrl && ["ready", "approved", "posted"].includes(r.status) && <ReelPublish id={String(r._id)} keys={keys} posts={JSON.parse(JSON.stringify(r.posts || {}))} />}
                 </div>
                 <div className="actions">
                   <a className={r.status === "draft" ? "btn publish" : "btn secondary"} href={`/admin/reels/${String(r._id)}`}>{r.status === "draft" ? "Edit script" : "Edit look"}</a>
@@ -87,7 +91,7 @@ export default async function ReelsPage({ searchParams }) {
                   {!["rendering", "posted"].includes(r.status) && <DeleteReel id={String(r._id)} />}
                   {r.status !== "rejected" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="rejected" /><BusyButton text="Rejecting…" done="✅ Reject ho gaya">Reject</BusyButton></form>}
                   {["ready", "failed"].includes(r.status) && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="scripted" /><BusyButton text="Sending to the video maker. Please wait…" done="✅ Ho gaya — reel video banne ki line mein chala gaya. Neeche us ka status In the queue ho jaye ga.">Make video again</BusyButton></form>}
-                  {r.status === "ready" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="approved" /><BusyButton className="btn publish" text="Approving…" done="✅ Approve ho gaya (is se kuch post nahi hota, video khud download karni hai)">Approve</BusyButton></form>}
+                  {r.status === "ready" && <form action={setReelStatusAction}><input type="hidden" name="id" value={String(r._id)} /><input type="hidden" name="status" value="approved" /><BusyButton className="btn publish" text="Approving…" done="✅ Approve ho gaya (ab video ke neeche wale buttons se post karein)">Approve</BusyButton></form>}
                 </div>
               </li>
             ))}

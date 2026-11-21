@@ -223,7 +223,7 @@ const ReelSchema = new Schema({
     pic: String, alt: Number, clip: String, mirror: Boolean, imgFixed: Boolean, extra: [String], extraAt: [Number] }],
   style: { font: String, stroke: String, grade: String, badge: String, noise: String, noiseAmt: String, mirror: Boolean, bgAlpha: Number },
   r2: Boolean, voice: String, voiceBlob: String, videoUrl: String, durationSec: Number, voiceSec: Number, voiceModel: String, sources: String, imageCredits: String,
-  fb: String, ig: String, postedAt: Date, error: String, tries: { type: Number, default: 0 },
+  fb: String, ig: String, posts: Schema.Types.Mixed, postedAt: Date, error: String, tries: { type: Number, default: 0 },
 }, { timestamps: true });
 
 
