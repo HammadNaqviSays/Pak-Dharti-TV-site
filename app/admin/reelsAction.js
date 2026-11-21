@@ -281,11 +281,14 @@ Return {"parts":[{"from":0,"kw":"...","who":""}]}`,
       const from = i === 0 ? 0 : Math.round(Number(p.from));
       if (i > 0) { if (!(from > prev && from < words.length - 1)) continue; at.push(from); }
       prev = from;
-      const pic = await stockFor({ kw: String(p.kw || "").replace(/[^A-Za-z ]/g, " ").trim().slice(0, 40), who: String(p.who || "").replace(/[^A-Za-z .'-]/g, "").trim().slice(0, 60) }, used, 0);
+      const kw0 = String(p.kw || "").replace(/[^A-Za-z ]/g, " ").replace(/\s+/g, " ").trim().slice(0, 40), who0 = String(p.who || "").replace(/[^A-Za-z .'-]/g, "").trim().slice(0, 60);
+      let pic = await stockFor({ kw: kw0, who: who0 }, used, 0);
+      // nothing matched the whole phrase: try its single words (longest first), so a picture is found for at least one of them
+      if (!pic?.url) for (const w of [...new Set(kw0.split(" ").filter((x) => x.length > 3))].sort((a, b) => b.length - a.length).slice(0, 3)) { pic = await stockFor({ kw: w, who: "" }, used, 0); if (pic?.url) break; }
       if (pic?.url) { urls.push(pic.url); credits.push(pic.credit || ""); used.add(pic.url); }
       else if (i === 0) urls.push(sc.img || "");
     }
-    if (urls.length < 2 || !urls[0]) return { error: "Could not find pictures for the parts, try again or add your own" };
+    if (urls.length < 2 || !urls[0]) return { error: "No free stock picture matched these parts. Press the button once more (the AI picks new words) or use Options / My picture." };
     const k = urls.length; at.length = k - 1;
     sc.pic = ""; sc.clip = ""; sc.img = urls[0]; sc.credit = credits[0] || ""; sc.imgFixed = true;
     sc.extra = urls.slice(1); sc.extraAt = at;
