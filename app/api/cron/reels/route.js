@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 import { isCron } from "@/lib/util";
 import { makeNextReelScript } from "@/lib/reelScript";
 import { prepareNextReel, finishReel, saveReelFile, releaseDrafts } from "@/lib/reelMedia";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Reel, ReelFile } from "@/models";
 
 export const runtime = "nodejs";
@@ -15,6 +15,7 @@ export const maxDuration = 60;
 
 export async function GET(req) {
   if (!isCron(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  freshDB();   // this call connects for itself
   const q = new URL(req.url).searchParams;
   const op = q.get("op") || "";
   try {
@@ -30,6 +31,7 @@ export async function GET(req) {
 // POST ?op=upload&id=…&part=N  (raw bytes of one piece of the video, up to 4 MB)
 export async function POST(req) {
   if (!isCron(req)) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  freshDB();
   const q = new URL(req.url).searchParams;
   const id = q.get("id"), part = Number(q.get("part"));
   if (q.get("op") !== "upload" || !/^[a-f0-9]{24}$/.test(id || "") || !(part >= 0 && part < 60)) return NextResponse.json({ error: "bad request" }, { status: 400 });
