@@ -1,0 +1,13 @@
+# Read-only SEO health check of the live site, run by hand.
+name: sec-scan
+on: { workflow_dispatch: {} }
+permissions: { contents: read }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: node scripts/sec-scan.mjs

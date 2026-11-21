@@ -11,6 +11,9 @@ module.exports = {
         { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
         { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         { key: "Strict-Transport-Security", value: "max-age=31536000" },
+        // Only the rules that cannot break a page: nobody can frame the site, change its base address, post its forms elsewhere or load plug-ins.
+        { key: "Content-Security-Policy", value: "frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" },
+        { key: "Cross-Origin-Resource-Policy", value: "cross-origin" },
       ] },
       // share pictures and build files are not pages: keep them out of Google's page index (social sites still read them)
       { source: "/:lang/news/:slug/opengraph-image", headers: [{ key: "X-Robots-Tag", value: "noindex" }] },
