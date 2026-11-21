@@ -22,7 +22,7 @@ export async function GET(_req, { params }) {
       // the picture of the item (Pinterest takes it for the pin): the news card of the story when it exists, else the story photo
       const cid = a.social?.[lang]?.ogCard || a.social?.[lang]?.card;
       const pic = cid ? `${SITE.url}/api/media/${cid}` : (a.image?.url ? (a.image.url.startsWith("http") ? a.image.url : `${SITE.url}${a.image.url}`) : "");
-      const media = pic ? `<enclosure url="${esc(pic)}" type="image/jpeg" length="0"/><media:content url="${esc(pic)}" medium="image" type="image/jpeg"/>` : "";
+      const media = pic && !/\.svg(\?|$)/i.test(pic) ? `<enclosure url="${esc(pic)}" type="image/jpeg" length="0"/><media:content url="${esc(pic)}" medium="image" type="image/jpeg"/>` : "";
       items.push(`<item><title>${esc(t.title)}</title><link>${esc(link)}</link><guid isPermaLink="true">${esc(link)}</guid><pubDate>${new Date(a.publishedAt).toUTCString()}</pubDate><category>${esc(DICT[lang].cats?.[a.category] || a.category)}</category><description>${esc(t.summary || t.metaDescription || "")}</description>${media}</item>`);
       if (items.length >= 40) break;
     }
