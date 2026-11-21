@@ -92,12 +92,17 @@ jobs:
               done
               SEC=$(ffprobe -v error -show_entries format=duration -of csv=p=0 reel.mp4)
               if [ "$OK" = 1 ]; then
-                echo "::notice title=reel $ID::$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=done" --data-urlencode "id=$ID" --data-urlencode "sec=$SEC" --data-urlencode "parts=$N" --data-urlencode "r2=$R2OK" "$SITE/api/cron/reels")"
+                for t in 1 2 3 4 5 6; do   # the site's cached database link can belong to an earlier call ("different request"): ask again
+                  RES=$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=done" --data-urlencode "id=$ID" --data-urlencode "sec=$SEC" --data-urlencode "parts=$N" --data-urlencode "r2=$R2OK" "$SITE/api/cron/reels")
+                  echo "$RES" | grep -q '"error"' || break
+                  sleep 5
+                done
+                echo "::notice title=reel $ID::$RES"
               else
-                curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=upload failed" "$SITE/api/cron/reels"
+                for t in 1 2 3 4 5; do R=$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=upload failed" "$SITE/api/cron/reels"); echo "$R" | grep -q '"error"' || break; sleep 5; done
               fi
             else
-              curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=render failed" "$SITE/api/cron/reels"
+              for t in 1 2 3 4 5; do R=$(curl -sS --max-time 60 -G -H "x-cron-token: $TOKEN" --data-urlencode "op=fail" --data-urlencode "id=$ID" --data-urlencode "err=render failed" "$SITE/api/cron/reels"); echo "$R" | grep -q '"error"' || break; sleep 5; done
             fi
             rm -rf reel_work reel.mp4 web.mp4 poster.jpg part_* plan.json manifest.json
           done
