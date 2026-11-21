@@ -1,0 +1,18 @@
+name: reel-audio-fix
+on:
+  workflow_dispatch:
+    inputs:
+      rid: { required: true }
+      fix: { required: false, default: "0" }
+permissions: { contents: read }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env: { MONGODB_URI: "${{ secrets.MONGODB_URI }}", RID: "${{ inputs.rid }}", FIX: "${{ inputs.fix }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm install --no-audit --no-fund 2>&1 | tail -1
+      - run: node scripts/reel-audio-fix.mjs
