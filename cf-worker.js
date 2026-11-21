@@ -11,6 +11,22 @@ const PAGE = /^\/(ur|en)(\/news\/[a-z0-9-]+)?\/?$/i;
 const TRACK = /^(utm_[a-z]+|fbclid|igshid|gclid|ref|mc_[a-z]+)$/i;
 const FRESH_MS = { home: 60e3, story: 300e3 };
 
+// Editor photos and social cards (/api/media/<id>) never change once saved, but each one was read from the database on every request:
+// that used up the free database's network speed (and slowed the reels). Now the first request fills Cloudflare's cache and the rest never reach the database.
+const MEDIA = /^\/api\/media\/[a-f0-9]{24}$/i;
+async function mediaCached(request, env, ctx) {
+  const u = new URL(request.url);
+  const key = new Request(`https://www.pakdhartitv.com${u.pathname}`, { method: "GET" });
+  const cache = caches.default;
+  try { const hit = await cache.match(key); if (hit) { const h = new Headers(hit.headers); h.set("x-pd-cache", "HIT"); return new Response(hit.body, { status: hit.status, headers: h }); } } catch { /* cache unavailable */ }
+  const res = await site.fetch(request, env, ctx);
+  if (res.status === 200 && !res.headers.has("set-cookie")) {
+    try { ctx.waitUntil(cache.put(key, res.clone()).catch(() => {})); } catch { /* not cached this time */ }
+  }
+  const h = new Headers(res.headers); h.set("x-pd-cache", "MISS");
+  return new Response(res.body, { status: res.status, headers: h });
+}
+
 async function edgeCached(request, env, ctx) {
   let key, kind;
   try {
@@ -74,6 +90,7 @@ export default {
     if ((u.hostname === "pakdhartitv.com" || test) && !u.pathname.startsWith("/api/")) {
       return Response.redirect(`https://www.pakdhartitv.com${u.pathname}${u.search}`, 301);
     }
+    if (request.method === "GET" && u.hostname === "www.pakdhartitv.com" && MEDIA.test(u.pathname)) return mediaCached(request, env, ctx);
     return edgeCached(request, env, ctx);
   },
 
