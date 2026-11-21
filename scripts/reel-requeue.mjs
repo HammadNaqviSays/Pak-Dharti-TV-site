@@ -4,7 +4,7 @@ import { Reel } from "../models/index.js";
 const words = String(process.env.MATCH || "").split(",").map((x) => x.trim()).filter(Boolean);
 if (!words.length) throw new Error("give MATCH words");
 await mongoose.connect(process.env.MONGODB_URI, { dbName: process.env.MONGODB_DB || "pakdharti" });
-const rows = await Reel.find({ status: { $in: ["ready", "approved", "failed"] } }).lean();
+const rows = await Reel.find({ status: { $in: ["ready", "approved", "failed", "rendering"] } }).lean();
 let n = 0;
 for (const r of rows) {
   if (!words.some((w) => String(r.title || "").includes(w))) continue;
