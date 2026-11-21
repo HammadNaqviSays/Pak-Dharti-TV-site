@@ -39,9 +39,13 @@ async function edgeCached(request, env, ctx) {
       : await site.fetch(request, env, ctx);
   } catch (e) {
     if (stale) return out(stale, "STALE");
-    throw e;
+    try { res = await site.fetch(new Request(request), env, ctx); }   // no copy to fall back on: one more try before giving up
+    catch { throw e; }
   }
-  if (res.status >= 500 && stale) return out(stale, "STALE");
+  if (res.status >= 500) {
+    if (stale) return out(stale, "STALE");
+    try { const again = await site.fetch(new Request(request), env, ctx); if (again.status < 500) res = again; } catch { /* the first answer stands */ }
+  }
   if (res.status === 200 && /text\/html/i.test(res.headers.get("content-type") || "") && !res.headers.has("set-cookie")) {
     try {
       const copy = new Response(res.clone().body, { status: 200, headers: new Headers(res.headers) });
