@@ -304,6 +304,51 @@ if col:   # a guest column: the writer's photo, her credit and the title, centre
         return out_
     CARD_PNG = asyncio.run(draw_card()); T("column card drawn")
 
+# ---- the end card: for the LAST scene (the voice says the full story is on Pak Dharti TV) a full-screen Pak Dharti TV page is laid over the video; the voice goes on
+END_NAME, END_ROLE = "حماد نقوی", "چیف ایڈیٹر · پاک دھرتی ٹی وی"      # shown under the photo
+HOST = os.path.join(ROOT, "public/brand/host.jpg")
+END_PNG = None
+if os.path.exists(HOST) and not plan.get("noEnd") and not os.environ.get("REEL_NO_END"):
+    _I = lambda path, d: f'<i><svg viewBox="0 0 24 24">{d}</svg></i>'
+    END_ICONS = "".join([
+        '<i><svg viewBox="0 0 24 24"><path fill="#1877F2" d="M14 8V6.5c0-.7.2-1.2 1.3-1.2H17V2.2C16.6 2.1 15.7 2 14.6 2 12.1 2 10.4 3.5 10.4 6.3V8H7.5v3.3h2.9V22H14V11.3h2.6L17 8z"/></svg></i>',
+        '<i><svg viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r=".9" fill="#E1306C"/></svg></i>',
+        '<i><svg viewBox="0 0 24 24"><path fill="#E60023" d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 0-2.900l1.200-5s-.3-.6-.3-1.500c0-1.400.8-2.400 1.800-2.400.9 0 1.300.6 1.300 1.400 0 .9-.5 2.100-.8 3.300-.2 1 .5 1.800 1.500 1.800 1.800 0 3.100-1.900 3.100-4.600 0-2.400-1.700-4.100-4.200-4.100-2.900 0-4.600 2.200-4.600 4.400 0 .9.300 1.800.8 2.300.1.100.1.200.1.300l-.3 1.100c0 .2-.1.200-.3.100-1.300-.6-2.100-2.500-2.100-4 0-3.300 2.400-6.300 6.900-6.300 3.600 0 6.400 2.600 6.400 6 0 3.600-2.300 6.500-5.400 6.500-1.100 0-2.100-.6-2.400-1.200l-.7 2.500c-.2.900-.9 2.100-1.300 2.800A10 10 0 1 0 12 2z"/></svg></i>',
+        '<i><svg viewBox="0 0 24 24"><path fill="#000" d="M17.700 3h3.300l-7.200 8.300L22.300 21h-6.700l-5.200-6.800L4.400 21H1.100l7.700-8.800L.7 3h6.800l4.700 6.200zm-1.200 15.900h1.800L6.600 4.900H4.600z"/></svg></i>',
+        '<i><svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.1" stroke-linecap="round"><path d="M16.800 11.200c-.5-3.200-2.400-4.700-5.100-4.700-3 0-4.900 2.200-4.900 5.500 0 4 2 5.800 5 5.800 2.500 0 4-1.200 4-3 0-3.600-5.700-3.200-5.700-.6 0 1 .8 1.700 1.800 1.700 1.500 0 2.200-1.200 2.300-2.600"/><path d="M12 22c-5.500 0-8.700-3.200-8.700-10S6.500 2 12 2s8.700 3.200 8.700 10c0 2.200-1 3.300-2.200 3.300"/></svg></i>',
+        '<i><svg viewBox="0 0 24 24"><path fill="#FF0000" d="M23 7.2c-.3-1-1-1.700-2-2C19.300 4.800 12 4.800 12 4.800s-7.300 0-9 .4c-1 .3-1.700 1-2 2C.6 8.900.6 12 .6 12s0 3.100.4 4.800c.3 1 1 1.700 2 2 1.700.4 9 .4 9 .4s7.300 0 9-.4c1-.3 1.700-1 2-2 .4-1.700.4-4.800.4-4.800s0-3.100-.4-4.800z"/><path fill="#fff" d="M9.800 15.200V8.800L15.400 12z"/></svg></i>',
+        '<i><svg viewBox="0 0 24 24"><path fill="#0085FF" d="M12 11c-.9-1.800-3.400-5.100-5.700-6.700C4.100 2.700 2.800 3.200 2.800 5.100c0 .4.200 3.200.4 3.700.6 2 2.700 2.600 4.600 2.300-3.400.6-4.200 2.500-2.400 4.400 3.300 3.400 4.800-.9 5.200-2 .1-.3.200-.4.200-.3s.1 0 .2.300c.4 1.100 1.900 5.400 5.200 2 1.800-1.900 1-3.800-2.400-4.400 1.900.3 4-.3 4.600-2.300.2-.5.4-3.300.4-3.700 0-1.900-1.300-2.400-3.500-.8C15.400 5.900 12.900 9.200 12 11z"/></svg></i>'])
+    END_HTML = f"""<html><head><meta charset="utf-8"><style>
+@font-face{{font-family:JN;src:url({b64(os.path.join(ROOT, "public/fonts/jameel-noori-nastaleeq.woff2"), "font/woff2")})}}
+*{{box-sizing:border-box;margin:0}}
+body{{width:{W}px;height:{H}px;background:linear-gradient(180deg,#A30606 0%,#7A0000 45%,#3a0000 100%);font-family:JN,serif;color:#fff;position:relative;overflow:hidden;text-align:center}}
+.logo{{position:absolute;top:90px;left:50%;transform:translateX(-50%);width:230px}}
+.t1{{position:absolute;top:330px;width:100%;font-size:96px;font-weight:900;-webkit-text-stroke:2px #fff;word-spacing:12px;text-shadow:0 4px 14px #0008;line-height:1.9;direction:rtl}}
+.ph{{position:absolute;top:560px;left:50%;transform:translateX(-50%);width:640px;height:800px;border-radius:28px;object-fit:cover;object-position:50% 20%;border:6px solid #fff;box-shadow:0 20px 60px #0008}}
+.nm{{position:absolute;top:1385px;width:100%;font-size:66px;font-weight:900;-webkit-text-stroke:1px #fff;direction:rtl}}
+.nm small{{display:block;font-size:44px;opacity:.95;font-weight:400;-webkit-text-stroke:0;margin-top:6px}}
+.url{{position:absolute;bottom:250px;left:50%;transform:translateX(-50%);background:#fff;color:#7A0000;font:700 58px Arial,sans-serif;padding:18px 54px;border-radius:60px;white-space:nowrap}}
+.fol{{position:absolute;bottom:175px;width:100%;font-size:38px;direction:rtl;opacity:.9}}
+.ic{{position:absolute;bottom:50px;left:0;width:100%;display:flex;justify-content:center;gap:20px}}
+.ic i{{width:88px;height:88px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-style:normal}}
+.ic svg{{width:54px;height:54px}}
+</style></head><body>
+<img class="logo" src="{LOGO}">
+<div class="t1">مکمل خبر پاک دھرتی ٹی وی پر</div>
+<img class="ph" src="{b64(HOST, "image/jpeg")}">
+<div class="nm">{html.escape(END_NAME)}<small>{html.escape(END_ROLE)}</small></div>
+<div class="url">www.pakdhartitv.com</div>
+<div class="ic">{END_ICONS}</div>
+<div class="fol">فالو کریں · شیئر کریں</div>
+</body></html>"""
+    async def draw_end():
+        async with async_playwright() as p:
+            b = await p.chromium.launch(); pg = await b.new_page(viewport=dict(width=W, height=H))
+            await pg.set_content(END_HTML); await pg.wait_for_timeout(300)
+            out_ = os.path.join(WORK, "endcard.png"); await pg.screenshot(path=out_); await b.close()
+        return out_
+    END_PNG = asyncio.run(draw_end()); T("end card drawn")
+
 line_t = []   # when each group (sentence) of each scene comes in
 for i, d in enumerate(per):
     cnt = [g["chars"] for g in d["groups"]]; allc = sum(cnt); t0_, t1_ = bounds[i], bounds[i + 1]
@@ -398,7 +443,7 @@ if LOGO_FILE:
     SH_IDX, LG_IDX = 4, 3
 else:
     LOGO_IN = []; SH_IDX = 3
-SH_IN = ["-loop", "1", "-i", SHINE] + (["-loop", "1", "-i", CARD_PNG] if CARD_PNG else [])
+SH_IN = ["-loop", "1", "-i", SHINE] + (["-loop", "1", "-i", CARD_PNG] if CARD_PNG else []) + (["-loop", "1", "-i", END_PNG] if END_PNG else [])
 SH_F = f"[vw][{SH_IDX}:v]overlay=x='-200+mod(t\\,3.4)*({W}+400)/3.4':y={H - 130}:format=auto:shortest=1[vs];"
 CARD_IDX = (SH_IDX + 1)
 if LOGO_FILE:
@@ -407,6 +452,9 @@ else:
     LOGO_F = SH_F + "[vs]format=yuv420p[v]"
 if CARD_PNG:    # the column card: in the middle of the screen for about 3 seconds (fades in and out), then gone
     LOGO_F = LOGO_F[:-3] + "[vz];" + f"[{CARD_IDX}:v]format=rgba,fade=t=in:st=0.2:d=0.4:alpha=1,fade=t=out:st=2.6:d=0.4:alpha=1[cc];[vz][cc]overlay=0:0:enable='between(t,0.2,3.05)':format=auto,format=yuv420p[v]"
+if END_PNG:     # the end card covers everything (logo, strip, bars) from the start of the last scene to the end; it fades in
+    _END_IDX = SH_IDX + 1 + (1 if CARD_PNG else 0); _ES = max(0.0, vis[-1][0])
+    LOGO_F = LOGO_F[:-3] + f"[vq];[{_END_IDX}:v]format=rgba,fade=t=in:st={_ES:.2f}:d=0.35:alpha=1[ee];[vq][ee]overlay=0:0:enable='gte(t,{_ES:.2f})':format=auto,format=yuv420p[v]"
 # ---- voice bars: a sound-level display that jumps with the voice and disappears in silence ----
 BW, BH, NB = 880, 100, 44                       # picture size, number of bars (mirrored: loud low tones in the middle, high tones outside)
 def make_bars(wav_path, out_mov, total):
