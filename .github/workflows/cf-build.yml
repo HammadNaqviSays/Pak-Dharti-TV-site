@@ -62,6 +62,7 @@ jobs:
         if: env.CLOUDFLARE_API_TOKEN != ''
         env:
           WORKER_ENV: ${{ secrets.WORKER_ENV }}
+          SOCIAL_EXTRA_ENV: ${{ secrets.SOCIAL_EXTRA_ENV }}
           GH_DISPATCH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
         run: |
           python3 - <<'PY'
@@ -82,6 +83,16 @@ jobs:
               v = v.strip()
               if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'": v = v[1:-1]
               if k and v: d[k] = v
+          # Threads and Bluesky keys (kept in SOCIAL_EXTRA_ENV for the GitHub posting job) are also needed here for the reel buttons in Mission Control
+          for line in (os.environ.get("SOCIAL_EXTRA_ENV") or "").splitlines():
+              line = line.strip()
+              if not line or line.startswith("#") or "=" not in line: continue
+              k, v = line.split("=", 1)
+              k = k.strip()
+              if k.startswith("export "): k = k[7:].strip()
+              v = v.strip()
+              if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'": v = v[1:-1]
+              if k in ("THREADS_TOKEN", "THREADS_USER_ID", "BLUESKY_HANDLE", "BLUESKY_APP_PASSWORD") and v and k not in d: d[k] = v
           if os.environ.get("MONGODB_URI"): d["MONGODB_URI"] = os.environ["MONGODB_URI"]
           if os.environ.get("GH_DISPATCH_TOKEN"): d["GH_DISPATCH_TOKEN"] = os.environ["GH_DISPATCH_TOKEN"]
           # internal keys nobody types: made once (random) if the Worker does not have them yet
