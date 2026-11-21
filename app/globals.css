@@ -1142,3 +1142,16 @@ b.n.price { color: var(--red); font-weight: 800; white-space: nowrap; }
 .reel-share a:hover, .reel-share button:hover { transform: translateY(-2px); color: #fff3c4; filter: none; box-shadow: inset 0 0 0 1px #f0cf7a, 0 5px 12px rgba(90, 0, 0, .45); }
 .reel-share a svg, .reel-share button svg { width: 56%; height: 56%; }
 @media (max-width: 640px) { .reel-share { gap: .3rem; } .reel-share a, .reel-share button { width: 26px; height: 26px; } }
+
+/* team page */
+.tm-intro { margin: 0 0 1.4rem; color: var(--muted); font-size: 1.1rem; }
+.tm-sec { margin: 0 0 2rem; }
+.tm-sec h2 { margin: 0 0 1rem; padding-bottom: .4rem; border-bottom: 3px solid var(--red); color: var(--red); font-family: var(--f-head); }
+.tm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1.2rem; }
+.tm-card { text-align: center; padding: 1.2rem; background: var(--wash); border-radius: 16px; border-top: 5px solid var(--red); }
+.tm-card img { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 4px solid #fff; box-shadow: 0 4px 14px rgba(0,0,0,.18); }
+.tm-card h3 { margin: .7rem 0 .2rem; font-family: var(--f-head); }
+.tm-card h3 a { color: inherit; text-decoration: none; }
+.tm-role { margin: 0 0 .4rem; color: var(--red); font-weight: 600; }
+.tm-bio { margin: .4rem 0; font-size: .95rem; line-height: 1.7; }
+.tm-links { display: flex; justify-content: center; flex-wrap: wrap; gap: .3rem .9rem; margin: .5rem 0 0; font-size: .9rem; }

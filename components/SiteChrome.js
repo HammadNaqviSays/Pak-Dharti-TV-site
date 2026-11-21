@@ -92,6 +92,7 @@ export function SiteFooter({ lang }) {
         <div className="wrap">
           <nav className="footer-legal" aria-label="Site information">
             {PAGE_SLUGS.map((p) => <a key={p} href={`/${lang}/${p}`}>{PAGE_TITLES[lang][p]}</a>)}
+            <a href={`/${lang}/team`}>{lang === "ur" ? "ہماری ٹیم" : "Our team"}</a>
           </nav>
           © {new Date().getFullYear()} {t.site}. {t.rights}
         </div>
