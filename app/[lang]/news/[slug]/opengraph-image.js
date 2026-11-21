@@ -34,10 +34,13 @@ function jpegSize(buf) {
 
 export default async function Image({ params }) {
   const { slug, lang } = await params;
-  // The same news card that is posted on Facebook / Instagram: shown whole (height 630) on a brand background, so X, WhatsApp and Facebook link previews carry it
+  // The same news card that was posted on Facebook / Instagram (saved when it was drawn): shown whole (height 630) on a brand background,
+  // so X, WhatsApp and Facebook link previews carry it. Stories without a saved card keep the plain share image below.
   try {
-    const r = await fetch(`${SITE.url}/api/card/news?slug=${encodeURIComponent(slug)}&lang=${lang === "en" ? "en" : "ur"}`);
-    if (r.ok && /jpeg/.test(r.headers.get("content-type") || "")) {
+    const art = await getArticle(slug).catch(() => null);
+    const cid = art?.social?.[lang === "en" ? "en" : "ur"]?.ogCard || art?.social?.[lang === "en" ? "en" : "ur"]?.card;
+    const r = cid ? await fetch(`${SITE.url}/api/media/${cid}`) : null;
+    if (r && r.ok && /jpeg/.test(r.headers.get("content-type") || "")) {
       const buf = Buffer.from(await r.arrayBuffer());
       const d = jpegSize(buf);
       if (d && d.w > 100 && d.h > 100) {
