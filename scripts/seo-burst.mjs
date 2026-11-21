@@ -17,3 +17,9 @@ for (const N of [10, 25]) {
   for (const r of res.filter((r) => r.s !== 200).slice(0, 3)) say("  non-200:", r.s, `${r.ms}ms`, r.body, "|", r.hdr || "");
   await new Promise((r) => setTimeout(r, 8000));
 }
+// does the edge copy work? the same story twice, and with a Facebook-style tracking address
+const one = urls.find((u) => /\/ur\/news\//.test(u));
+for (const [label, u] of [["first", one], ["second", one], ["with utm", `${one}?utm_source=facebook&utm_medium=social`], ["home", `${B}/ur`], ["home again", `${B}/ur`]]) {
+  const t = Date.now(); const r = await fetch(u, { headers: UA }); await r.text();
+  say("CACHE", label, r.status, `${Date.now() - t}ms`, "x-pd-cache:", r.headers.get("x-pd-cache") || "(none)", "| cache-control:", r.headers.get("cache-control"));
+}
