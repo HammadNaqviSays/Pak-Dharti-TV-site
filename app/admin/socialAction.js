@@ -5,6 +5,9 @@ import { Article, Media, Setting, SocialQueue } from "@/models";
 import { GAP_MS, DAILY_GAP_MS, waitFor, deliver, drainQueue } from "@/lib/socialQueue";
 import { socialConfig } from "@/lib/autosocial";
 import { pageForLang } from "@/lib/social";
+import { deleteOldPosts } from "@/lib/socialReplace";
+import { postExtras } from "@/lib/extraSocial";
+import { SITE } from "@/lib/site";
 
 
 /** Which pages are connected (no secrets). */
@@ -49,8 +52,11 @@ export async function sendSocialAction(fd) {
 
   await connectDB();
   // already posted? say so and stop, unless the editor ticked "post anyway" (e.g. the old post was deleted)
-  const force = fd.get("force") === "1";
-  const was = await postedState(slug, lang);
+  const replace = fd.get("replace") === "1";
+  const force = fd.get("force") === "1" || replace;
+  let removed = null;
+  if (replace && slug && !slug.startsWith("daily-")) removed = await deleteOldPosts(slug, lang);   // Facebook, Threads, Bluesky: the old posts go first
+  const was = replace ? { fb: false, ig: false, at: null } : await postedState(slug, lang);
   const dup = [wantFb && was.fb && "Facebook", wantIg && was.ig && "Instagram"].filter(Boolean);
   if (dup.length && !force) {
     return { duplicate: true, error: `This story is already on ${dup.join(" and ")}${was.at ? ` (posted ${new Date(was.at).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" })} Pakistan time)` : ""}. Tick "Post anyway" if you really want it posted again.` };
@@ -61,12 +67,29 @@ export async function sendSocialAction(fd) {
   if (ahead && await SocialQueue.exists({ lang, slug, status: { $in: ["queued", "posting"] } })) return { error: "This story is already waiting in the posting queue." };
   const wait = await waitFor(lang, slug);
   // too early, or others are already waiting: join the queue (first in, first out); it goes out by itself when the gap is over
-  if (wait > 0 || ahead > 0) {
+  if (!replace && (wait > 0 || ahead > 0)) {
     await SocialQueue.create({ ...item, media: String(m._id), status: "queued" });
     const waits = ahead ? ahead * GAP_MS + wait : wait;
     return { queued: true, position: ahead + 1, etaMin: Math.max(1, Math.ceil(waits / 60000)), etaAt: Date.now() + waits };
   }
-  return await deliver({ ...item, mediaId: String(m._id) });
+  const res = await deliver({ ...item, mediaId: String(m._id) });
+  if (replace) return { ...res, replaced: removed, ...(await replaceExtras(slug, lang, String(m._id))) };
+  return res;
+}
+
+/** The new card also goes to Threads and Bluesky (when the old posts were replaced). */
+async function replaceExtras(slug, lang, mediaId) {
+  try {
+    const a = await Article.findOne({ slug }).lean();
+    if (!a) return {};
+    const base = SITE.url;
+    const ex = await postExtras({ title: a.translations?.[lang]?.title || "", summary: a.translations?.[lang]?.summary || "", url: `${base}/${lang}/news/${a.slug}`, imageUrl: `${base}/api/media/${mediaId}`, tags: (a.socialTags?.[lang] || []).map((x) => `#${String(x).replace(/[#\s]+/g, "")}`).join(" ") }, ["bluesky", "threads"]);
+    const mark = {};
+    if (ex.bluesky?.ok) { mark[`social.${lang}.bsky`] = true; mark[`social.${lang}.bskyUri`] = ex.bluesky.uri || ""; }
+    if (ex.threads?.ok) { mark[`social.${lang}.th`] = true; mark[`social.${lang}.thId`] = ex.threads.id || ""; }
+    if (Object.keys(mark).length) await Article.updateOne({ slug }, { $set: mark });
+    return { extra: { bluesky: ex.bluesky || null, threads: ex.threads || null } };
+  } catch (e) { return { extra: { error: String(e.message).slice(0, 120) } }; }
 }
 
 /** The waiting posts (oldest first) with the minutes still to wait; opening the panel also sends the next one if its time has come. */

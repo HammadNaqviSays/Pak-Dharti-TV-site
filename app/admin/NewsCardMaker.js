@@ -53,6 +53,7 @@ export default function NewsCardMaker({ slug, postedCards = {}, titles, image, s
   const [sendRes, setSendRes] = useState(null);
   const [posted, setPosted] = useState(null); // { fb, ig, at } what this story already has on the pages
   const [force, setForce] = useState(false);
+  const [replace, setReplace] = useState(false);
   const justNow = !!(posted?.at && Date.now() - new Date(posted.at).getTime() < 5 * 60e3) || !!(sendRes && ((sendRes.fb && !sendRes.fb.error) || (sendRes.ig && !sendRes.ig.error)));
   const canvas = useRef(null);
   const drag = useRef(null);   // { idx, x0, y0, dx0, dy0 } while a person is being dragged on the card
@@ -181,6 +182,7 @@ export default function NewsCardMaker({ slug, postedCards = {}, titles, image, s
       fd.set("fb", sendFb ? "1" : "0"); fd.set("ig", sendIg ? "1" : "0");
       fd.set("fbText", cap.facebook); fd.set("fbComment", cap.facebookComment || ""); fd.set("igText", cap.instagram);
       fd.set("force", force ? "1" : "0");
+      fd.set("replace", replace ? "1" : "0");
       fd.set("card", new File([blob], "card.jpg", { type: "image/jpeg" }));
       setSendRes(await sendSocialAction(fd));
     } catch (e) { setSendRes({ error: `Could not send (${stage}): ${String(e?.message || e).slice(0, 140)}` }); }
@@ -318,11 +320,18 @@ export default function NewsCardMaker({ slug, postedCards = {}, titles, image, s
                 {((posted && (posted.fb || posted.ig)) || sendRes?.duplicate) && (
                   <label className="cm-inline"><input type="checkbox" checked={force} onChange={(e) => setForce(e.target.checked)} /> Post anyway (for example I deleted the old post)</label>
                 )}
+                <label className="cm-inline"><input type="checkbox" checked={replace} onChange={(e) => setReplace(e.target.checked)} /> <strong>Replace the old posts</strong> (deletes the earlier Facebook, Threads and Bluesky posts of this story and posts this card there instead; the post is sent immediately. Instagram cannot be deleted automatically: remove the old Instagram post in the app.)</label>
                 <button type="button" className="btn publish" onClick={sendNow} disabled={sendBusy}>{sendBusy ? "Posting…" : "Post on selected"}</button>
                 {sendRes?.error && <p className="error">{sendRes.error}</p>}
                 {sendRes?.queued && <p className="hint" style={{ color: "#126B3A", fontWeight: 700 }}>✅ Saved in the posting queue (number {sendRes.position}). It will be posted by itself at {new Date(sendRes.etaAt).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", second: "2-digit", timeZone: "Asia/Karachi" })} Pakistan time (in about {sendRes.etaMin} minute(s)), when the gap after the last post is over. The list below counts down. You do not need to press again.</p>}
                 <SocialQueue bump={sendRes?.queued ? 1 : 0} />
                 {sendRes?.fb && <p className={sendRes.fb.error ? "error" : "hint"}>Facebook: {sendRes.fb.error || (sendRes.fb.commentError ? `posted ✓ (comment failed: ${sendRes.fb.commentError})` : "posted ✓")}</p>}
+                {sendRes?.replaced && <div className="hint">
+                  {Object.entries({ facebook: "Facebook", threads: "Threads", bluesky: "Bluesky" }).map(([k, n]) => { const v = sendRes.replaced[k]; return v === "none" ? null : <div key={k} style={{ color: v === "deleted" ? "#126B3A" : "#a00" }}>{v === "deleted" ? "✅" : "❌"} {n}: old post {v === "deleted" ? "deleted" : v.replace(/^error: /, "could not be deleted — ")}</div>; })}
+                  {sendRes.replaced.instagram === "manual" && <div style={{ color: "#a60" }}>⚠️ Instagram: delete the old post in the Instagram app (it cannot be done automatically).</div>}
+                  {sendRes.extra?.bluesky && <div style={{ color: sendRes.extra.bluesky.error ? "#a00" : "#126B3A" }}>{sendRes.extra.bluesky.error ? `❌ Bluesky: ${sendRes.extra.bluesky.error}` : "✅ Bluesky: new post published"}</div>}
+                  {sendRes.extra?.threads && <div style={{ color: sendRes.extra.threads.error ? "#a00" : "#126B3A" }}>{sendRes.extra.threads.error ? `❌ Threads: ${sendRes.extra.threads.error}` : "✅ Threads: new post published"}</div>}
+                </div>}
                 {sendRes?.ig && <p className={sendRes.ig.error ? "error" : "hint"}>Instagram: {sendRes.ig.error || "posted ✓"}</p>}
               </div>
             )}
