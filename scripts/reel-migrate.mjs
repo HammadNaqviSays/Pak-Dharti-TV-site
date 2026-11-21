@@ -12,7 +12,7 @@ for (const sl of String(process.env.APPROVE || "").split(",").map((x) => x.trim(
   const r = await Reel.updateOne({ slug: { $regex: "^" + sl.replace(/[^a-z0-9-]/gi, "") }, status: "ready" }, { $set: { status: "approved" } });
   console.log("approve", sl.slice(0, 50), r.modifiedCount);
 }
-const rows = await Reel.find({ status: "approved", r2: { $ne: true } }).select("title").lean();
+const rows = await Reel.find({ status: { $in: ["approved", "ready"] }, r2: { $ne: true } }).select("title").lean();   // approved and ready (waiting for your check): both leave the database
 console.log("approved reels still in the database:", rows.length);
 console.log("COUNT total reels:", await Reel.countDocuments({}));
 for (const g of await Reel.aggregate([{ $group: { _id: { s: "$status", r2: { $ifNull: ["$r2", false] } }, n: { $sum: 1 } } }, { $sort: { "_id.s": 1 } }])) console.log("COUNT", g._id.s, "r2=" + g._id.r2, g.n);
