@@ -1,0 +1,9 @@
+name: audio-diag
+on: { workflow_dispatch: {} }
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for i in 1 2 3; do curl -s -D /tmp/h -o /tmp/b -w "AD audio http %{http_code} %{size_download} %{time_total}s\n" https://www.pakdhartitv.com/api/reels/6b018eeece2bfa12dfd87918/audio; grep -i -E "^(HTTP|cf-ray|content-type|x-)" /tmp/h | tr -d '\r' | sed 's/^/AD /'; done
+          for id in $(echo 6b018eeece2bfa12dfd87918); do curl -s -o /dev/null -w "AD story-audio-range %{http_code}\n" -H "Range: bytes=0-100" https://www.pakdhartitv.com/api/reels/$id/audio; done
