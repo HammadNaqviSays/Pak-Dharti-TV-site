@@ -16,11 +16,25 @@ export const maxDuration = 60;
 
 const NAME = { draft: "Script ready — change the words if you like, then press Make video now (it goes on by itself after 3 hours)", scripted: "⏳ In the queue — the video maker picks it up at its next run (within about an hour). You can leave this page.", rendering: "⚙️ Video is being made right now (about 5–10 minutes). Refresh the page to see it", ready: "Video ready — please check", approved: "Approved", posted: "Posted", failed: "Failed", rejected: "Rejected" };
 
-export default async function ReelsPage() {
+const TABS = [
+  ["all", "All", null],
+  ["ready", "Check these", ["ready"]],
+  ["approved", "Approved", ["approved"]],
+  ["posted", "Posted", ["posted"]],
+  ["incomplete", "Incomplete", ["draft", "scripted", "rendering", "failed"]],
+  ["rejected", "Rejected", ["rejected"]],
+];
+
+export default async function ReelsPage({ searchParams }) {
   if (!(await isLoggedIn())) redirect("/admin");
   await connectDB();
   const cfg = await getReelConfig();
-  const list = await Reel.find({}).sort({ createdAt: -1 }).limit(30).lean();
+  const sp = (await searchParams) || {};
+  const tab = TABS.find((t) => t[0] === sp.s) || TABS[0];
+  // approved reels are never dropped from view: every tab shows them all (up to 200), newest first
+  const counts = Object.fromEntries((await Reel.aggregate([{ $group: { _id: "$status", n: { $sum: 1 } } }])).map((x) => [x._id, x.n]));
+  const countOf = (t) => (t[2] ? t[2].reduce((a, k) => a + (counts[k] || 0), 0) : Object.values(counts).reduce((a, b) => a + b, 0));
+  const list = await Reel.find(tab[2] ? { status: { $in: tab[2] } } : {}).sort({ createdAt: -1 }).limit(200).lean();
   return (
     <>
       <ToastHost />
@@ -44,8 +58,12 @@ export default async function ReelsPage() {
           <small className="hint">The best fresh story (last 24 hours) of the allowed sections is picked: Imran Khan / PTI first, then the most read. Every new script waits as a draft so you can change the words.</small>
         </form>
         <form action={makeReelScriptAction}><BusyButton className="btn publish" text="Writing a script. This takes up to a minute — please wait.">Write a script for the best fresh story now</BusyButton> <a className="btn secondary" href="/admin/voice">Reel voice</a></form>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", margin: "1.2rem 0 .4rem" }}>
+          {TABS.map((t) => <a key={t[0]} className={t[0] === tab[0] ? "btn publish" : "btn secondary"} href={t[0] === "all" ? "/admin/reels" : `/admin/reels?s=${t[0]}`}>{t[1]} ({countOf(t)})</a>)}
+        </div>
+        {tab[0] === "incomplete" && <p className="hint">These reels are not finished. Look at each one: press Make video to finish it (then Approve), or Delete it.</p>}
         {list.some((r) => ["rejected", "failed"].includes(r.status)) && <form action={deleteRejectedReelsAction} style={{ marginTop: ".6rem" }}><button className="btn secondary">Delete all rejected and failed reels</button></form>}
-        {list.length === 0 ? <p className="muted">No reels yet.</p> : (
+        {list.length === 0 ? <p className="muted">No reels here.</p> : (
           <ul className="queue">
             {list.map((r) => (
               <li key={String(r._id)}>
