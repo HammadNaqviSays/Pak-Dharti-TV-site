@@ -18,22 +18,23 @@ async function shrink(file) {
 const ORDER = ["k", "r", "b", "g"];
 const NAMES = { k: "Black", r: "Maroon", b: "Blue", g: "Green" };
 
-// First three words red until the editor changes something (same rule the video uses).
+// Words are plain (white on the dark caption box) unless the editor colours them.
 const colorOf = (sc, i) => {
   const m = sc.marks.find((x) => x.i === i);
-  if (m) return m.c;
-  return !sc.edited && i < 3 && sc.marks.length === 0 ? "r" : "k";
+  return m ? m.c : "k";
 };
+const ON_DARK = { k: "#ffffff", r: "#ff8f8f", b: "#9cc3ff", g: "#8fe6ab" };   // the same colours the video uses on the dark box
 
 const GRADE_CSS = { "": "", cinematic: "contrast(1.1) saturate(.9) brightness(.95)", warm: "sepia(.25) saturate(1.15)", cool: "hue-rotate(8deg) saturate(.95) brightness(.98)", mono: "grayscale(1) contrast(1.1)", tealorange: "contrast(1.1) saturate(1.2) hue-rotate(-8deg)" };
-const PADX = 24, BORD = 7, CAPW = 780;
+const PADX = 24, BORD = 7, CAPW = 800, CPL = 30, CPR = 34;
 
 /** A quick look at what the first moment of a line will look like (same sizes as the video, scaled down). Nothing is rendered; it follows the settings live. */
 function LookPreview({ scenes, n, setN, fontFile, stroke, bgAlpha, badge, grade, mirror }) {
   const sc = scenes[n] || scenes[0];
   const words = sc.text.split(" ");
   const end = words.findIndex((w) => /[۔؟!?]$/.test(w));
-  const part = end >= 2 ? words.slice(0, end + 1) : words;           // the first sentence of the line
+  let part = end >= 2 ? words.slice(0, end + 1) : words;               // the first sentence of the line
+  if (part.length > 10) { const c = part.findIndex((w, q) => q >= 4 && q <= 12 && /[،,]$/.test(w)); part = part.slice(0, c >= 0 ? c + 1 : Math.ceil(part.length / Math.ceil(part.length / 10))); }   // a caption piece is about 10 words at most (same rule as the video)
   const size = sc.size || 78;
   const natRef = useRef(null);
   const [lines, setLines] = useState([]);
@@ -51,7 +52,7 @@ function LookPreview({ scenes, n, setN, fontFile, stroke, bgAlpha, badge, grade,
   const k = 0.3, W = 1080, H = 1920;
   const wmax = lines.length ? Math.max(...lines.map((x) => x.r - x.l)) : 0;
   const bc = stroke === "k" ? "#000" : "#7a0000";
-  const wordEl = (w, i) => <span key={i} className="w" style={{ color: REEL_COLORS[colorOf(sc, i)] }}>{w}{" "}</span>;
+  const wordEl = (w, i) => <span key={i} className="w" style={{ color: ON_DARK[colorOf(sc, i)] }}>{w}{" "}</span>;
   const img = sc.pic || sc.img;
   return (
     <div style={{ margin: ".6rem 0" }}>
@@ -63,26 +64,25 @@ function LookPreview({ scenes, n, setN, fontFile, stroke, bgAlpha, badge, grade,
           {img && <img src={img} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 28%", filter: GRADE_CSS[grade] || "", transform: (mirror || sc.mirror) ? "scaleX(-1)" : "none" }} />}
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(4,28,36,.55) 0,rgba(4,28,36,.30) 30%,rgba(4,28,36,.62) 56%,rgba(3,18,24,.9) 100%)" }} />
           {badge && <div style={{ position: "absolute", right: 56, top: 96, background: "linear-gradient(180deg,#8a0000,#5a0000)", color: "#fff", border: "3px solid #e8c15a", borderRadius: 10, padding: "0 26px 10px", font: "60px/1.8 ReelPreview, serif", boxShadow: "0 4px 14px rgba(0,0,0,.4)" }}>{badge}</div>}
-          <video src="/brand/reel-logo.webm" autoPlay loop muted playsInline style={{ position: "absolute", left: 40, top: 50, height: 189 }} />
-          <div style={{ position: "absolute", right: 150, bottom: H - 1630, display: "flex", flexDirection: "column", alignItems: "flex-start", fontSize: size }}>
-            {lines.map((ln, j) => {
-              const last = j === lines.length - 1;
-              return <div key={j} style={{ marginTop: j ? 10 : 0, background: `rgba(255,255,255,${(bgAlpha || 100) / 100})`, border: `${BORD}px solid ${bc}`, padding: `15px ${PADX}px 0`, boxSizing: "border-box", lineHeight: 1.42, color: "#111", whiteSpace: last ? "nowrap" : "normal", width: last ? "auto" : wmax + 2 * (PADX + BORD) + 2, textAlign: last ? "center" : "justify", textAlignLast: last ? "center" : "justify" }}>{ln.idx.map((i) => wordEl(part[i], i))}</div>;
-            })}
+          <video src="/brand/reel-logo.webm" autoPlay loop muted playsInline style={{ position: "absolute", left: 40, top: 50, height: 170 }} />
+          <div style={{ position: "absolute", right: 150, bottom: H - 1630, width: "max-content", maxWidth: CAPW, fontSize: size }}>
+            <div style={{ background: `rgba(58,58,62,${0.8 * (bgAlpha || 100) / 100})`, borderRadius: 22, borderRight: "14px solid #e0152b", padding: `12px ${CPR}px 4px ${CPL}px`, direction: "rtl", textAlign: "right" }}>
+              {lines.map((ln, j) => <div key={j} style={{ whiteSpace: "nowrap", lineHeight: 1.55, color: "#fff", textShadow: "0 2px 6px rgba(0,0,0,.35)" }}>{ln.idx.map((i) => wordEl(part[i], i))}</div>)}
+            </div>
           </div>
           <div style={{ position: "absolute", left: 0, right: 0, bottom: 196, height: 100, display: "flex", justifyContent: "center", alignItems: "center", gap: 8, direction: "ltr" }}>
             {[8, 22, 40, 70, 90, 60, 36, 80, 50, 26, 12].map((h, i) => <i key={i} style={{ width: 12, height: h, borderRadius: 6, background: "#fff", display: "block" }} />)}
           </div>
-          <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 130, background: "linear-gradient(180deg,#8a0000 0%,#6a0000 55%,#4c0000 100%)", borderTop: "4px solid #fff", display: "flex", alignItems: "center", justifyContent: "center", gap: 24, direction: "ltr" }}>
-            {[0, 1, 2, 3, 4, 5].map((i) => <i key={i} style={{ width: 66, height: 66, borderRadius: 33, border: "2px solid #fff", display: "block" }} />)}
-            <b style={{ font: "700 46px sans-serif", color: "#fff" }}>PakDhartiTv.com</b>
+          <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 130, background: "linear-gradient(180deg,#8a0000 0%,#6a0000 55%,#4c0000 100%)", borderTop: "4px solid #fff", display: "flex", alignItems: "center", justifyContent: "center", gap: 16, direction: "ltr" }}>
+            {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => <i key={i} style={{ width: 58, height: 58, borderRadius: 29, border: "2px solid #fff", display: "block" }} />)}
+            <b style={{ font: "700 38px sans-serif", color: "#fff" }}>PakDhartiTv.com</b>
           </div>
         </div>
-        <div ref={natRef} style={{ position: "absolute", visibility: "hidden", right: 150, top: 0, width: CAPW - 2 * (PADX + BORD), fontSize: size, lineHeight: 1.9, fontFamily: "ReelPreview, serif", direction: "rtl", textAlign: "right", transform: "none", pointerEvents: "none", height: 0, overflow: "hidden" }}>
+        <div ref={natRef} style={{ position: "absolute", visibility: "hidden", right: 150, top: 0, width: CAPW - CPL - CPR - 14, fontSize: size, lineHeight: 1.55, fontFamily: "ReelPreview, serif", direction: "rtl", textAlign: "right", transform: "none", pointerEvents: "none", height: 0, overflow: "hidden" }}>
           {part.map((w, i) => <span key={i} className="w">{w}{" "}</span>)}
         </div>
       </div>
-      <small className="hint">Quick look (not the real render): picture, strip width, strip opacity, outline, colours and badge follow your settings as you change them.</small>
+      <small className="hint">Quick look (not the real render): picture, box opacity, colours and badge follow your settings as you change them.</small>
     </div>
   );
 }
