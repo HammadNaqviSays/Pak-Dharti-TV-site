@@ -57,7 +57,7 @@ export default async function ReelsPage({ searchParams }) {
             {REEL_SECTIONS.map((c) => <label key={c} style={{ marginInlineEnd: "1rem", whiteSpace: "nowrap" }}><input type="checkbox" name={`cat_${c}`} defaultChecked={cfg.cats.includes(c)} /> {SECTION_NAME[c]}</label>)}
           </div>
           <label><input type="checkbox" name="ptiFirst" defaultChecked={cfg.ptiFirst} /> Imran Khan / PTI stories first, from any section</label>
-          <label><input type="checkbox" name="ownVoice" defaultChecked={cfg.ownVoice} /> <strong>Pak Dharti TV ki apni awaaz:</strong> reel mein ARY, Geo ya kisi aur channel ka naam nahi liya jaye (screen par bhi "ذریعہ: پاک دھرتی ٹی وی"). Jo baat kisi ka daawa hai wahan channel ka nahi, asal bolne wale/idare ka naam aata hai (jaise "وزارتِ خزانہ کے مطابق") ya "ذرائع کے مطابق". Interview mein "ایک نجی چینل سے گفتگو میں". Website ki khabar mein hawale pehle jaise rehte hain.</label>
+          <label><input type="checkbox" name="ownVoice" defaultChecked={cfg.ownVoice} /> <strong>Pak Dharti TV own voice:</strong> reels never name other news channels (the on-screen credit reads "ذریعہ: پاک دھرتی ٹی وی"). A claim is attributed to the original speaker or institution (e.g. "وزارتِ خزانہ کے مطابق"), or to "ذرائع کے مطابق" when unnamed; interviews use "ایک نجی چینل سے گفتگو میں". Website stories keep their source credits.</label>
           <div><BusyButton className="btn publish" text="Saving…">Save reel settings</BusyButton></div>
           <small className="hint">The best fresh story (last 24 hours) of the allowed sections is picked: Imran Khan / PTI first, then the most read. Every new script waits as a draft so you can change the words.</small>
         </form>

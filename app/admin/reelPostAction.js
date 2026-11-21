@@ -31,10 +31,10 @@ export async function scheduleReelAction(id, iso) {
   await connectDB();
   const reel = await Reel.findById(id).select("status").lean();
   if (!reel || !["ready", "approved", "posted"].includes(reel.status)) return { ok: false, msg: "Reel is not ready" };
-  if (!iso) { await Reel.updateOne({ _id: id }, { $set: { postAt: null, postErr: "" } }); revalidatePath("/admin/reels"); return { ok: true, msg: "Schedule hata diya" }; }
+  if (!iso) { await Reel.updateOne({ _id: id }, { $set: { postAt: null, postErr: "" } }); revalidatePath("/admin/reels"); return { ok: true, msg: "Schedule cancelled" }; }
   const at = new Date(iso);
-  if (isNaN(at) || at.getTime() < Date.now() + 60000) return { ok: false, msg: "Waqt aane wala (future mein) chunein" };
+  if (isNaN(at) || at.getTime() < Date.now() + 60000) return { ok: false, msg: "Choose a time in the future" };
   await Reel.updateOne({ _id: id }, { $set: { postAt: at, postErr: "", postTries: 0 } });
   revalidatePath("/admin/reels");
-  return { ok: true, msg: "Schedule ho gaya", at: at.toISOString() };
+  return { ok: true, msg: "Scheduled", at: at.toISOString() };
 }
