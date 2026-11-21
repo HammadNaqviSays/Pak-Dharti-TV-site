@@ -47,9 +47,9 @@ fetch_ok = False
 u = plan["audioUrl"]
 if re.match(r"https?://", u):
     for _try in range(8):          # the site sometimes answers with an error page ("different request") instead of the voice: ask again until it is a real sound file
-        _c = requests.get(u, timeout=120).content
+        _r = requests.get(u, timeout=120); _c = _r.content
         if _c[:4] == b"RIFF": break
-        print("voice: not a sound file (try", _try + 1, ")", _c[:80], flush=True); _time.sleep(4)
+        print("voice: not a sound file (try", _try + 1, ") http", _r.status_code, _r.headers.get("content-type"), len(_c), _c[:120], u, flush=True); _time.sleep(4)
     open(vpath, "wb").write(_c)
 else: open(vpath, "wb").write(open(u, "rb").read())
 SPEED = float(plan.get("speed") or 1)
