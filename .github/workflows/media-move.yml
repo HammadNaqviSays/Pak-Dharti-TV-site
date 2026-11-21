@@ -1,0 +1,24 @@
+# Moves site pictures (photos, cards) from the database to R2 storage, a few per call, until none are left. Run by hand.
+name: media-move
+on:
+  workflow_dispatch:
+permissions: { contents: read }
+concurrency: { group: media-move, cancel-in-progress: false }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      SITE: https://www.pakdhartitv.com
+      TOKEN: ${{ secrets.CRON_TOKEN }}
+    steps:
+      - name: Move pictures
+        run: |
+          FAIL=0
+          for i in $(seq 1 600); do
+            R=$(curl -sS --max-time 70 -H "x-cron-token: $TOKEN" "$SITE/api/cron/media-sweep?ms=30000" 2>&1 | head -c 300)
+            echo "[media-move] $i: $R"
+            if echo "$R" | grep -q '"left":0'; then echo "[media-move] DONE"; exit 0; fi
+            if echo "$R" | grep -q '"moved"'; then FAIL=0; else FAIL=$((FAIL+1)); sleep 5; fi
+            if [ "$FAIL" -ge 15 ]; then echo "[media-move] too many errors"; exit 1; fi
+          done

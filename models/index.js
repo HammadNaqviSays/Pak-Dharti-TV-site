@@ -159,7 +159,8 @@ TrafficSchema.index({ dim: 1, key: 1, day: 1 });
 
 /* ---------- MEDIA: the editor's own uploaded photos ---------- */
 const MediaSchema = new Schema({
-  data: { type: Buffer, required: true },
+  data: { type: Buffer },            // empty once the picture has moved to R2 (r2: true)
+  r2: { type: Boolean, default: false },
   type: { type: String, required: true },
   size: Number,
   credit: String,
