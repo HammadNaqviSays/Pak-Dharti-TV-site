@@ -20,8 +20,39 @@ async function asDataUri(url, type) {
   }
 }
 
+// width and height of a JPEG (read from its header)
+function jpegSize(buf) {
+  let i = 2;
+  while (i + 9 < buf.length) {
+    if (buf[i] !== 0xff) { i++; continue; }
+    const m = buf[i + 1];
+    if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) return { h: buf.readUInt16BE(i + 5), w: buf.readUInt16BE(i + 7) };
+    i += 2 + buf.readUInt16BE(i + 2);
+  }
+  return null;
+}
+
 export default async function Image({ params }) {
-  const { slug } = await params;
+  const { slug, lang } = await params;
+  // The same news card that is posted on Facebook / Instagram: shown whole (height 630) on a brand background, so X, WhatsApp and Facebook link previews carry it
+  try {
+    const r = await fetch(`${SITE.url}/api/card/news?slug=${encodeURIComponent(slug)}&lang=${lang === "en" ? "en" : "ur"}`);
+    if (r.ok && /jpeg/.test(r.headers.get("content-type") || "")) {
+      const buf = Buffer.from(await r.arrayBuffer());
+      const d = jpegSize(buf);
+      if (d && d.w > 100 && d.h > 100) {
+        const w = Math.round((630 * d.w) / d.h);
+        return new ImageResponse(
+          (
+            <div style={{ width: 1200, height: 630, display: "flex", alignItems: "center", justifyContent: "center", background: "linear-gradient(135deg, #8A0000, #2A0000)" }}>
+              <img src={`data:image/jpeg;base64,${buf.toString("base64")}`} width={w} height={630} style={{ width: w, height: 630 }} />
+            </div>
+          ),
+          size
+        );
+      }
+    }
+  } catch { /* fall back to the plain share image below */ }
   const a = await getArticle(slug).catch(() => null);
   const raw = a?.image?.url;
   // Stock photos only; the local category banners are SVG and look better as a plain brand card
