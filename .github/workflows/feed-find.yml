@@ -7,6 +7,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - run: |
+          set +e +o pipefail
           UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
           for H in https://www.urdupoint.com https://dailypakistan.com.pk https://www.dailypakistan.com.pk https://siasat.pk https://www.siasat.pk https://urdu.geo.tv https://www.express.pk https://www.samaa.tv; do
             echo "[ff] SITE $H"
