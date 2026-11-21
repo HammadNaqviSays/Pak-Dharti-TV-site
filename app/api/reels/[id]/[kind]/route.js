@@ -1,5 +1,6 @@
 // GET /api/reels/<id>/audio|video — serves a reel file kept in the database (with Range, so players can seek).
 import { readReelFile } from "@/lib/reelMedia";
+import { freshDB } from "@/lib/db";
 import { Reel, Article } from "@/models";
 import { reelsBucket } from "@/lib/r2";
 
@@ -35,6 +36,7 @@ export async function GET(req, { params }) {
     }
     if (kind === "web" || kind === "poster") return new Response("Not found", { status: 404 });
   }
+  if (kind === "audio") freshDB();   // the video machine asks for it right after the work of another call: use a connection of this request
   const buf = await readReelFile(id, kind);
   if (!buf) return new Response("Not found", { status: 404 });
   const type = kind === "video" || kind.startsWith("clip") ? "video/mp4" : kind === "audio" ? "audio/wav" : "image/jpeg";
