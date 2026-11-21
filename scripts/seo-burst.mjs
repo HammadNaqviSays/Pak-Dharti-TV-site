@@ -9,7 +9,7 @@ for (const N of [10, 25]) {
   const t0 = Date.now(), seen = {};
   const res = await Promise.all(pick.map(async (u) => {
     const t = Date.now();
-    try { const r = await fetch(u, { headers: UA, signal: AbortSignal.timeout(30000) }); const b = await r.text(); return { s: r.status, ms: Date.now() - t, body: r.status >= 500 ? b.replace(/\s+/g, " ").slice(0, 300) : "", hdr: r.status >= 500 ? [...r.headers].filter(([k]) => /^(cf-ray|server|x-|content-type|retry)/i.test(k)).map(([k, v]) => `${k}=${v}`).join("; ") : "" }; }
+    try { const r = await fetch(u, { headers: UA, signal: AbortSignal.timeout(30000) }); const b = await r.text(); return { s: r.status, ms: Date.now() - t, body: r.status >= 500 ? `${(b.match(/<title>([\s\S]*?)<\/title>/i) || [])[1] || ""} | ${(b.match(/Error code (\d+)/i) || [])[0] || ""} | ${(b.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i) || [])[1] || ""} | ${b.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").slice(0, 400)}` : "", hdr: r.status >= 500 ? [...r.headers].filter(([k]) => /^(cf-ray|server|x-|content-type|retry)/i.test(k)).map(([k, v]) => `${k}=${v}`).join("; ") : "" }; }
     catch (e) { return { s: "ERR", ms: Date.now() - t, body: e.message }; }
   }));
   const by = {}; for (const r of res) by[r.s] = (by[r.s] || 0) + 1;
