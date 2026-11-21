@@ -1,0 +1,11 @@
+name: feed-check
+on: { workflow_dispatch: {} }
+jobs:
+  s:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -s https://www.pakdhartitv.com/ur/feed.xml -o /tmp/f.xml -w "FD http %{http_code} %{size_download}\n"
+          echo "FD items $(grep -o '<item>' /tmp/f.xml | wc -l) enclosures $(grep -o '<enclosure' /tmp/f.xml | wc -l)"
+          grep -o '<enclosure url="[^"]*' /tmp/f.xml | head -4 | sed 's/^/FD /'
+          echo "FD newest: $(grep -o '<pubDate>[^<]*' /tmp/f.xml | head -3 | tr '\n' ' ')"
