@@ -22,7 +22,11 @@ jobs:
       - name: Anything to do?
         id: chk
         run: |
-          W=$(curl -sS --max-time 30 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=peek" | python3 -c "import sys,json; print(json.load(sys.stdin).get('waiting',0))" 2>/dev/null || echo 0)
+          W=0; for t in 1 2 3 4 5 6; do   # an error answer ("different request") must not count as "nothing waiting": ask again
+            R=$(curl -sS --max-time 30 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=peek" 2>/dev/null)
+            if echo "$R" | grep -q '"waiting"'; then W=$(echo "$R" | python3 -c "import sys,json; print(json.load(sys.stdin).get('waiting',0))" 2>/dev/null || echo 0); break; fi
+            sleep 4
+          done
           echo "waiting=$W"
           echo "waiting=$W" >> "$GITHUB_OUTPUT"
           echo "hour=$(date -u +%H) min=$(date -u +%M)"
@@ -36,7 +40,11 @@ jobs:
       - name: Peek again after the new script
         id: chk2
         run: |
-          W=$(curl -sS --max-time 30 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=peek" | python3 -c "import sys,json; print(json.load(sys.stdin).get('waiting',0))" 2>/dev/null || echo 0)
+          W=0; for t in 1 2 3 4 5 6; do   # an error answer ("different request") must not count as "nothing waiting": ask again
+            R=$(curl -sS --max-time 30 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=peek" 2>/dev/null)
+            if echo "$R" | grep -q '"waiting"'; then W=$(echo "$R" | python3 -c "import sys,json; print(json.load(sys.stdin).get('waiting',0))" 2>/dev/null || echo 0); break; fi
+            sleep 4
+          done
           echo "waiting=$W" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
       - name: Unpack private fonts
