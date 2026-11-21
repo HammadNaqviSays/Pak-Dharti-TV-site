@@ -5,7 +5,8 @@ const say = (...a) => console.log("BU", ...a);
 const sm = await (await fetch(`${B}/sitemap.xml`, { headers: UA })).text();
 const urls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]).filter((u) => /\/news\//.test(u));
 for (const N of [10, 25]) {
-  const pick = urls.filter((_, i) => i % Math.floor(urls.length / N) === 1).slice(0, N);
+  const step = Math.floor(urls.length / N), off = Math.floor(Math.random() * step);   // a different set of pages every run, so they are not in the copy yet
+  const pick = urls.filter((_, i) => i % step === off).slice(0, N);
   const t0 = Date.now(), seen = {};
   const res = await Promise.all(pick.map(async (u) => {
     const t = Date.now();
