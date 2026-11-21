@@ -3,6 +3,65 @@
 import site from "./.open-next/worker.js";
 export * from "./.open-next/worker.js";
 
+
+// A short-lived copy of the public pages (home and stories) in Cloudflare's own cache, so a crowd or a crawler burst
+// is answered from the copy and never has to wait for the database. If the site fails to answer, the last good copy
+// (up to a day old) is shown instead of an error. Admin, the API, other addresses and anything with a login cookie are left alone.
+const PAGE = /^\/(ur|en)(\/news\/[a-z0-9-]+)?\/?$/i;
+const TRACK = /^(utm_[a-z]+|fbclid|igshid|gclid|ref|mc_[a-z]+)$/i;
+const FRESH_MS = { home: 60e3, story: 300e3 };
+
+async function edgeCached(request, env, ctx) {
+  let key, kind;
+  try {
+    const u = new URL(request.url);
+    if (request.method !== "GET" || !PAGE.test(u.pathname) || u.hostname !== "www.pakdhartitv.com") return site.fetch(request, env, ctx);
+    if ([...u.searchParams.keys()].some((k) => !TRACK.test(k))) return site.fetch(request, env, ctx);
+    if (/pd_admin=/.test(request.headers.get("cookie") || "")) return site.fetch(request, env, ctx);
+    kind = /\/news\//i.test(u.pathname) ? "story" : "home";
+    key = new Request(`https://www.pakdhartitv.com${u.pathname.replace(/\/+$/, "")}`, { method: "GET" });
+  } catch { return site.fetch(request, env, ctx); }
+
+  const cache = caches.default;
+  let stale = null;
+  try {
+    const hit = await cache.match(key);
+    if (hit) {
+      if (Date.now() - Number(hit.headers.get("x-pd-at") || 0) < FRESH_MS[kind]) return out(hit, "HIT");
+      stale = hit;
+    }
+  } catch { /* cache unavailable: go to the site */ }
+
+  let res;
+  try {
+    res = stale
+      ? await Promise.race([site.fetch(request, env, ctx), new Promise((_, rej) => setTimeout(() => rej(new Error("slow")), 9000))])
+      : await site.fetch(request, env, ctx);
+  } catch (e) {
+    if (stale) return out(stale, "STALE");
+    throw e;
+  }
+  if (res.status >= 500 && stale) return out(stale, "STALE");
+  if (res.status === 200 && /text\/html/i.test(res.headers.get("content-type") || "") && !res.headers.has("set-cookie")) {
+    try {
+      const copy = new Response(res.clone().body, { status: 200, headers: new Headers(res.headers) });
+      copy.headers.set("x-pd-at", String(Date.now()));
+      copy.headers.set("cache-control", "public, max-age=86400");
+      ctx.waitUntil(cache.put(key, copy).catch(() => {}));
+    } catch { /* not cached this time */ }
+  }
+  const h = new Headers(res.headers); h.set("x-pd-cache", "MISS");
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
+}
+
+function out(cached, state) {
+  const h = new Headers(cached.headers);
+  h.set("x-pd-cache", state);
+  h.set("cache-control", "public, max-age=0, must-revalidate");   // browsers always ask again; only the edge copy is reused
+  h.delete("x-pd-at");
+  return new Response(cached.body, { status: cached.status, headers: h });
+}
+
 export default {
   fetch(request, env, ctx) {
     // One address per page: bare pakdhartitv.com and the test address (*.workers.dev) send visitors and Google to www
@@ -11,7 +70,7 @@ export default {
     if ((u.hostname === "pakdhartitv.com" || test) && !u.pathname.startsWith("/api/")) {
       return Response.redirect(`https://www.pakdhartitv.com${u.pathname}${u.search}`, 301);
     }
-    return site.fetch(request, env, ctx);
+    return edgeCached(request, env, ctx);
   },
 
   async scheduled(event, env, ctx) {
