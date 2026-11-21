@@ -23,7 +23,7 @@ jobs:
       SCHEDULE_AT: ${{ inputs.schedule_at }}
       LINKS_ONLY: ${{ inputs.links_only }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: npm install --no-audit --no-fund 2>&1 | tail -2

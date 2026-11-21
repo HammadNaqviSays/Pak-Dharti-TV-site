@@ -46,7 +46,7 @@ jobs:
             sleep 4
           done
           echo "waiting=$W" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Unpack private fonts
         env: { FONTS_KEY: "${{ secrets.FONTS_KEY }}" }
         run: bash scripts/fonts-unpack.sh
