@@ -25,4 +25,10 @@ if (process.env.FIX === "1") {
   await Reel.updateOne({ _id: id }, { $set: { audioKey: "", status: "scripted", tries: 0, error: "" } });
   console.log("::notice title=RF::audio deleted", d.deletedCount, "and reel set to scripted");
 }
+if (process.env.FIX === "4") {   // finished reels no longer need their voice file (it is made again if one is re-rendered)
+  const ids = (await Reel.find({ status: { $in: ["approved", "ready", "posted", "rejected", "failed"] } }, { _id: 1 }).lean()).map((r) => r._id);
+  let n = 0;
+  for (let i = 0; i < ids.length; i += 5) { const d = await ReelFile.deleteMany({ reel: { $in: ids.slice(i, i + 5) }, kind: "audio" }); n += d.deletedCount; }
+  console.log("::notice title=RF::old audio parts deleted", n);
+}
 await mongoose.disconnect();
