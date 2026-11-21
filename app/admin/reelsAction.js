@@ -165,6 +165,7 @@ export async function saveReelConfigAction(fd) {
     cats: REEL_SECTIONS.filter((c) => fd.get(`cat_${c}`) === "on"),
     minGapHours: Math.min(12, Math.max(1, Number(fd.get("minGapHours")) || 2)),
     ptiFirst: fd.get("ptiFirst") === "on",
+    ownVoice: fd.get("ownVoice") === "on",
   });
   revalidatePath("/admin/reels");
 }

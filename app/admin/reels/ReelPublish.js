@@ -1,17 +1,20 @@
 "use client";
 import { useState } from "react";
-import { postReelAction, reelTextsAction } from "../reelPostAction";
+import { postReelAction, reelTextsAction, scheduleReelAction } from "../reelPostAction";
 
 const AUTO = [["facebook", "Facebook"], ["instagram", "Instagram"], ["threads", "Threads"], ["bluesky", "Bluesky"]];
 const fmt = (d) => new Date(d).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" });
 
 /** Post a finished reel from here: four buttons post by themselves (press twice to be sure); TikTok, YouTube and the WhatsApp channel get the ready text to copy + the video to download. */
-export default function ReelPublish({ id, keys, posts }) {
+export default function ReelPublish({ id, keys, posts, postAt, postErr }) {
   const [done, setDone] = useState(posts || {});
   const [armed, setArmed] = useState("");
   const [busy, setBusy] = useState("");
   const [msg, setMsg] = useState("");
   const [tx, setTx] = useState(null);
+  const [sched, setSched] = useState(postAt || "");   // ISO time the reel is scheduled for
+  const [pick, setPick] = useState("");               // datetime-local value, Pakistan time
+  const [sMsg, setSMsg] = useState("");
   const [fail, setFail] = useState({});   // platform -> error text (shown with a red cross)
   const [copied, setCopied] = useState("");
 
@@ -42,6 +45,15 @@ export default function ReelPublish({ id, keys, posts }) {
     }
     setMsg(bad ? `${ok} jagah post hua, ${bad} mein masla aaya (neeche laal ❌ dekhein).` : `✅ Sab jagah post ho gaya (${ok}).`);
   }
+  // next 08:00 / 12:00 / 19:00 in Pakistan time (UTC+5)
+  const preset = (h) => { const now = new Date(Date.now() + 5 * 3600e3); const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), h)); if (d.getTime() <= now.getTime() + 60000) d.setUTCDate(d.getUTCDate() + 1); return d.toISOString().slice(0, 16); };
+  const fmtPk = (iso) => new Date(iso).toLocaleString("en-GB", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" });
+  async function saveSched() {
+    if (!pick) { setSMsg("Pehle waqt chunein"); return; }
+    setSMsg("…"); const r = await scheduleReelAction(id, new Date(`${pick}:00+05:00`).toISOString());
+    setSMsg(r.msg); if (r.ok) setSched(r.at);
+  }
+  async function cancelSched() { const r = await scheduleReelAction(id, ""); setSMsg(r.msg); if (r.ok) setSched(""); }
   const left = AUTO.filter(([k]) => keys?.[k] && !done[k]).length;
 
   async function load() { if (!tx) { const t = await reelTextsAction(id); setTx(t); return t; } return tx; }
@@ -70,6 +82,22 @@ export default function ReelPublish({ id, keys, posts }) {
       </button>}
       {msg && <p style={{ margin: ".3rem 0", fontWeight: 600 }}>{msg}</p>}
       {Object.entries(fail).map(([k, m]) => <p key={k} style={{ margin: ".2rem 0", color: "#a00" }}>{m}</p>)}
+      <div style={{ margin: ".4rem 0 .8rem", padding: ".6rem", border: "1px dashed #bbb", borderRadius: 8 }}>
+        <strong>⏰ Baad mein post karwana hai?</strong>
+        {sched ? (
+          <p style={{ margin: ".4rem 0" }}>Schedule: <strong>{fmtPk(sched)}</strong> (Pakistan time). Is waqt par baqi jagah khud post ho jayegi (har 15–20 minute mein check hota hai, to thori der ho sakti hai).{" "}
+            <button type="button" style={B} onClick={cancelSched}>Schedule hata do</button></p>
+        ) : (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", alignItems: "center", marginTop: ".4rem" }}>
+            <input type="datetime-local" value={pick} onChange={(e) => setPick(e.target.value)} style={{ ...B, padding: ".35rem" }} />
+            {[8, 12, 19].map((h) => <button key={h} type="button" style={B} onClick={() => setPick(preset(h))}>{h === 12 ? "12 baje dopahar" : h === 8 ? "8 baje subah" : "7 baje sham"}</button>)}
+            <button type="button" style={{ ...B, background: "#7a0000", color: "#fff", fontWeight: 700 }} onClick={saveSched}>Schedule karo</button>
+          </div>
+        )}
+        {postErr && <p style={{ margin: ".3rem 0", color: "#a00" }}>{postErr}</p>}
+        {sMsg && <p style={{ margin: ".3rem 0", fontWeight: 600 }}>{sMsg}</p>}
+        <small className="hint">Waqt Pakistan ke hisab se. Schedule sirf Facebook, Instagram, Threads, Bluesky ke liye hai; TikTok, YouTube aap khud schedule karein.</small>
+      </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: ".5rem", alignItems: "center" }}>
         <span className="hint" style={{ margin: 0 }}>TikTok · YouTube · WhatsApp channel:</span>
         <button type="button" style={B} onClick={() => copy("title")}>{copied === "title" ? "✅ Title copy" : "Title copy"}</button>

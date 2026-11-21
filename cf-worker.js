@@ -99,6 +99,10 @@ export default {
     ctx.waitUntil(env.WORKER_SELF_REFERENCE.fetch(new Request("https://www.pakdhartitv.com/api/cron/publish-scheduled", { headers: { authorization: `Bearer ${env.CRON_SECRET}` } }))
       .then(async (r) => { const x = await r.text(); if (!x.includes('"published":[]')) console.log(`[cron] publish-scheduled -> ${r.status} ${x.slice(0, 200)}`); })
       .catch((e) => console.log(`[cron] publish-scheduled failed: ${e?.message}`)));
+    // reels whose scheduled time has come (Mission Control > Reels > schedule): posted to Facebook, Instagram, Threads and Bluesky
+    ctx.waitUntil(env.WORKER_SELF_REFERENCE.fetch(new Request("https://www.pakdhartitv.com/api/cron/reel-post-due", { headers: { authorization: `Bearer ${env.CRON_SECRET}` } }))
+      .then(async (r) => { const x = await r.text(); if (!x.includes('"due":0')) console.log(`[cron] reel-post-due -> ${r.status} ${x.slice(0, 300)}`); })
+      .catch((e) => console.log(`[cron] reel-post-due failed: ${e?.message}`)));
     // pictures made since the last tick (cards, uploads) are in the database first; move them to R2 (cheap when nothing is waiting)
     ctx.waitUntil(env.WORKER_SELF_REFERENCE.fetch(new Request("https://www.pakdhartitv.com/api/cron/media-sweep?ms=15000", { headers: { authorization: `Bearer ${env.CRON_SECRET}` } }))
       .then(async (r) => { const x = await r.text(); if (!x.includes('"moved":0')) console.log(`[cron] media-sweep -> ${r.status} ${x.slice(0, 200)}`); })

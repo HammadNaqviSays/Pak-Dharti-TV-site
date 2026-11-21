@@ -57,6 +57,7 @@ export default async function ReelsPage({ searchParams }) {
             {REEL_SECTIONS.map((c) => <label key={c} style={{ marginInlineEnd: "1rem", whiteSpace: "nowrap" }}><input type="checkbox" name={`cat_${c}`} defaultChecked={cfg.cats.includes(c)} /> {SECTION_NAME[c]}</label>)}
           </div>
           <label><input type="checkbox" name="ptiFirst" defaultChecked={cfg.ptiFirst} /> Imran Khan / PTI stories first, from any section</label>
+          <label><input type="checkbox" name="ownVoice" defaultChecked={cfg.ownVoice} /> <strong>Pak Dharti TV ki apni awaaz:</strong> reel mein ARY, Geo ya kisi aur channel ka naam nahi liya jaye (screen par bhi "ذریعہ: پاک دھرتی ٹی وی"). Jo baat kisi ka daawa hai wahan channel ka nahi, asal bolne wale/idare ka naam aata hai (jaise "وزارتِ خزانہ کے مطابق") ya "ذرائع کے مطابق". Interview mein "ایک نجی چینل سے گفتگو میں". Website ki khabar mein hawale pehle jaise rehte hain.</label>
           <div><BusyButton className="btn publish" text="Saving…">Save reel settings</BusyButton></div>
           <small className="hint">The best fresh story (last 24 hours) of the allowed sections is picked: Imran Khan / PTI first, then the most read. Every new script waits as a draft so you can change the words.</small>
         </form>
@@ -82,7 +83,7 @@ export default async function ReelsPage({ searchParams }) {
                   </details>
                   {r.videoUrl && <video src={r.videoUrl} controls playsInline style={{ maxWidth: 240, borderRadius: 8, marginTop: ".5rem" }} />}
                   {r.videoUrl && <div><a className="btn secondary" href={`${r.videoUrl}?download=1`}>Download video</a></div>}
-                  {r.videoUrl && ["ready", "approved", "posted"].includes(r.status) && <ReelPublish id={String(r._id)} keys={keys} posts={JSON.parse(JSON.stringify(r.posts || {}))} />}
+                  {r.videoUrl && ["ready", "approved", "posted"].includes(r.status) && <ReelPublish id={String(r._id)} keys={keys} posts={JSON.parse(JSON.stringify(r.posts || {}))} postAt={r.postAt ? new Date(r.postAt).toISOString() : ""} postErr={r.postErr || ""} />}
                 </div>
                 <div className="actions">
                   <a className={r.status === "draft" ? "btn publish" : "btn secondary"} href={`/admin/reels/${String(r._id)}`}>{r.status === "draft" ? "Edit script" : "Edit look"}</a>
