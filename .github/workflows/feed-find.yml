@@ -1,0 +1,20 @@
+name: feed-find
+on: { workflow_dispatch: }
+permissions: { contents: read }
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - run: |
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
+          for H in https://www.urdupoint.com https://dailypakistan.com.pk https://www.dailypakistan.com.pk https://siasat.pk https://www.siasat.pk https://urdu.geo.tv https://www.express.pk https://www.samaa.tv; do
+            echo "[ff] SITE $H"
+            PAGE=$(curl -sSL --max-time 25 -A "$UA" "$H/" 2>&1 | head -c 400000)
+            echo "$PAGE" | grep -oiE '<link[^>]+(rss|atom)[^>]*>' | head -5 | sed 's/^/[ff]   alt: /'
+            for P in /rss /rss.xml /feed /feed/ /rss/latest /feeds/latest /rss/daily /rss/pakistan /rss/pakistan-news; do
+              C=$(curl -sS -o /tmp/f.xml -w "%{http_code} %{content_type}" --max-time 20 -L -A "$UA" "$H$P" 2>/dev/null)
+              N=$(grep -c "<item" /tmp/f.xml 2>/dev/null)
+              echo "$C" | grep -q "^200" && [ "$N" -gt 0 ] && echo "[ff]   OK $H$P items=$N ($C)"
+            done
+          done
