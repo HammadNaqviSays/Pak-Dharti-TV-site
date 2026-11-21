@@ -1,9 +1,0 @@
-name: team-check
-on: { workflow_dispatch: {} }
-jobs:
-  c:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          for u in /ur/team /en/team /ur/writers/x /sitemap.xml; do echo "TM $u $(curl -s -o /tmp/o -w '%{http_code}' https://www.pakdhartitv.com$u) $(grep -c 'tm-grid\|team' /tmp/o)"; done
-          curl -s https://www.pakdhartitv.com/ur/team | grep -o '<title>[^<]*' | head -1
