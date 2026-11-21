@@ -67,6 +67,7 @@ jobs:
             for t in 1 2 3 4 5 6; do
               curl -sS --max-time 100 -H "x-cron-token: $TOKEN" "$SITE/api/cron/reels?op=prepare" -o plan.json || { echo "prepare call failed"; break 2; }
               grep -q '"error"' plan.json || break   # the site's cached database link belongs to an earlier call: ask again (a fresh worker answers)
+              echo "prepare try $t: $(head -c 160 plan.json)"
               sleep 4
             done
             if grep -q '"none":true' plan.json; then echo "No script waiting."; break; fi
