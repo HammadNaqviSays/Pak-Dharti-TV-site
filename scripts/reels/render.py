@@ -184,16 +184,16 @@ CSS_BASE = f"""@font-face{{font-family:J;src:url({FONT})}} @font-face{{font-fami
 CSS_STATIC = CSS_BASE + """
 .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,28,36,.55) 0,rgba(4,28,36,.30) 30%,rgba(4,28,36,.62) 56%,rgba(3,18,24,.9) 100%)}
 .bar{position:absolute;top:26px;left:56px;right:56px;display:flex;gap:8px;direction:ltr} .bar i{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.28)} .bar i.on{background:#fff}
-.band{position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,#8a0000 0%,#6a0000 55%,#4c0000 100%);border-top:4px solid #fff;display:flex;align-items:center;justify-content:center;gap:24px;direction:ltr}
+.band{position:absolute;left:0;right:0;bottom:0;height:130px;background:linear-gradient(180deg,#8a0000 0%,#6a0000 55%,#4c0000 100%);border-top:4px solid #fff;display:flex;align-items:center;justify-content:center;gap:16px;direction:ltr}
 .badge{position:absolute;right:56px;top:96px;background:linear-gradient(180deg,#8a0000,#5a0000);color:#fff;border:3px solid #e8c15a;border-radius:10px;padding:0 26px 10px;font:60px/1.8 J,serif;direction:rtl;box-shadow:0 4px 14px rgba(0,0,0,.4)}
 .cc{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
 .colcard{width:900px;display:flex;flex-direction:column;align-items:center;gap:18px;direction:rtl;text-align:center;background:linear-gradient(180deg,rgba(138,0,0,.96),rgba(90,0,0,.96));border:4px solid #e8c15a;border-radius:26px;padding:34px 36px 30px;box-shadow:0 10px 30px rgba(0,0,0,.55)}
 .wph{width:260px;height:260px;border-radius:50%;object-fit:cover;object-position:center top;border:6px solid #e8c15a}
 .colby{font:56px/1.6 J,serif;color:#f6d77a;-webkit-text-stroke:1px #f6d77a}.coltt{font:56px/1.7 J,serif;color:#fff;-webkit-text-stroke:1px #fff}
-.band svg{width:66px;height:66px;flex:none;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.band svg{width:58px;height:58px;flex:none;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .band svg .f{fill:#fff;stroke:none}
-.band .sep{width:3px;height:56px;background:rgba(255,255,255,.55);border-radius:2px}
-.band b{font:700 46px P,sans-serif;color:#fff;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.35)}"""
+.band .sep{width:3px;height:48px;background:rgba(255,255,255,.55);border-radius:2px}
+.band b{font:700 38px P,sans-serif;color:#fff;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.35)}"""
 CSS_TEXT = CSS_BASE + f"""
 .blk{{position:absolute;left:50%;transform:translateX(-50%);width:max-content}}
 .cap{{background:rgba(58,58,62,{0.8 * BGA:.3f});border-radius:22px;border-right:14px solid #e0152b;padding:12px {CPR}px 4px {CPL}px;direction:rtl;text-align:right}}
@@ -207,6 +207,8 @@ ICONS = {  # every icon: same circle, same size, same stroke; glyph inside
  "tt": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><g transform="translate(12 12) scale(.76) translate(-12 -12)" style="stroke-width:2.5"><path class="f" d="M12.900 3h2.300c.2 1.800 1.300 3 3.100 3.200v2.400c-1.200 0-2.300-.4-3.100-1v6.200a5.100 5.100 0 1 1-5.100-5.100v2.500a2.600 2.600 0 1 0 2.600 2.600z"/></g></svg>',
  "yt": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><g transform="translate(12 12) scale(.76) translate(-12 -12)" style="stroke-width:2.5"><rect x="2" y="5" width="20" height="14" rx="4.200"/><path class="f" d="M10 8.800l5.600 3.200L10 15.200z"/></g></svg>',
  "in": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><g transform="translate(12 12) scale(.76) translate(-12 -12)" style="stroke-width:2.5"><path class="f" d="M3.500 9h3.600v11.500H3.500zM5.300 3.200a2.100 2.100 0 1 1 0 4.200 2.100 2.100 0 0 1 0-4.200zM9.500 9H13v1.600c.6-1.100 1.900-1.900 3.600-1.900 3.600 0 4.400 2.300 4.400 5.400v6.400h-3.600v-5.700c0-1.400-.1-2.700-1.700-2.700s-1.900 1.300-1.900 2.600v5.800H9.500z"/></g></svg>',
+ "th": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><g transform="translate(12 12) scale(.62) translate(-12 -12)" style="stroke-width:2.6"><path d="M16.800 11.200c-.5-3.200-2.400-4.700-5.100-4.700-3 0-4.900 2.200-4.900 5.500 0 4 2 5.800 5 5.800 2.500 0 4-1.200 4-3 0-3.600-5.700-3.200-5.700-.6 0 1 .8 1.700 1.800 1.700 1.500 0 2.200-1.200 2.300-2.600"/><path d="M12 22c-5.500 0-8.700-3.200-8.700-10S6.500 2 12 2s8.700 3.200 8.700 10c0 2.200-1 3.300-2.200 3.300"/></g></svg>',
+ "bs": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><g transform="translate(12 12) scale(.62) translate(-12 -12)" style="stroke-width:0"><path class="f" d="M12 11c-.9-1.800-3.400-5.100-5.700-6.700C4.100 2.700 2.800 3.200 2.800 5.100c0 .4.200 3.200.4 3.700.6 2 2.700 2.600 4.600 2.300-3.400.6-4.200 2.500-2.400 4.400 3.300 3.400 4.800-.9 5.200-2 .1-.3.200-.4.200-.3s.1 0 .2.300c.4 1.100 1.900 5.400 5.200 2 1.800-1.900 1-3.800-2.400-4.400 1.900.3 4-.3 4.600-2.300.2-.5.4-3.300.4-3.700 0-1.900-1.300-2.400-3.500-.8C15.400 5.900 12.900 9.200 12 11z"/></g></svg>',
  "web": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5"/><g transform="translate(12 12) scale(.76) translate(-12 -12)" style="stroke-width:2.5"><ellipse cx="12" cy="12" rx="4.800" ry="10"/><path d="M2 12h20M4.200 6.800h15.600M4.200 17.200h15.600"/></g></svg>',
 }
 HAS_LOGO_ANIM = any(os.path.exists(os.path.join(ROOT, "public/brand", n)) for n in ["reel-logo.webm", "reel-logo.mov", "reel-logo.apng", "reel-logo.gif", "reel-logo.webp", "reel-logo.mp4", "reel-logo.png"])
@@ -216,7 +218,7 @@ def static_page(i):
         band = f'<img src="{b64(BAND_IMG, "image/png")}" style="position:absolute;left:0;bottom:0;width:{W}px;height:130px">'
     else:
         pad = ""
-        band = f'<div class="band" style="{pad}">{ICONS["fb"]}{ICONS["ig"]}{ICONS["tt"]}{ICONS["yt"]}{ICONS["in"]}{ICONS["web"]}<b>PakDhartiTv.com</b></div>'
+        band = f'<div class="band" style="{pad}">{ICONS["fb"]}{ICONS["ig"]}{ICONS["tt"]}{ICONS["yt"]}{ICONS["th"]}{ICONS["bs"]}{ICONS["in"]}{ICONS["web"]}<b>PakDhartiTv.com</b></div>'
     badge = f'<div class="badge">{html.escape(plan["badge"])}</div>' if plan.get("badge") else ""
     return (f'<html><head><meta charset="utf-8"><style>{CSS_STATIC}</style></head><body><div class="tint"></div>{badge}{band}</body></html>')
 
