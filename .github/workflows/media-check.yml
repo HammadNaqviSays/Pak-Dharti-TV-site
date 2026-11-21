@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          for P in / /ur /en; do
-            for U in $(curl -sS https://www.pakdhartitv.com$P | grep -o '/api/media/[a-f0-9]\{24\}' | sort -u | head -3); do
+          for P in /ur/feed.xml /en/feed.xml; do
+            for U in $(curl -sS https://www.pakdhartitv.com$P | grep -o '/api/media/[a-f0-9]\{24\}' | sort -u | head -4); do
               echo "[mc] $U $(curl -sS -o /dev/null -w '%{http_code} %{content_type} %{size_download}' https://www.pakdhartitv.com$U)"
             done
           done
