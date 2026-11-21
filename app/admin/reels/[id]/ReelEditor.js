@@ -26,15 +26,15 @@ const colorOf = (sc, i) => {
 const ON_DARK = { k: "#ffffff", r: "#ff8f8f", b: "#9cc3ff", g: "#8fe6ab" };   // the same colours the video uses on the dark box
 
 const GRADE_CSS = { "": "", cinematic: "contrast(1.1) saturate(.9) brightness(.95)", warm: "sepia(.25) saturate(1.15)", cool: "hue-rotate(8deg) saturate(.95) brightness(.98)", mono: "grayscale(1) contrast(1.1)", tealorange: "contrast(1.1) saturate(1.2) hue-rotate(-8deg)" };
-const PADX = 24, BORD = 7, CAPW = 800, CPL = 30, CPR = 34;
+const PADX = 24, BORD = 7, CAPW = 900, CPL = 34, CPR = 34;
 
 /** A quick look at what the first moment of a line will look like (same sizes as the video, scaled down). Nothing is rendered; it follows the settings live. */
 function LookPreview({ scenes, n, setN, fontFile, stroke, bgAlpha, badge, grade, mirror }) {
   const sc = scenes[n] || scenes[0];
   const words = sc.text.split(" ");
-  const end = words.findIndex((w) => /[۔؟!?]$/.test(w));
-  let part = end >= 2 ? words.slice(0, end + 1) : words;               // the first sentence of the line
-  if (part.length > 10) { const c = part.findIndex((w, q) => q >= 4 && q <= 12 && /[،,]$/.test(w)); part = part.slice(0, c >= 0 ? c + 1 : Math.ceil(part.length / Math.ceil(part.length / 10))); }   // a caption piece is about 10 words at most (same rule as the video)
+  const hasMore = !sc.clip && (sc.extra || []).length > 0;
+  const cut0 = hasMore ? Math.min(words.length - 1, Math.max(1, Number.isFinite(Number((sc.extraAt || [])[0])) && (sc.extraAt || [])[0] != null ? Number(sc.extraAt[0]) : Math.round(words.length / (1 + Math.min(3, sc.extra.length))))) : words.length;
+  const part = words.slice(0, cut0);                                      // the whole text of the first picture (it is shown in full, in as many lines as it needs)
   const size = sc.size || 78;
   const natRef = useRef(null);
   const [lines, setLines] = useState([]);
@@ -65,8 +65,8 @@ function LookPreview({ scenes, n, setN, fontFile, stroke, bgAlpha, badge, grade,
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,rgba(4,28,36,.55) 0,rgba(4,28,36,.30) 30%,rgba(4,28,36,.62) 56%,rgba(3,18,24,.9) 100%)" }} />
           {badge && <div style={{ position: "absolute", right: 56, top: 96, background: "linear-gradient(180deg,#8a0000,#5a0000)", color: "#fff", border: "3px solid #e8c15a", borderRadius: 10, padding: "0 26px 10px", font: "60px/1.8 ReelPreview, serif", boxShadow: "0 4px 14px rgba(0,0,0,.4)" }}>{badge}</div>}
           <video src="/brand/reel-logo.webm" autoPlay loop muted playsInline style={{ position: "absolute", left: 40, top: 50, height: 170 }} />
-          <div style={{ position: "absolute", right: 150, bottom: H - 1630, width: "max-content", maxWidth: CAPW, fontSize: size }}>
-            <div style={{ background: `rgba(58,58,62,${0.8 * (bgAlpha || 100) / 100})`, borderRadius: 22, borderRight: "14px solid #e0152b", padding: `12px ${CPR}px 4px ${CPL}px`, direction: "rtl", textAlign: "right" }}>
+          <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", bottom: H - 1630, width: "max-content", maxWidth: CAPW, fontSize: size }}>
+            <div style={{ background: `rgba(58,58,62,${0.8 * (bgAlpha || 100) / 100})`, borderRadius: 22, borderLeft: "14px solid #e0152b", borderRight: "14px solid #e0152b", padding: `12px ${CPR}px 4px ${CPL}px`, direction: "rtl", textAlign: "center" }}>
               {lines.map((ln, j) => <div key={j} style={{ whiteSpace: "nowrap", lineHeight: 1.55, color: "#fff", textShadow: "0 2px 6px rgba(0,0,0,.35)" }}>{ln.idx.map((i) => wordEl(part[i], i))}</div>)}
             </div>
           </div>
@@ -78,7 +78,7 @@ function LookPreview({ scenes, n, setN, fontFile, stroke, bgAlpha, badge, grade,
             <b style={{ font: "700 38px sans-serif", color: "#fff" }}>PakDhartiTv.com</b>
           </div>
         </div>
-        <div ref={natRef} style={{ position: "absolute", visibility: "hidden", right: 150, top: 0, width: CAPW - CPL - CPR - 14, fontSize: size, lineHeight: 1.55, fontFamily: "ReelPreview, serif", direction: "rtl", textAlign: "right", transform: "none", pointerEvents: "none", height: 0, overflow: "hidden" }}>
+        <div ref={natRef} style={{ position: "absolute", visibility: "hidden", right: 90, top: 0, width: CAPW - CPL - CPR - 28, fontSize: size, lineHeight: 1.55, fontFamily: "ReelPreview, serif", direction: "rtl", textAlign: "right", transform: "none", pointerEvents: "none", height: 0, overflow: "hidden" }}>
           {part.map((w, i) => <span key={i} className="w">{w}{" "}</span>)}
         </div>
       </div>

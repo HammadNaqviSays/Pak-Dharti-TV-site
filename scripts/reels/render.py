@@ -133,6 +133,7 @@ def cover(path, i):
             t = y / ch; d.line([(0, y), (cw, y)], fill=(int(58 - 40 * t), int(14 - 9 * t), int(22 - 14 * t)))
     im.save(out, quality=90); return out
 bgs = []; clipf = []
+PICBND = {}      # per scene: when each picture starts (so the caption part follows its picture)
 for i, s in enumerate(scenes):
     cf = None
     if s.get("clip"):                                       # the editor's own video clip for this scene
@@ -158,7 +159,7 @@ for i, s in enumerate(scenes):
         bnd = [0.0]
         for j in range(1, k):
             bnd.append(min(dur_i - 0.8 * (k - j), max(bnd[-1] + 0.8, tword(ats[j]))))
-        bnd.append(dur_i); parts = []
+        bnd.append(dur_i); PICBND[i] = [vis[i][0] + x for x in bnd]; parts = []
         for j, bp in enumerate(pics):
             seg = bnd[j + 1] - bnd[j]
             fo = os.path.join(WORK, f"m{i}_{j}.mp4"); fr = max(2, round((seg + 0.3) * FPS))
@@ -177,8 +178,8 @@ SIREN = [False for s in scenes]     # the ambulance sound is switched off (the e
 
 # Look: photo with a dark tint; the text on WHITE strips with a coloured outline (red or black); the editor can colour words.
 PADX, BORD = 24, 7
-CPL, CPR = 30, 34     # caption box: padding left / right (the red bar on the right edge is 14 px)
-CAPW, CAPR = 800, 150        # caption strips: 780 px wide (72% of the picture), centred; keeps clear of the Like/Share buttons of TikTok, Reels, Shorts
+CPL, CPR = 34, 34     # caption box: padding left / right (the red bar on the right edge is 14 px)
+CAPW, CAPR = 900, 90        # caption strips: 780 px wide (72% of the picture), centred; keeps clear of the Like/Share buttons of TikTok, Reels, Shorts
 CSS_BASE = f"""@font-face{{font-family:J;src:url({FONT})}} @font-face{{font-family:P;src:url({POPPINS})}}
 *{{box-sizing:border-box;margin:0}} html,body{{width:{W}px;height:{H}px;background:transparent;font-family:J,serif;color:#111;direction:rtl}}"""
 CSS_STATIC = CSS_BASE + """
@@ -196,9 +197,9 @@ CSS_STATIC = CSS_BASE + """
 .band b{font:700 38px P,sans-serif;color:#fff;letter-spacing:.3px;text-shadow:0 2px 0 rgba(0,0,0,.35)}"""
 CSS_TEXT = CSS_BASE + f"""
 .blk{{position:absolute;left:50%;transform:translateX(-50%);width:max-content}}
-.cap{{background:rgba(58,58,62,{0.8 * BGA:.3f});border-radius:22px;border-right:14px solid #e0152b;padding:12px {CPR}px 4px {CPL}px;direction:rtl;text-align:right}}
+.cap{{background:rgba(58,58,62,{0.8 * BGA:.3f});border-radius:22px;border-left:14px solid #e0152b;border-right:14px solid #e0152b;padding:12px {CPR}px 4px {CPL}px;direction:rtl;text-align:center}}
 .ln{{white-space:nowrap;line-height:1.55;color:#fff;-webkit-text-stroke:.6px currentColor;text-shadow:0 2px 6px rgba(0,0,0,.35)}}
-.nat{{position:absolute;right:{CAPR}px;top:0;width:{CAPW - CPL - CPR - 14}px;line-height:1.55;text-align:right;visibility:hidden}}"""
+.nat{{position:absolute;right:{CAPR}px;top:0;width:{CAPW - CPL - CPR - 28}px;line-height:1.55;text-align:right;visibility:hidden}}"""
 
 BAND_IMG = os.path.join(ROOT, "public/brand/reel-band.png")      # your own designed strip (1080 x 130) replaces the built-in one when this file exists
 ICONS = {  # every icon: same circle, same size, same stroke; glyph inside
@@ -236,32 +237,13 @@ def block_html(spans, size, lines, wmax, top):
     out = [f'<div class="ln">{" ".join(spans[k] for k in l)}</div>' for l in lines]
     return f'<div class="blk" id="b" style="top:{top}px;font-size:{size}px"><div class="cap">{"".join(out)}</div></div>'
 
-def split_groups(words):
-    """a group = one sentence or phrase of the voice-over; it is shown all together"""
-    g, cur = [], []
-    for k, w in enumerate(words):
-        cur.append(k)
-        if re.search(r"[۔؟!?]$", w): g.append(cur); cur = []
-    if cur: g.append(cur)
-    out = []
-    for x in g:                                  # a tiny group joins the one before it
-        if out and len(x) < 3: out[-1] += x
-        else: out.append(x)
-    if len(out) > 1 and len(out[0]) < 3: out[1] = out[0] + out[1]; out.pop(0)
-    # short pieces that follow the voice: a long sentence is cut into parts of about 10 words at most (after a comma when there is one near the middle)
-    res = []
-    for x in out:
-        if len(x) <= 10: res.append(x); continue
-        n = -(-len(x) // 10); size = len(x) / n; cuts = []
-        for q in range(1, n):
-            ideal = round(q * size)
-            cands = [c for c in range(max(3, ideal - 3), min(len(x) - 2, ideal + 3) + 1) if re.search(r"[،,]$", words[x[c - 1]])]
-            cuts.append(min(cands, key=lambda c: abs(c - ideal)) if cands else ideal)
-        prev = 0
-        for c in cuts + [len(x)]:
-            if c > prev: res.append(x[prev:c])
-            prev = c
-    return res
+def pic_groups(sc, words):
+    """one group per picture: the whole text of that picture's part (no chopping); one picture = the whole line"""
+    nw = len(words); k = 1 if sc.get("clip") else 1 + len((sc.get("extra") or [])[:3])
+    ats = [0] + [min(nw - 1, max(1, int(x))) if isinstance(x, (int, float)) else round(nw * (j + 1) / k) for j, x in enumerate((sc.get("extraAt") or [])[:k - 1])]
+    while len(ats) < k: ats.append(round(nw * len(ats) / k))
+    cuts = sorted(ats) + [nw]
+    return [list(range(cuts[j], cuts[j + 1])) for j in range(k) if cuts[j + 1] > cuts[j]] or [list(range(nw))]
 
 BOTTOM = 1630
 async def setbody(pg, body):
@@ -285,18 +267,21 @@ async def draw():
                 sp = os.path.join(WORK, "s00.png"); await pg.screenshot(path=sp, omit_background=True)
                 await pg.set_content(f'<html><head><meta charset="utf-8"><style>{CSS_TEXT}</style></head><body></body></html>')   # the text page: font loaded here, once
             stat.append(sp)
-            spans, words = word_html(i); groups = split_groups(words)
+            spans, words = word_html(i); groups = pic_groups(scenes[i], words)
             forced = int(scenes[i].get("size") or 0); size = forced or 78
             while True:
                 lays = [await layout(pg, [spans[k] for k in g], size) for g in groups]
-                if forced or max(l[2] for l in lays) <= 640 or size <= 40: break
+                if forced or max(l[2] for l in lays) <= 720 or size <= 40: break
                 size -= 4
             gl = []
             for n, g in enumerate(groups):
                 lines, wmax, hgt = lays[n]
                 await setbody(pg, block_html([spans[k] for k in g], size, lines, wmax, BOTTOM - hgt))
-                lp = os.path.join(WORK, f"l{i:02d}_{n}.png"); await pg.screenshot(path=lp, omit_background=True)
-                gl.append({"png": lp, "lines": lines, "chars": sum(len(words[k]) + 1 for k in g)})
+                pngs = []
+                for q in range(len(lines) + 1):          # 0 = the empty box, then 1, 2, ... lines filled in
+                    await pg.evaluate("q => document.querySelectorAll('.ln').forEach((e, j) => e.style.visibility = j < q ? 'visible' : 'hidden')", q)
+                    lp = os.path.join(WORK, f"l{i:02d}_{n}_{q}.png"); await pg.screenshot(path=lp, omit_background=True); pngs.append(lp)
+                gl.append({"png": pngs[0], "pngs": pngs, "lines": lines, "chars": sum(len(words[k]) + 1 for k in g)})
             per.append({"groups": gl})
         await b.close()
     return stat, per
@@ -369,7 +354,8 @@ for i, d in enumerate(per):
     ts = [starts[i] if i else (INTRO if INTRO else 0.2)]; acc = 0; ex = []
     for n in range(1, len(cnt)):
         acc += cnt[n - 1]; ex.append(t0_ + (t1_ - t0_) * acc / allc)
-    ts += [x + OFF for x in pick_bounds(ex, sil, (0.3, 0.2), t0_ + 0.5, t1_ - 0.4, gap=0.6, P=1.5)]   # sentence ends inside the scene: the real pauses
+    ts += [x + OFF for x in pick_bounds(ex, sil, (0.3, 0.2), t0_ + 0.5, t1_ - 0.4, gap=0.6, P=1.5)]   # fallback
+    if i in PICBND and len(PICBND[i]) - 1 == len(cnt): ts = [ts[0]] + PICBND[i][1:-1]            # caption part changes exactly when its picture does
     line_t.append(ts)
 
 # ---- sound: voice + low siren under hospital scenes
@@ -416,19 +402,28 @@ def make_clip(i, t0, t1):
     else:
         src += "[b]"
     fc = (src + f";[1:v]format=rgba[st];[b][st]overlay=0:0:format=auto[c0];")
+    ci = 2; cur = "c0"; fc_n = 0
     for n, g in enumerate(per[i]["groups"]):
         S = max(0.0, line_t[i][n] - t0)                       # moment inside this clip
-        inputs += ["-loop", "1", "-i", g["png"]]
         E = (line_t[i][n + 1] - t0) if n + 1 < len(line_t[i]) else dur + 5
-        e = f"max(t-{S:.3f},0)/{D}"; mv = f"pow(1-min({e},1),3)"
-        if anim == "left": x, y = f"-W*{mv}", "0"
-        elif anim == "bottom": x, y = "0", f"H*{mv}"
-        elif anim == "fade": x, y = "0", "0"
-        else: x, y = f"W*{mv}", "0"
-        pre = f"format=rgba,fade=t=in:st={S:.3f}:d=0.3:alpha=1" if anim == "fade" else "format=rgba"
-        fc += f"[{n + 2}:v]{pre}[t{n}];[c{n}][t{n}]overlay=x='{x}':y='{y}':enable='between(t,{S:.3f},{E:.3f})':format=auto[c{n + 1}];"
-    last = len(per[i]["groups"])
-    fc += f"[c{last}]format=yuv420p[v]"
+        nl = len(g["pngs"]) - 1
+        span = max(0.2, min(1.8, E - S - D - 0.3)); dl = max(0.12, min(0.6, span / nl))      # the lines fill one after another over ~1.5 s
+        tk = [S + D + 0.08 + q * dl for q in range(nl)]                                      # when line 1..nl appears
+        wins = [(S, tk[0])] + [(tk[q], tk[q + 1] if q + 1 < nl else E) for q in range(nl)]
+        for q, (w0, w1) in enumerate(wins):
+            inputs += ["-loop", "1", "-i", g["pngs"][q]]
+            if q == 0:
+                e = f"max(t-{S:.3f},0)/{D}"; mv = f"pow(1-min({e},1),3)"
+                if anim == "left": x, y = f"-W*{mv}", "0"
+                elif anim == "bottom": x, y = "0", f"H*{mv}"
+                elif anim == "fade": x, y = "0", "0"
+                else: x, y = f"W*{mv}", "0"
+                pre = f"format=rgba,fade=t=in:st={S:.3f}:d=0.3:alpha=1" if anim == "fade" else "format=rgba"
+            else:
+                x, y, pre = "0", "0", "format=rgba"
+            fc += f"[{ci}:v]{pre}[t{fc_n}];[{cur}][t{fc_n}]overlay=x='{x}':y='{y}':enable='between(t,{w0:.3f},{w1:.3f})':format=auto[c{fc_n + 1}];"
+            cur = f"c{fc_n + 1}"; fc_n += 1; ci += 1
+    fc += f"[{cur}]format=yuv420p[v]"
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", *inputs, "-filter_complex", fc,
         "-map", "[v]", "-frames:v", str(frames), "-r", str(FPS), "-c:v", "libx264", "-preset", "ultrafast", "-crf", "17", out], check=True)   # a middle step: quick, the final encode makes it small
     return out
