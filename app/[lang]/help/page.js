@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { connectDB } from "@/lib/db";
 import { Article, LANGS } from "@/models";
-import { GUIDE, CHECKED } from "@/lib/guideData";
+import { GUIDE, CHECKED, CHECKED_UR } from "@/lib/guideData";
 import { SITE } from "@/lib/site";
 
 export const revalidate = 600;
@@ -31,7 +31,7 @@ export default async function HelpPage({ params }) {
   return (
     <div className="wrap info-page" dir={ur ? "rtl" : "ltr"} lang={l}>
       <h1 className="page-title">{ur ? "مفید معلومات" : "Useful information"}</h1>
-      <p className="tm-intro">{ur ? `ہیلپ لائن نمبر اور سرکاری سہولتیں، صرف سرکاری ذرائع سے۔ آخری بار تصدیق: ${CHECKED}۔` : `Helpline numbers and public services, taken only from official sources. Last checked: ${CHECKED}.`}</p>
+      <p className="tm-intro">{ur ? `ہیلپ لائن نمبر اور سرکاری سہولتیں، صرف سرکاری ذرائع سے۔ آخری بار تصدیق: ${CHECKED_UR}` : `Helpline numbers and public services, taken only from official sources. Last checked: ${CHECKED}.`}</p>
       {GUIDE.map((g) => (
         <section key={g.key} style={{ border: "1px solid #ddd", borderRadius: 12, padding: "1rem", margin: "1rem 0", background: "#fff" }}>
           <h2 style={{ marginTop: 0 }}>{slugs[g.key] ? <a href={`/${lang}/news/${slugs[g.key]}`}>{g[l].title}</a> : g[l].title}</h2>
