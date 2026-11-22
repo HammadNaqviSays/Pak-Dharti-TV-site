@@ -11,8 +11,8 @@ export const dynamic = "force-dynamic";
 export default async function InfoPage() {
   if (!(await isLoggedIn())) redirect("/admin");
   await connectDB();
-  const have = await Article.find({ tags: { $in: GUIDE.map((g) => `guide:${g.key}`) } }).select("_id slug tags").lean();
-  const byKey = Object.fromEntries(have.map((a) => [(a.tags.find((t) => t.startsWith("guide:")) || "").slice(6), { id: String(a._id), slug: a.slug }]));
+  const have = await Article.find({ tags: { $in: GUIDE.map((g) => `guide:${g.key}`) } }).select("_id slug tags status").lean();
+  const byKey = Object.fromEntries(have.map((a) => [(a.tags.find((t) => t.startsWith("guide:")) || "").slice(6), { id: String(a._id), slug: a.slug, status: a.status }]));
   return (
     <>
       <div className="admin-top"><div className="wrap">
