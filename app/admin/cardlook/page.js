@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import AdminInstall from "../AdminInstall";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article } from "@/models";
 import { getCardLook } from "@/lib/cardLook";
 import CardLookForm from "./CardLookForm";
@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function CardLookPage() {
   if (!(await isLoggedIn())) redirect("/admin");
-  await connectDB();
+  freshDB(); await connectDB();
   const look = await getCardLook(true);
   const list = await Article.find({ status: "published", "visual.people.0": { $exists: true } }, { slug: 1, "translations.en.title": 1 })
     .sort({ publishedAt: -1 }).limit(15).lean();

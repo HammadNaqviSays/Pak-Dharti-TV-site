@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article } from "@/models";
 import { markReviewedAction, unpublishAction } from "../actions";
 
@@ -10,7 +10,7 @@ const fmtTime = (d) => new Intl.DateTimeFormat("en-GB", { day: "2-digit", month:
 
 export default async function ReviewPage() {
   if (!(await isLoggedIn())) redirect("/admin");
-  await connectDB();
+  freshDB(); await connectDB();
   const since = new Date(Date.now() - 36 * 3600e3);
   const fields = { slug: 1, category: 1, publishedAt: 1, "translations.en.title": 1, "translations.ur.title": 1, "sources.name": 1, "sources.url": 1, "stats.views": 1, "disclosure.humanReviewed": 1, quality: 1 };
   const [open, doneToday] = await Promise.all([

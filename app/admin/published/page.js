@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article } from "@/models";
 import { pkDay } from "@/lib/traffic";
 import { StoryMarks, ReelAction, QuickShare, reelMap } from "../StoryMarks";
@@ -22,7 +22,7 @@ export default async function PublishedPage({ searchParams }) {
   const today = pkDay();
   const day = /^\d{4}-\d{2}-\d{2}$/.test(sp.day || "") ? sp.day : today;
   const cat = sp.cat || "";
-  await connectDB();
+  freshDB(); await connectDB();
   const from = dayStart(day), to = dayStart(addDays(day, 1));
   const fields = { slug: 1, category: 1, contentType: 1, origin: 1, publishedAt: 1, "translations.en.title": 1, "translations.ur.title": 1, "sources.name": 1, "image.url": 1, social: 1, reel: 1 };
   const [rows, recent] = await Promise.all([

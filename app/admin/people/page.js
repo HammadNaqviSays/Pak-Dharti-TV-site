@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import AdminInstall from "../AdminInstall";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Person, PersonCutout, Setting } from "@/models";
 import PersonRow from "./PersonRow";
 import AddPerson from "./AddPerson";
@@ -17,7 +17,7 @@ const GROUPS = { pti: "PTI", federal: "Leaders", military: "Military", police: "
 export default async function PeoplePage({ searchParams }) {
   if (!(await isLoggedIn())) redirect("/admin");
   const { q = "", g = "", nophoto = "", add = "" } = await searchParams;
-  await connectDB();
+  freshDB(); await connectDB();
   const filter = {};
   if (g) filter.groups = g;
   if (nophoto) filter["photos.0"] = { $exists: false };

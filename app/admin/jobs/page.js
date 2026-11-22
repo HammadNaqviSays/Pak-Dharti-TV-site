@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Job } from "@/models";
 import { approveJobAction, rejectJobAction, unpublishJobAction } from "../jobsAction";
 
@@ -30,7 +30,7 @@ function Card({ j, mode }) {
 
 export default async function JobsAdmin() {
   if (!(await isLoggedIn())) redirect("/admin");
-  await connectDB();
+  freshDB(); await connectDB();
   const [drafts, live, counts] = await Promise.all([
     Job.find({ status: "draft", lastDate: { $gte: new Date(Date.now() - 864e5) } }).sort({ createdAt: -1 }).limit(60).lean(),
     Job.find({ status: "published" }).sort({ publishedAt: -1 }).limit(60).lean(),

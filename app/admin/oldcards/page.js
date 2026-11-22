@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article } from "@/models";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +11,7 @@ export default async function OldCards({ searchParams }) {
   if (!(await isLoggedIn())) redirect("/admin");
   const { n } = await searchParams;
   const limit = Math.min(300, Math.max(20, Number(n) || 60));
-  await connectDB();
+  freshDB(); await connectDB();
   const list = await Article.find({ status: "published", "social.ur.card": { $exists: true, $ne: null } })
     .sort({ publishedAt: -1 }).limit(limit).select("slug translations publishedAt social").lean();
   return (

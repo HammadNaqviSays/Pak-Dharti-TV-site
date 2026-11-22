@@ -3,7 +3,7 @@ import { keysPresent } from "@/lib/reelPost";
 import { redirect } from "next/navigation";
 import AdminInstall from "../AdminInstall";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Reel } from "@/models";
 import { SceneLine } from "./SceneMedia";
 import { makeReelScriptAction, setReelStatusAction, saveReelConfigAction, deleteRejectedReelsAction } from "../reelsAction";
@@ -29,7 +29,7 @@ const TABS = [
 
 export default async function ReelsPage({ searchParams }) {
   if (!(await isLoggedIn())) redirect("/admin");
-  await connectDB();
+  freshDB(); await connectDB();
   const keys = keysPresent();
   const cfg = await getReelConfig();
   const sp = (await searchParams) || {};

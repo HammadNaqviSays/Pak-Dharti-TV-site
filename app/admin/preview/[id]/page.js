@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import mongoose from "mongoose";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article } from "@/models";
 import { isRTL, LANG_NAMES, DICT } from "@/lib/i18n";
 import { ArticleView } from "@/components/Stories";
@@ -25,7 +25,7 @@ export default async function PreviewPage({ params, searchParams }) {
   const { id } = await params;
   const { lang: q, redo } = await searchParams;
   if (!mongoose.isValidObjectId(id)) notFound();
-  await connectDB();
+  freshDB(); await connectDB();
   const a = await Article.findById(id).lean();
   if (!a) notFound();
   const lang = LANGS.includes(q) ? q : "ur";

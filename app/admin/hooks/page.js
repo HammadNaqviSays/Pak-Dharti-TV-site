@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article, Traffic } from "@/models";
 import { HOOK_STYLES } from "@/lib/caption";
 
@@ -9,7 +9,7 @@ const DAYS = 21;
 
 export default async function HooksPage() {
   if (!(await isLoggedIn())) redirect("/admin");
-  await connectDB();
+  freshDB(); await connectDB();
   const since = new Date(Date.now() - DAYS * 86400e3);
   const arts = await Article.find(
     { $or: [{ "social.ur.style": { $nin: [null, "", "none"] }, "social.ur.at": { $gte: since } }, { "social.en.style": { $nin: [null, "", "none"] }, "social.en.at": { $gte: since } }] },

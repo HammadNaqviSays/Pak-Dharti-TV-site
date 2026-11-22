@@ -1,7 +1,7 @@
 import { redirect, notFound } from "next/navigation";
 import AdminInstall from "../../AdminInstall";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Reel } from "@/models";
 import { prefillPictures } from "@/lib/reelMedia";
 import { VOICES } from "@/lib/tts";
@@ -14,7 +14,7 @@ export default async function ReelEditPage({ params }) {
   if (!(await isLoggedIn())) redirect("/admin");
   const { id } = await params;
   if (!/^[a-f0-9]{24}$/.test(id)) notFound();
-  await connectDB();
+  freshDB(); await connectDB();
   let r = await Reel.findById(id).lean();
   if (!r) notFound();
   // a draft whose lines have no picture yet gets them now, so the editor always shows pictures

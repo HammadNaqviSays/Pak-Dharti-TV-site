@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { isLoggedIn } from "@/lib/session";
 import { socialPages } from "@/lib/social";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article } from "@/models";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +35,7 @@ export default async function SocialCheck() {
     }
     rows.push({ p, pg, perms, posts, ig, pageToken: !!pg.access_token });
   }
-  await connectDB();
+  freshDB(); await connectDB();
   const recent = await Article.find({ "social.ur.fb": { $nin: [null, ""] } }, { slug: 1, social: 1 }).sort({ "social.ur.at": -1 }).limit(40).lean();
   const noIg = recent.filter((x) => !x.social?.ur?.ig);
   const box = { border: "1px solid #ddd", borderRadius: 10, padding: ".8rem", margin: ".8rem 0", background: "#fff" };

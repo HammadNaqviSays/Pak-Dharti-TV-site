@@ -1,5 +1,5 @@
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Article, Message, Setting } from "@/models";
 import GoldRateForm from "./GoldRateForm";
 import FindPhotos from "./FindPhotos";
@@ -60,7 +60,7 @@ export default async function AdminPage() {
     return <><TopBar /><div className="wrap"><LoginForm /></div></>;
   }
 
-  await connectDB();
+  freshDB(); await connectDB();
   // Start of today in Pakistan time (UTC+5)
   const pk = new Date(Date.now() + 5 * 3600e3);
   const todayStart = new Date(Date.UTC(pk.getUTCFullYear(), pk.getUTCMonth(), pk.getUTCDate()) - 5 * 3600e3);
