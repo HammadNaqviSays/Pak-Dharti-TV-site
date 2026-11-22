@@ -50,15 +50,17 @@ export default function ReelPublish({ id, keys, posts, postAt, postErr }) {
   const fmtPk = (iso) => new Date(iso).toLocaleString("en-GB", { weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Karachi" });
   async function saveSched() {
     if (!pick) { setSMsg("Choose a date and time first"); return; }
-    setSMsg("…"); const r = await scheduleReelAction(id, new Date(`${pick}:00+05:00`).toISOString());
-    setSMsg(r.msg); if (r.ok) setSched(r.at);
+    setSMsg("Saving…");
+    try { const r = await scheduleReelAction(id, new Date(`${pick}:00+05:00`).toISOString()); setSMsg(r.ok ? `✅ ${r.msg}` : `❌ ${r.msg}`); if (r.ok) setSched(r.at); }
+    catch { setSMsg("❌ No response from the server. Press Ctrl+Shift+R, then try again."); }
   }
   async function cancelSched() { const r = await scheduleReelAction(id, ""); setSMsg(r.msg); if (r.ok) setSched(""); }
   const left = AUTO.filter(([k]) => keys?.[k] && !done[k]).length;
 
   async function load() { if (!tx) { const t = await reelTextsAction(id); setTx(t); return t; } return tx; }
   async function copy(what) {
-    const t = await load(); if (!t || t.error) return;
+    let t; try { t = await load(); } catch { setMsg("❌ No response from the server. Press Ctrl+Shift+R, then try again."); return; }
+    if (!t || t.error) { setMsg(`❌ ${t?.error || "Could not load the text"}`); return; }
     const v = what === "title" ? t.title : what === "tags" ? t.tags : what === "link" ? t.url : t.text;
     try { await navigator.clipboard.writeText(v); setCopied(what); setTimeout(() => setCopied(""), 2500); } catch { setMsg("Could not copy. Please select the text manually."); }
   }

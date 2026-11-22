@@ -1,13 +1,14 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { isLoggedIn } from "@/lib/session";
-import { connectDB } from "@/lib/db";
+import { connectDB, freshDB } from "@/lib/db";
 import { Reel } from "@/models";
 import { reelTexts, postReelTo } from "@/lib/reelPublish";
 
 /** One button: post this reel to one platform. Returns { ok, msg }. */
 export async function postReelAction(id, platform) {
   if (!(await isLoggedIn())) return { ok: false, msg: "Login again" };
+  freshDB();   // a Worker cannot reuse the database link of an earlier request: connect for this one
   await connectDB();
   const reel = await Reel.findById(id);
   if (!reel) return { ok: false, msg: "Reel not found" };
@@ -19,6 +20,7 @@ export async function postReelAction(id, platform) {
 /** Texts for the copy box (TikTok, YouTube, WhatsApp channel). */
 export async function reelTextsAction(id) {
   if (!(await isLoggedIn())) return { error: "Login again" };
+  freshDB();   // a Worker cannot reuse the database link of an earlier request: connect for this one
   await connectDB();
   const reel = await Reel.findById(id).lean();
   if (!reel) return { error: "Not found" };
@@ -28,6 +30,7 @@ export async function reelTextsAction(id) {
 /** Schedule (iso = a moment in time) or cancel (iso empty): the timetable posts it to every place that has a key and is not done yet. */
 export async function scheduleReelAction(id, iso) {
   if (!(await isLoggedIn())) return { ok: false, msg: "Login again" };
+  freshDB();   // a Worker cannot reuse the database link of an earlier request: connect for this one
   await connectDB();
   const reel = await Reel.findById(id).select("status").lean();
   if (!reel || !["ready", "approved", "posted"].includes(reel.status)) return { ok: false, msg: "Reel is not ready" };
