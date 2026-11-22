@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { postReelAction, reelTextsAction, scheduleReelAction } from "../reelPostAction";
 
 const AUTO = [["facebook", "Facebook"], ["instagram", "Instagram"], ["threads", "Threads"], ["bluesky", "Bluesky"]];
@@ -17,6 +18,16 @@ export default function ReelPublish({ id, keys, posts, postAt, postErr }) {
   const [sMsg, setSMsg] = useState("");
   const [fail, setFail] = useState({});   // platform -> error text (shown with a red cross)
   const [copied, setCopied] = useState("");
+  const router = useRouter();
+  // the date and time boxes start filled: today's date (Pakistan) and the time 3 hours from now, rounded up to 5 minutes
+  useEffect(() => { setPick((p) => p || new Date(Math.ceil((Date.now() + 8 * 3600e3) / 300000) * 300000).toISOString().slice(0, 16)); }, []);
+  // a scheduled reel: once its time has come, look again every minute so the "published at" times appear without a refresh
+  useEffect(() => {
+    if (!sched) return;
+    const t = setInterval(() => { if (Date.now() > new Date(sched).getTime()) router.refresh(); }, 60000);
+    return () => clearInterval(t);
+  }, [sched, router]);
+  useEffect(() => { setDone(posts || {}); if (!postAt) setSched(""); }, [posts, postAt]);
 
   async function one(k) {
     setBusy(k); setFail((f) => { const n = { ...f }; delete n[k]; return n; });
