@@ -5,12 +5,9 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Probe reel video endpoints
+      - name: Probe public pages
         run: |
-          sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1
-          for id in 6b0226c0a29120b82d9320de; do
-            for k in video video; do
-              echo "== $id $k"; curl -sS -o f.bin -D h.txt -H "Range: bytes=0-6000000" "https://www.pakdhartitv.com/api/reels/$id/$k"; head -1 h.txt; grep -iE "content-(type|range|length)" h.txt; ls -l f.bin | awk '{print $5}'; head -c 300 f.bin | strings | head -3
-              [ $k = poster ] || ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,pix_fmt -of default=nw=1 f.bin 2>&1 | head -8
-            done
+          for u in ur en; do
+            code=$(curl -sS -o p.html -w "%{http_code}" "https://www.pakdhartitv.com/$u/help"); echo "PAGE $u HTTP $code"
+            for k in 1799 1043 1099 1777 "tel:"; do echo "  $k x$(grep -o -- "$k" p.html | wc -l)"; done
           done
