@@ -2,7 +2,8 @@
 import { revalidatePath } from "next/cache";
 import { isLoggedIn } from "@/lib/session";
 import { connectDB, freshDB } from "@/lib/db";
-import { Article } from "@/models";
+import { Article, Reel } from "@/models";
+import { prefillPictures } from "@/lib/reelMedia";
 import { makeSlug } from "@/lib/util";
 import { categoryImage } from "@/lib/images";
 import { GUIDE, guideBody } from "@/lib/guideData";
@@ -26,5 +27,23 @@ export async function publishGuideAction(key) {
     });
     revalidatePath("/admin/info");
     return { ok: true, id: String(a._id), slug: a.slug, msg: "Published" };
+  } catch (e) { return { ok: false, msg: "❌ " + String(e?.message || e).slice(0, 160) }; }
+}
+
+/** The hand-written reel script of an entry (checked words, not machine-written): saved as a draft reel; the pictures are looked up, then it is edited and made like any other reel. */
+export async function makeGuideReelAction(key) {
+  try {
+    if (!(await isLoggedIn())) return { ok: false, msg: "Login again" };
+    const g = GUIDE.find((x) => x.key === key);
+    if (!g?.reel) return { ok: false, msg: "This entry has no video script yet" };
+    const p = await publishGuideAction(key);
+    if (!p.ok) return p;
+    freshDB(); await connectDB();
+    const have = await Reel.findOne({ slug: p.slug, status: { $ne: "rejected" } }, { _id: 1 }).lean();
+    if (have) return { ok: true, id: String(have._id), aid: p.id, slug: p.slug, msg: "The video already exists" };
+    const r = await Reel.create({ slug: p.slug, lang: "ur", status: "draft", title: g.reel.title, caption: g.reel.caption, scenes: g.reel.scenes.map((x) => ({ text: x.text, kw: x.kw, who: "", src: "" })) });
+    await Article.updateOne({ slug: p.slug }, { $set: { "reel.id": String(r._id), "reel.at": new Date() } });
+    await prefillPictures(r._id).catch(() => {});
+    return { ok: true, id: String(r._id), aid: p.id, slug: p.slug, msg: "The video script is ready: open Admin → Reels" };
   } catch (e) { return { ok: false, msg: "❌ " + String(e?.message || e).slice(0, 160) }; }
 }

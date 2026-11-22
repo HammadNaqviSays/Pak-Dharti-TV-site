@@ -37,12 +37,13 @@ export default async function HelpPage({ params }) {
           <h2 style={{ marginTop: 0 }}>{slugs[g.key] ? <a href={`/${lang}/news/${slugs[g.key]}`}>{g[l].title}</a> : g[l].title}</h2>
           <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
             {g.rows.map((r) => (
-              <li key={r.n} style={{ display: "flex", gap: ".8rem", alignItems: "baseline", padding: ".35rem 0", borderTop: "1px solid #eee" }}>
-                <a href={`tel:${r.n}`} style={{ fontWeight: 800, fontSize: "1.5rem", color: "#9b0016", minWidth: "4.5rem", direction: "ltr", textDecoration: "none" }}>{r.n}</a>
+              <li key={r.n + r[l].slice(0, 12)} style={{ display: "flex", gap: ".8rem", alignItems: "baseline", padding: ".35rem 0", borderTop: "1px solid #eee" }}>
+                {r.n ? <a href={`tel:${r.n}`} style={{ fontWeight: 800, fontSize: "1.5rem", color: "#9b0016", minWidth: "4.5rem", direction: "ltr", textDecoration: "none" }}>{r.n}</a> : null}
                 <span>{r[l]}</span>
               </li>
             ))}
           </ul>
+          {(g.pdf || g.card) && <p style={{ margin: ".7rem 0 0", display: "flex", gap: ".6rem", flexWrap: "wrap" }}>{g.pdf && <a className="btn publish" href={g.pdf} download>{ur ? "پی ڈی ایف ڈاؤن لوڈ کریں" : "Download the PDF"}</a>}{g.card && <a className="btn secondary" href={g.card} download>{ur ? "شیئر کارڈ ڈاؤن لوڈ کریں" : "Download the share card"}</a>}</p>}
           {g.note && <p style={{ margin: ".5rem 0 0", color: "#555" }}>{g.note[l]}</p>}
           <p style={{ margin: ".6rem 0 0", fontSize: ".85rem" }}>{ur ? "ماخذ: " : "Sources: "}{g.sources.map(([n, u], i) => <span key={u}>{i ? " · " : ""}<a href={u} target="_blank" rel="noopener noreferrer">{n}</a></span>)}</p>
         </section>
