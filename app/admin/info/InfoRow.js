@@ -36,6 +36,7 @@ export default function InfoRow({ g, done }) {
           <button type="button" className="btn publish" disabled={busy} onClick={pub}>{busy ? "Publishing…" : "Publish on the site"}</button>
         )}
         {g.reel && <button type="button" className="btn secondary" disabled={busy} onClick={reel}>{busy ? "Working…" : "Make the video script"}</button>}
+        {g.reel?.scenes?.[0]?.pic && <button type="button" className="btn secondary" onClick={() => { const t = g.reel.scenes.map((x, i) => `Picture ${i + 1}: ${x.pic}`).join("\n\n"); try { navigator.clipboard.writeText(t); setMsg("✅ Picture prompts copied. Paste them into ChatGPT one by one."); } catch { setMsg("Could not copy"); } }}>Copy the picture prompts (ChatGPT)</button>}
         {msg && <span style={{ color: "#a00", fontWeight: 600 }}>{msg}</span>}
       </div>
     </div>
