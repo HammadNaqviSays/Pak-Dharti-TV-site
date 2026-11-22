@@ -8,9 +8,9 @@ jobs:
       - name: Probe reel video endpoints
         run: |
           sudo apt-get install -y -qq ffmpeg >/dev/null 2>&1
-          for id in 6b0226c0a29120b82d9320de 6b0214723f310c469af4913b; do
-            for k in video web poster; do
-              echo "== $id $k"; curl -sS -o f.bin -D h.txt -H "Range: bytes=0-6000000" "https://www.pakdhartitv.com/api/reels/$id/$k"; head -1 h.txt; grep -iE "content-(type|range|length)" h.txt; ls -l f.bin | awk '{print $5}'
+          for id in 6b0226c0a29120b82d9320de; do
+            for k in video video; do
+              echo "== $id $k"; curl -sS -o f.bin -D h.txt -H "Range: bytes=0-6000000" "https://www.pakdhartitv.com/api/reels/$id/$k"; head -1 h.txt; grep -iE "content-(type|range|length)" h.txt; ls -l f.bin | awk '{print $5}'; head -c 300 f.bin | strings | head -3
               [ $k = poster ] || ffprobe -v error -show_entries format=duration:stream=codec_name,width,height,pix_fmt -of default=nw=1 f.bin 2>&1 | head -8
             done
           done
