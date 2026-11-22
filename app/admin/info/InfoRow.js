@@ -30,6 +30,7 @@ export default function InfoRow({ g, done }) {
         {r ? (<>
           <span style={{ color: r.status === "published" ? "#14652d" : "#8a5a00", fontWeight: 600 }}>{r.status === "published" ? "✅ On the site" : "📝 Draft (not public yet)"}</span>
           <a className="btn publish" href={`/admin/preview/${r.id}`} target="_blank" rel="noopener">{r.status === "published" ? "Cards, video and sharing" : "Preview the article"}</a>
+          <button type="button" className="btn secondary" disabled={busy} onClick={async () => { setBusy(true); setMsg(""); try { const x = await publishGuideAction(g.key, "refresh"); setMsg(x.ok ? "✅ Text updated (the latest wording and FAQ)" : x.msg); } catch { setMsg("❌ No response. Press Ctrl+Shift+R and try again."); } setBusy(false); }}>Update the text</button>
           {r.status !== "published" && <button type="button" className="btn publish" disabled={busy} onClick={() => pub("publish")}>Publish on the site</button>}
           {r.status === "published" && <><a className="btn secondary" href={`/en/news/${r.slug}`} target="_blank" rel="noopener">Open English</a><a className="btn secondary" href={`/ur/news/${r.slug}`} target="_blank" rel="noopener">Open Urdu</a></>}
         </>) : (

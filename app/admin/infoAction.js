@@ -18,6 +18,11 @@ export async function publishGuideAction(key, mode = "publish") {
     const tag = `guide:${g.key}`;
     const ex = await Article.findOne({ tags: tag }).select("_id slug status").lean();
     if (ex) {
+      if (mode === "refresh") {
+        const t = (lang) => ({ title: g[lang].title, summary: g[lang].summary, body: guideBody(g, lang), metaDescription: g[lang].summary.slice(0, 155) });
+        await Article.updateOne({ _id: ex._id }, { $set: { "translations.en": t("en"), "translations.ur": t("ur") } });
+        return { ok: true, id: String(ex._id), slug: ex.slug, status: ex.status, msg: "Text updated" };
+      }
       if (mode === "publish" && ex.status !== "published") { await Article.updateOne({ _id: ex._id }, { $set: { status: "published", publishedAt: new Date() } }); revalidatePath("/admin/info"); return { ok: true, id: String(ex._id), slug: ex.slug, status: "published", msg: "Published" }; }
       return { ok: true, id: String(ex._id), slug: ex.slug, status: ex.status, msg: ex.status === "published" ? "Already on the site" : "Draft is ready" };
     }

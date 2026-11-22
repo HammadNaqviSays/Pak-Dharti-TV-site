@@ -28,8 +28,11 @@ export default async function HelpPage({ params }) {
     for (const r of rows) slugs[(r.tags.find((t) => t.startsWith("guide:")) || "").slice(6)] = r.slug;
   } catch {}
   const l = ur ? "ur" : "en";
+  const faqs = GUIDE.flatMap((g) => g.faq || []);
+  const ld = faqs.length ? { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f[l][0], acceptedAnswer: { "@type": "Answer", text: f[l][1] } })) } : null;
   return (
     <div className="wrap info-page" dir={ur ? "rtl" : "ltr"} lang={l}>
+      {ld && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />}
       <h1 className="page-title">{ur ? "مفید معلومات" : "Useful information"}</h1>
       <p className="tm-intro">{ur ? `ہیلپ لائن نمبر اور سرکاری سہولتیں، صرف سرکاری ذرائع سے۔ آخری بار تصدیق: ${CHECKED_UR}` : `Helpline numbers and public services, taken only from official sources. Last checked: ${CHECKED}.`}</p>
       {GUIDE.map((g) => (
@@ -44,6 +47,7 @@ export default async function HelpPage({ params }) {
             ))}
           </ul>
           {(g.pdf || g.card) && <p style={{ margin: ".7rem 0 0", display: "flex", gap: ".6rem", flexWrap: "wrap" }}>{g.pdf && <a className="btn publish" href={g.pdf} download>{ur ? "پی ڈی ایف ڈاؤن لوڈ کریں" : "Download the PDF"}</a>}{g.card && <a className="btn secondary" href={g.card} download>{ur ? "شیئر کارڈ ڈاؤن لوڈ کریں" : "Download the share card"}</a>}</p>}
+          {g.faq && <details style={{ margin: ".7rem 0 0" }}><summary style={{ cursor: "pointer", fontWeight: 700 }}>{ur ? "اکثر پوچھے جانے والے سوالات" : "Frequently asked questions"}</summary>{g.faq.map((f) => <div key={f[l][0]} style={{ margin: ".5rem 0" }}><strong>{f[l][0]}</strong><div>{f[l][1]}</div></div>)}</details>}
           {g.note && <p style={{ margin: ".5rem 0 0", color: "#555" }}>{g.note[l]}</p>}
           <p style={{ margin: ".6rem 0 0", fontSize: ".85rem" }}>{ur ? "ماخذ: " : "Sources: "}{g.sources.map(([n, u], i) => <span key={u}>{i ? " · " : ""}<a href={u} target="_blank" rel="noopener noreferrer">{n}</a></span>)}</p>
         </section>
