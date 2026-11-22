@@ -19,7 +19,7 @@ export default async function sitemap() {
     out.push({ url: u(`/${l}`), changeFrequency: "hourly", priority: 1 });
     for (const c of NAV_CATEGORIES) if (c !== "poetry") out.push({ url: u(`/${l}/category/${c}`), changeFrequency: "hourly", priority: 0.7 });
     for (const p of [...PAGE_SLUGS, "team"]) out.push({ url: u(`/${l}/${p}`), changeFrequency: "monthly", priority: 0.4 });
-    for (const p of ["prayer-times", "rates", "gold-rate", "dollar-rate", "petrol-price", "psx", "crypto", "mandi-rates", "jobs", "columns"]) out.push({ url: u(`/${l}/${p}`), changeFrequency: "daily", priority: 0.9 });
+    for (const p of ["prayer-times", "rates", "gold-rate", "dollar-rate", "petrol-price", "psx", "crypto", "mandi-rates", "jobs", "columns", "help"]) out.push({ url: u(`/${l}/${p}`), changeFrequency: "daily", priority: 0.9 });
     for (const c of CITIES) out.push({ url: u(`/${l}/prayer-times/${citySlug(c)}`), changeFrequency: "daily", priority: 0.7 });
   }
   out.push({ url: u("/ur/poetry"), changeFrequency: "weekly", priority: 0.7 });

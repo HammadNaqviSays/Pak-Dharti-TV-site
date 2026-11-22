@@ -30,6 +30,7 @@ export function SiteHeader({ lang }) {
         items={[...cats.slice(0, 3).map(toItem), { key: "columns", href: `/${lang}/columns`, label: lang === "ur" ? "کالم" : "Columns" }, ...cats.slice(3, MAIN_COUNT).map(toItem)]}
         more={[...cats.slice(MAIN_COUNT).map(toItem),
           { key: "prayer-times", href: `/${lang}/prayer-times`, label: W[lang].prayer },
+          { key: "help", href: `/${lang}/help`, label: lang === "ur" ? "مفید معلومات" : "Useful info" },
           { key: "rates", href: `/${lang}/rates`, label: W[lang].rates },
           { key: "gold-rate", href: `/${lang}/gold-rate`, label: W[lang].gold2 },
           { key: "dollar-rate", href: `/${lang}/dollar-rate`, label: W[lang].dollar },
@@ -92,6 +93,7 @@ export function SiteFooter({ lang }) {
         <div className="wrap">
           <nav className="footer-legal" aria-label="Site information">
             {PAGE_SLUGS.map((p) => <a key={p} href={`/${lang}/${p}`}>{PAGE_TITLES[lang][p]}</a>)}
+            <a href={`/${lang}/help`}>{lang === "ur" ? "مفید معلومات" : "Useful information"}</a>
             <a href={`/${lang}/team`}>{lang === "ur" ? "ہماری ٹیم" : "Our team"}</a>
           </nav>
           © {new Date().getFullYear()} {t.site}. {t.rights}
